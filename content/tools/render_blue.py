@@ -115,7 +115,33 @@ def frame(text, progress, path, is_hook):
     img.save(path)
 
 
+BACKEND = os.environ.get("TTS_BACKEND", "piper")      # piper | yandex
+
+
+def tts_yandex(text, path, length):
+    """Yandex SpeechKit v1. Ключ - из переменной YANDEX_API_KEY (ключ сервисного
+    аккаунта с ролью ai.speechkit-tts.user). Ударение: «+» перед гласной."""
+    import json, urllib.parse, urllib.request
+    text = re.sub(r"([аеёиоуыэюяАЕЁИОУЫЭЮЯ])\u0301", r"+\1", text)
+    params = {"text": text, "lang": "ru-RU", "voice": os.environ.get("YANDEX_VOICE", "filipp"),
+              "speed": f"{1 / length:.2f}", "format": "lpcm", "sampleRateHertz": "48000"}
+    if os.environ.get("YANDEX_FOLDER_ID"):
+        params["folderId"] = os.environ["YANDEX_FOLDER_ID"]
+    req = urllib.request.Request("https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize",
+                                 data=urllib.parse.urlencode(params).encode(),
+                                 headers={"Authorization": "Api-Key " + os.environ["YANDEX_API_KEY"]})
+    try:
+        pcm = urllib.request.urlopen(req, timeout=60).read()
+    except urllib.error.HTTPError as e:
+        raise SystemExit(f"Yandex SpeechKit: {e.code} {e.read()[:300]!r}")
+    with wave.open(path, "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(48000); w.writeframes(pcm)
+    return len(pcm) / 2 / 48000, 48000
+
+
 def tts(piper, voice, text, path, length):
+    if BACKEND == "yandex":
+        return tts_yandex(text, path, length)
     subprocess.run([piper, "-m", voice, "-f", path, "--length-scale", str(length),
                     "--noise-scale", "0.55", "--noise-w-scale", "0.6", "--sentence-silence", "0.1"],
                    input=text.encode("utf-8"), check=True, capture_output=True)
@@ -127,6 +153,9 @@ def tts(piper, voice, text, path, length):
 VOICE_FX = ("asetrate={sr}*0.971,aresample={sr},atempo=1.0299,"
             "acompressor=threshold=-20dB:ratio=3:attack=5:release=80:makeup=4,"
             "equalizer=f=140:t=q:w=1:g=2.5,loudnorm=I=-14:TP=-1.5:LRA=9,aresample=44100")
+if BACKEND == "yandex":      # живому голосу сдвиг тона не нужен, только плотность и громкость
+    VOICE_FX = ("acompressor=threshold=-20dB:ratio=2.5:attack=5:release=80:makeup=3,"
+                "loudnorm=I=-14:TP=-1.5:LRA=9,aresample=44100")
 
 
 def render(lines, out, piper, voice, length=0.95):
