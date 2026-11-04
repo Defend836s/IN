@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "instagram-agent-ru",
+  "description": "Набор скиллов Claude для Instagram на русском",
+  "owner": {
+    "name": "Jake Schincariol",
+    "url": "https://opusjake.ai"
+  },
+  "plugins": [
+    {
+      "name": "instagram-agent-ru",
+      "description": "Тринадцать скиллов Claude для ведения Instagram на русском: оценка хуков, исследование вирусных рилсов, проверка подписей и очеловечиватель текста.",
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/defend836s/in"
+    }
+  ]
+}

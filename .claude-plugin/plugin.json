@@ -1,0 +1,24 @@
+{
+  "name": "instagram-agent-ru",
+  "description": "Тринадцать скиллов Claude для ведения Instagram на русском: Reels по 26 формулам хуков с оценкой хука и раскадровкой, исследование того, что работает в нише, с ранжированием по кратности, подписи с проверкой обрезки в ленте, карусели, сторис, оценка профиля, план недели, комментарии, ответы, директ, переупаковка, аудит и очеловечиватель, который убирает следы ИИ. Русская адаптация instagram-agent-skill Джейка Шинкариола.",
+  "version": "1.1.0-ru",
+  "author": {
+    "name": "Jake Schincariol (оригинал), русская адаптация",
+    "url": "https://opusjake.ai"
+  },
+  "homepage": "https://github.com/defend836s/in",
+  "repository": "https://github.com/defend836s/in",
+  "license": "MIT",
+  "keywords": [
+    "instagram",
+    "reels",
+    "content",
+    "writing",
+    "humanizer",
+    "social",
+    "marketing",
+    "russian",
+    "ru",
+    "инстаграм"
+  ]
+}

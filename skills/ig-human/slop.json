@@ -1,0 +1,2217 @@
+{
+  "version": "1.1-ru",
+  "note": "Словарь для humanize.py и detect.py. Двуязычный: английский блок из оригинала и русский (канцелярит, штампы нейросетей, инстаграмные клише). Замены простые и сохраняют грамматику. Записи с полем pattern - регулярные выражения по основе слова, чтобы ловить падежи; \\1 в replace подставляет окончание. Буквы е и ё считаются одинаковыми. Правьте свободно: словарь должен стать вашим. Если вы всегда говорите слово, которое тут вырезается, удалите его.",
+  "invisible": [
+    {
+      "cp": "U+200B",
+      "name": "ZERO WIDTH SPACE",
+      "action": "delete"
+    },
+    {
+      "cp": "U+200C",
+      "name": "ZERO WIDTH NON-JOINER",
+      "action": "delete"
+    },
+    {
+      "cp": "U+200D",
+      "name": "ZERO WIDTH JOINER",
+      "action": "delete"
+    },
+    {
+      "cp": "U+2060",
+      "name": "WORD JOINER",
+      "action": "delete"
+    },
+    {
+      "cp": "U+FEFF",
+      "name": "ZERO WIDTH NO-BREAK SPACE / BOM",
+      "action": "delete"
+    },
+    {
+      "cp": "U+00AD",
+      "name": "SOFT HYPHEN",
+      "action": "delete"
+    },
+    {
+      "cp": "U+180E",
+      "name": "MONGOLIAN VOWEL SEPARATOR",
+      "action": "delete"
+    },
+    {
+      "cp": "U+061C",
+      "name": "ARABIC LETTER MARK",
+      "action": "delete"
+    },
+    {
+      "cp": "U+200E",
+      "name": "LEFT-TO-RIGHT MARK",
+      "action": "delete"
+    },
+    {
+      "cp": "U+200F",
+      "name": "RIGHT-TO-LEFT MARK",
+      "action": "delete"
+    },
+    {
+      "cp": "U+E0000-U+E007F",
+      "name": "TAG CHARACTERS (invisible ASCII smuggling)",
+      "action": "delete"
+    },
+    {
+      "cp": "U+00A0",
+      "name": "NO-BREAK SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+202F",
+      "name": "NARROW NO-BREAK SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2009",
+      "name": "THIN SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2007",
+      "name": "FIGURE SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2003",
+      "name": "EM SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2002",
+      "name": "EN SPACE",
+      "action": "space"
+    },
+    {
+      "cp": "U+2063",
+      "name": "INVISIBLE SEPARATOR",
+      "action": "delete"
+    }
+  ],
+  "typographic": [
+    {
+      "from": "—",
+      "name": "ДЛИННОЕ ТИРЕ",
+      "to": " - "
+    },
+    {
+      "from": "–",
+      "name": "СРЕДНЕЕ ТИРЕ",
+      "to": "-"
+    },
+    {
+      "from": "‘",
+      "name": "ЛЕВАЯ ОДИНАРНАЯ КАВЫЧКА",
+      "to": "'"
+    },
+    {
+      "from": "’",
+      "name": "ПРАВАЯ ОДИНАРНАЯ КАВЫЧКА",
+      "to": "'"
+    },
+    {
+      "from": "“",
+      "name": "ЛЕВАЯ ДВОЙНАЯ КАВЫЧКА",
+      "to": "\""
+    },
+    {
+      "from": "”",
+      "name": "ПРАВАЯ ДВОЙНАЯ КАВЫЧКА",
+      "to": "\""
+    },
+    {
+      "from": "…",
+      "name": "МНОГОТОЧИЕ ОДНИМ ЗНАКОМ",
+      "to": "..."
+    },
+    {
+      "from": "′",
+      "name": "ШТРИХ",
+      "to": "'"
+    },
+    {
+      "from": "·",
+      "name": "СРЕДНЯЯ ТОЧКА",
+      "to": "-"
+    },
+    {
+      "from": "•",
+      "name": "МАРКЕР СПИСКА",
+      "to": "-"
+    },
+    {
+      "from": "→",
+      "name": "СТРЕЛКА ВПРАВО",
+      "to": "->"
+    },
+    {
+      "from": "«",
+      "name": "КАВЫЧКА-ЁЛОЧКА ЛЕВАЯ",
+      "to": "\""
+    },
+    {
+      "from": "»",
+      "name": "КАВЫЧКА-ЁЛОЧКА ПРАВАЯ",
+      "to": "\""
+    },
+    {
+      "from": "„",
+      "name": "КАВЫЧКА-ЛАПКА НИЖНЯЯ",
+      "to": "\""
+    }
+  ],
+  "words": [
+    {
+      "find": "delve into",
+      "replace": "look at",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "delve",
+      "replace": "look",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "dive deep into",
+      "replace": "get into",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "deep dive",
+      "replace": "breakdown",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "leverage",
+      "replace": "use",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "leveraging",
+      "replace": "using",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "utilize",
+      "replace": "use",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "utilizing",
+      "replace": "using",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "harness",
+      "replace": "use",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "embark on",
+      "replace": "start",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "foster",
+      "replace": "build",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "facilitate",
+      "replace": "help",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "showcase",
+      "replace": "show",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "unlock",
+      "replace": "get",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "elevate",
+      "replace": "improve",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "streamline",
+      "replace": "simplify",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "spearhead",
+      "replace": "lead",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "underscore",
+      "replace": "show",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "underscores",
+      "replace": "shows",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "cultivate",
+      "replace": "build",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "amplify",
+      "replace": "boost",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "curate",
+      "replace": "pick",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "curated",
+      "replace": "picked",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "empower",
+      "replace": "let",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "revolutionize",
+      "replace": "change",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "transformative",
+      "replace": "big",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "robust",
+      "replace": "solid",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "seamless",
+      "replace": "clean",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "seamlessly",
+      "replace": "cleanly",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "pivotal",
+      "replace": "key",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "crucial",
+      "replace": "important",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "vital",
+      "replace": "important",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "comprehensive",
+      "replace": "complete",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "cutting-edge",
+      "replace": "new",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "game-changing",
+      "replace": "big",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "game-changer",
+      "replace": "big deal",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "groundbreaking",
+      "replace": "new",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "unparalleled",
+      "replace": "unmatched",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "invaluable",
+      "replace": "useful",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "meticulous",
+      "replace": "careful",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "meticulously",
+      "replace": "carefully",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "myriad of",
+      "replace": "many",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "myriad",
+      "replace": "many",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "multifaceted",
+      "replace": "complicated",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "holistic",
+      "replace": "whole",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "bespoke",
+      "replace": "custom",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "innovative",
+      "replace": "new",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "profound",
+      "replace": "big",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "remarkable",
+      "replace": "notable",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "compelling",
+      "replace": "convincing",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "tapestry",
+      "replace": "mix",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "realm",
+      "replace": "world",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "landscape",
+      "replace": "market",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "journey",
+      "replace": "process",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "testament to",
+      "replace": "proof of",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "cornerstone",
+      "replace": "base",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "beacon",
+      "replace": "signal",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "paradigm",
+      "replace": "model",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "synergy",
+      "replace": "overlap",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "ecosystem",
+      "replace": "system",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "treasure trove",
+      "replace": "pile",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "plethora of",
+      "replace": "lots of",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "plethora",
+      "replace": "lots",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "arsenal",
+      "replace": "set",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "north star",
+      "replace": "goal",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "moreover",
+      "replace": "also",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "furthermore",
+      "replace": "also",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "additionally",
+      "replace": "also",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "nevertheless",
+      "replace": "still",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "consequently",
+      "replace": "so",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "thus",
+      "replace": "so",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "hence",
+      "replace": "so",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "notably",
+      "replace": "",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "importantly",
+      "replace": "",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "ultimately",
+      "replace": "in the end",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "in essence",
+      "replace": "basically",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "in conclusion",
+      "replace": "so",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "when it comes to",
+      "replace": "with",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "in order to",
+      "replace": "to",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "a wide range of",
+      "replace": "many",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "it is worth noting that",
+      "replace": "note that",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "supercharge",
+      "replace": "speed up",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "skyrocket",
+      "replace": "raise",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "unleash",
+      "replace": "release",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "effortlessly",
+      "replace": "easily",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "captivating",
+      "replace": "interesting",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "stunning",
+      "replace": "good",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "breathtaking",
+      "replace": "striking",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "iconic",
+      "replace": "known",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "must-have",
+      "replace": "worth having",
+      "family": "прилагательные",
+      "lang": "en"
+    },
+    {
+      "find": "no-brainer",
+      "replace": "obvious",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "hidden gem",
+      "replace": "good one",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "secret sauce",
+      "replace": "the actual method",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "ultimate guide",
+      "replace": "guide",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "level up",
+      "replace": "improve",
+      "family": "глаголы",
+      "lang": "en"
+    },
+    {
+      "find": "hack",
+      "replace": "trick",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "кроме того",
+      "replace": "ещё",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "более того",
+      "replace": "и ещё",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "помимо этого",
+      "replace": "ещё",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "тем не менее",
+      "replace": "но",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "таким образом",
+      "replace": "так что",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "следовательно",
+      "replace": "значит",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "в конечном итоге",
+      "replace": "в итоге",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "в конечном счёте",
+      "replace": "в итоге",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "по сути дела",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "стоит отметить, что",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "стоит отметить",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "важно отметить, что",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "важно понимать, что",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "следует отметить, что",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "необходимо отметить, что",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "нельзя не отметить, что",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "для того чтобы",
+      "replace": "чтобы",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "для того, чтобы",
+      "replace": "чтобы",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "в случае если",
+      "replace": "если",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "в случае, если",
+      "replace": "если",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "на сегодняшний день",
+      "replace": "сейчас",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "в настоящее время",
+      "replace": "сейчас",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "на данный момент",
+      "replace": "сейчас",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "в данный момент",
+      "replace": "сейчас",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "в наше время",
+      "replace": "сейчас",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "безусловно",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "несомненно",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "бесспорно",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "поистине",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "в мгновение ока",
+      "replace": "быстро",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "критически важно",
+      "replace": "важно",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "крайне важно",
+      "replace": "важно",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "жизненно важно",
+      "replace": "важно",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "невероятно",
+      "replace": "очень",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "бесшовно",
+      "replace": "гладко",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "кардинально",
+      "replace": "сильно",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "краеугольный камень",
+      "replace": "основа",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "краеугольным камнем",
+      "replace": "основой",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "секретный ингредиент",
+      "replace": "сам метод",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "полное руководство",
+      "replace": "руководство",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "исчерпывающее руководство",
+      "replace": "руководство",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "ультимативный гайд",
+      "replace": "гайд",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "геймчейнджер",
+      "replace": "большой сдвиг",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "меняет правила игры",
+      "replace": "многое меняет",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "лайфхаки",
+      "replace": "приёмы",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "давайте погрузимся в",
+      "replace": "разберём",
+      "family": "глаголы",
+      "lang": "ru"
+    },
+    {
+      "find": "погрузимся в",
+      "replace": "разберём",
+      "family": "глаголы",
+      "lang": "ru"
+    },
+    {
+      "find": "окунёмся в",
+      "replace": "разберём",
+      "family": "глаголы",
+      "lang": "ru"
+    },
+    {
+      "find": "давайте разберёмся",
+      "replace": "",
+      "family": "глаголы",
+      "lang": "ru"
+    },
+    {
+      "find": "давайте разберём",
+      "replace": "разберём",
+      "family": "глаголы",
+      "lang": "ru"
+    },
+    {
+      "find": "откройте для себя",
+      "replace": "узнайте",
+      "family": "глаголы",
+      "lang": "ru"
+    },
+    {
+      "find": "открой для себя",
+      "replace": "узнай",
+      "family": "глаголы",
+      "lang": "ru"
+    },
+    {
+      "find": "уникальный",
+      "pattern": "уникальн(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "необычн\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "инновационный",
+      "pattern": "инновационн(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "нов\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "революционный",
+      "pattern": "революционн(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "серьёзн\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "ключевой",
+      "pattern": "ключев(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "основн\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "комплексный",
+      "pattern": "комплексн(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "полн\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "беспрецедентный",
+      "pattern": "беспрецедентн(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "небывал\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "бесшовный",
+      "pattern": "бесшовн(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "плавн\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "незаменимый",
+      "pattern": "незаменим(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "полезн\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "многогранный",
+      "pattern": "многогранн(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "сложн\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "неоценимый",
+      "pattern": "неоценим(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "огромн\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "первостепенный",
+      "pattern": "первостепенн(ый|ий|ой|ая|ое|ые|ого|ому|ым|ыми|ых|ую|ом|ей|ою)",
+      "replace": "главн\\1",
+      "family": "прилагательные",
+      "lang": "ru"
+    },
+    {
+      "find": "экосистема",
+      "pattern": "экосистем(а|ы|е|у|ой|ам|ами|ах)",
+      "replace": "систем\\1",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "парадигма",
+      "pattern": "парадигм(а|ы|е|у|ой|ам|ами|ах)",
+      "replace": "схем\\1",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "лайфхак",
+      "pattern": "лайфхак(|а|у|ом|е|ов|ам|ами|ах)",
+      "replace": "приём\\1",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "осуществлять",
+      "pattern": "осуществля(ть|ет|ют|ем|ешь|ете|л|ла|ло|ли|ю)",
+      "replace": "дела\\1",
+      "family": "глаголы",
+      "lang": "ru"
+    }
+  ],
+  "phrases": [
+    {
+      "find": "in today's fast-paced world",
+      "replace": "right now",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "in today's digital age",
+      "replace": "right now",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "in the ever-evolving landscape of",
+      "replace": "in",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "in the ever-changing world of",
+      "replace": "in",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "let's face it",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "here's the thing",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "picture this",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "imagine a world where",
+      "replace": "imagine if",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "it's no secret that",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "we've all been there",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "let that sink in",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "the choice is yours",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "food for thought",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "the future is here",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "what are your thoughts?",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "drop a comment below",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "at the end of the day",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "needle-moving",
+      "replace": "useful",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "move the needle",
+      "replace": "make a difference",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "a testament to",
+      "replace": "proof of",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "had the opportunity to",
+      "replace": "got to",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "i am excited to announce",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "i'm thrilled to share",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "i am humbled to",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "without further ado",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "buckle up",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "the harsh truth is",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "spoiler alert",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "read that again",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "you're welcome",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "save this for later",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "who's with me",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "stop scrolling",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "don't scroll past this",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "in this video i'm going to show you",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "in today's video",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "watch till the end",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "you won't believe",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "nobody is talking about this",
+      "replace": "few people do this",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "no one is talking about this",
+      "replace": "few people do this",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "this changed everything",
+      "replace": "this worked",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "this is your sign to",
+      "replace": "",
+      "family": "зачины",
+      "lang": "en"
+    },
+    {
+      "find": "little did i know",
+      "replace": "",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "fast forward to today",
+      "replace": "now",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "and just like that",
+      "replace": "",
+      "family": "связки",
+      "lang": "en"
+    },
+    {
+      "find": "the rest is history",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "run don't walk",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "trust me on this one",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "don't sleep on this",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "follow for more",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "hit follow for more",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "double tap if",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "tag someone who needs this",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "let me know in the comments",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "share this with someone who needs it",
+      "replace": "",
+      "family": "концовки",
+      "lang": "en"
+    },
+    {
+      "find": "the algorithm loves",
+      "replace": "Instagram pushes",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "beat the algorithm",
+      "replace": "get reach",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "go viral overnight",
+      "replace": "get reach",
+      "family": "существительные",
+      "lang": "en"
+    },
+    {
+      "find": "в современном быстро меняющемся мире",
+      "replace": "сейчас",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "в современном мире",
+      "replace": "сейчас",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "в эпоху цифровых технологий",
+      "replace": "сейчас",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "в цифровую эпоху",
+      "replace": "сейчас",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "давайте будем честны",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "будем честны",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "давайте начистоту",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "ни для кого не секрет, что",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "не секрет, что",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "все мы там были",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "представьте себе",
+      "replace": "представьте",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "я рад сообщить",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "я рада сообщить",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "рад поделиться",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "рада поделиться",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "с гордостью сообщаю",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "без лишних слов",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "пристегнитесь",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "горькая правда в том, что",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "горькая правда",
+      "replace": "правда",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "имел возможность",
+      "replace": "смог",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "имела возможность",
+      "replace": "смогла",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "задумайтесь об этом",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "пища для размышлений",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "выбор за вами",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "будущее уже здесь",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "перечитай ещё раз",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "перечитайте ещё раз",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "прочитай это ещё раз",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "а что думаете вы?",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "что думаете?",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "делитесь мнением в комментариях",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "делитесь в комментариях",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "пишите в комментариях",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "кто со мной?",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "поверь мне",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "поверьте мне",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "и вот так просто",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "кто бы мог подумать",
+      "replace": "",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "перемотаем на сегодня",
+      "replace": "сейчас",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "перенесёмся в сегодня",
+      "replace": "сейчас",
+      "family": "связки",
+      "lang": "ru"
+    },
+    {
+      "find": "остальное - история",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "остальное история",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "стоп, не листай",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "не листай дальше",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "не листай",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "не пролистывай",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "досмотри до конца",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "досмотрите до конца",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "в этом видео я покажу",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "в этом видео я расскажу",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "в сегодняшнем видео",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "в сегодняшнем ролике",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "в этом ролике",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "вы не поверите",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "ты не поверишь",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "об этом никто не говорит",
+      "replace": "так мало кто делает",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "никто об этом не говорит",
+      "replace": "так мало кто делает",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "никто не говорит об этом",
+      "replace": "так мало кто делает",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "это изменило всё",
+      "replace": "это сработало",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "это твой знак",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "это ваш знак",
+      "replace": "",
+      "family": "зачины",
+      "lang": "ru"
+    },
+    {
+      "find": "беги, а не иди",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "не проспи",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "подписывайся, чтобы не пропустить",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "подпишись, чтобы не пропустить",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "подписывайтесь, чтобы не пропустить",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "подпишитесь, чтобы не пропустить",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "ставь лайк, если",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "ставьте лайк, если",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "отметь того, кому это нужно",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "отметь друга, которому это нужно",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "отметьте друга",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "отметь друга",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "отправь тому, кому это нужно",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "перешли тому, кому это нужно",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "сохраняй, чтобы не потерять",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "сохрани, чтобы не потерять",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "сохраняйте, чтобы не потерять",
+      "replace": "",
+      "family": "концовки",
+      "lang": "ru"
+    },
+    {
+      "find": "алгоритм любит",
+      "replace": "Instagram продвигает",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "алгоритмы любят",
+      "replace": "Instagram продвигает",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "обмануть алгоритм",
+      "replace": "получить охват",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "взломать алгоритм",
+      "replace": "получить охват",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "залететь в рекомендации",
+      "replace": "получить охват",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "залететь в реки",
+      "replace": "получить охват",
+      "family": "существительные",
+      "lang": "ru"
+    },
+    {
+      "find": "стать вирусным за одну ночь",
+      "replace": "получить охват",
+      "family": "существительные",
+      "lang": "ru"
+    }
+  ],
+  "structures": [
+    {
+      "id": "not-just",
+      "regex": "(?i)\\bit'?s not (?:just|only) [^.!?\\n]{2,60}[,.] it'?s\\b",
+      "name": "«It's not just X, it's Y»",
+      "fix": "Скажите то одно, что имеете в виду. Удалите подводку."
+    },
+    {
+      "id": "not-only",
+      "regex": "(?i)\\bnot only\\b[^.!?\\n]{2,80}\\bbut also\\b",
+      "name": "«Not only X but also Y»",
+      "fix": "Разбейте на два предложения или уберите слабую половину."
+    },
+    {
+      "id": "isnt-about",
+      "regex": "(?i)\\b(?:this|it) is(?:n'?t| not) about [^.!?\\n]{2,60}[.!] it'?s about\\b",
+      "name": "«It isn't about X. It's about Y.»",
+      "fix": "Начните с Y. Разворот и есть примета."
+    },
+    {
+      "id": "the-result",
+      "regex": "(?i)^\\s*(?:the result|the best part|the kicker|the catch)\\?\\s*$",
+      "name": "Строка из одного риторического вопроса (en)",
+      "fix": "Ответьте сразу, без постановки «разоблачения»."
+    },
+    {
+      "id": "heres-what",
+      "regex": "(?i)\\bhere'?s what (?:i|we) learned\\b",
+      "name": "«Here's what I learned»",
+      "fix": "Назовите урок. Без анонса."
+    },
+    {
+      "id": "triad",
+      "regex": "(?i)\\b\\w+, \\w+, and \\w+\\.",
+      "name": "Правило трёх (en)",
+      "fix": "Два пункта или четыре. Три - ритм модели по умолчанию."
+    },
+    {
+      "id": "rocket",
+      "regex": "[\\U0001F680\\U0001F525\\U0001F4A1\\u2728\\U0001F3AF]",
+      "name": "Эмодзи ракета / огонь / лампочка / искры / мишень",
+      "fix": "Максимум один эмодзи, и не из этих пяти."
+    },
+    {
+      "id": "hashtag-wall",
+      "regex": "(?:#\\w+[ \\t]*){6,}",
+      "name": "Стена хэштегов (больше 5)",
+      "fix": "До пяти тегов. После пятого Instagram их не учитывает."
+    },
+    {
+      "id": "as-an-ai",
+      "regex": "(?i)\\bas an ai\\b|\\bas a language model\\b",
+      "name": "Модель упоминает себя (en)",
+      "fix": "Удалите предложение."
+    },
+    {
+      "id": "in-summary",
+      "regex": "(?i)^\\s*(?:in summary|to summarize|in conclusion)\\b",
+      "name": "Сочинение: «In summary» в начале строки",
+      "fix": "Посту не нужен заключительный абзац."
+    },
+    {
+      "id": "engagement-bait",
+      "regex": "(?i)\\b(?:agree\\?|thoughts\\?|who else\\b|am i wrong\\?)\\s*$",
+      "name": "Рефлекторная приманка для вовлечения (en)",
+      "fix": "Задайте вопрос, который можете задать только вы, про конкретную вещь выше."
+    },
+    {
+      "id": "stop-scroll",
+      "regex": "(?im)^\\s*(?:stop scrolling|don'?t scroll|wait[,.]? don'?t scroll)\\b",
+      "name": "Зачин «Stop scrolling»",
+      "fix": "Остановить палец должно само утверждение. Просьба о внимании выдаёт, что вы его не заработали."
+    },
+    {
+      "id": "in-this-video",
+      "regex": "(?i)\\b(?:in (?:this|today'?s) (?:video|reel|post)|today i'?m going to show you|i'?m going to (?:show|teach) you how)\\b",
+      "name": "Вступление «in this video I'm going to show you»",
+      "fix": "Удалите и начните с сути. Первые две секунды решают всё."
+    },
+    {
+      "id": "emoji-bullets",
+      "regex": "(?m)^\\s*[\\U0001F300-\\U0001FAFF✅➡⬅✔✨]\\s*\\S",
+      "name": "Список с эмодзи вместо маркеров",
+      "fix": "Дефис или перенос строки. Эмодзи-маркеры - самое шаблонное, что бывает в подписи."
+    },
+    {
+      "id": "caps-shout",
+      "regex": "\\b[A-ZА-ЯЁ]{3,}\\b(?:\\s+\\b[A-ZА-ЯЁ]{3,}\\b){2,}",
+      "name": "Три и больше слов КАПСОМ подряд",
+      "fix": "Капс - это громкость, а не маркер. Максимум одно слово."
+    },
+    {
+      "id": "follow-bait",
+      "regex": "(?i)\\b(?:follow for more|tag someone who|double tap if|share this if|comment below if)\\b",
+      "name": "Рефлекторное «follow / tag / double tap» (en)",
+      "fix": "Попросите одно действие, которое этот пост действительно заслужил."
+    },
+    {
+      "id": "ne-prosto",
+      "regex": "(?i)\\bэто не (?:просто|только)\\b[^.!?\\n]{2,60}[,.]\\s*(?:-\\s*|—\\s*)?(?:это|а)\\b",
+      "name": "«Это не просто X, это Y»",
+      "fix": "Скажите то одно, что имеете в виду. Удалите подводку."
+    },
+    {
+      "id": "ne-tolko",
+      "regex": "(?i)\\bне только\\b[^.!?\\n]{2,80}\\bно и\\b",
+      "name": "«Не только X, но и Y»",
+      "fix": "Разбейте на два предложения или уберите слабую половину."
+    },
+    {
+      "id": "delo-ne-v",
+      "regex": "(?i)\\b(?:дело|речь|суть) не в\\b[^.!?\\n]{2,60}[.!,]\\s*(?:-\\s*|—\\s*)?(?:(?:дело|речь|суть)\\s+)?(?:а\\s+)?в\\b",
+      "name": "«Дело не в X. Дело в Y»",
+      "fix": "Начните с Y. Разворот и есть примета."
+    },
+    {
+      "id": "itog-vopros",
+      "regex": "(?im)^\\s*(?:результат|итог|лучшее|главное|подвох|фишка|секрет|самое интересное|а дальше)\\?\\s*$",
+      "name": "Строка из одного риторического вопроса («Результат?»)",
+      "fix": "Ответьте сразу, без постановки «разоблачения»."
+    },
+    {
+      "id": "vot-chto-ponyal",
+      "regex": "(?i)\\bвот что я (?:понял|поняла|узнал|узнала|вынес|вынесла)\\b|\\bвот чему меня (?:научил|научила|научило)\\b",
+      "name": "«Вот что я понял»",
+      "fix": "Назовите урок. Без анонса."
+    },
+    {
+      "id": "triada",
+      "regex": "(?i)\\b[а-яё-]+, [а-яё-]+ и [а-яё-]+\\.",
+      "name": "Правило трёх («быстро, просто и удобно.»)",
+      "fix": "Два пункта или четыре. Три - ритм модели по умолчанию."
+    },
+    {
+      "id": "kak-ii",
+      "regex": "(?i)\\bкак (?:ии|искусственный интеллект|языковая модель|нейросеть)\\b",
+      "name": "Модель упоминает себя",
+      "fix": "Удалите предложение."
+    },
+    {
+      "id": "v-zaklyuchenie",
+      "regex": "(?im)^\\s*(?:в заключение|подводя итог\\w*|резюмируя|итак, подвед[её]м итог\\w*)\\b",
+      "name": "Концовка сочинения («В заключение»)",
+      "fix": "Посту не нужен заключительный абзац."
+    },
+    {
+      "id": "primanka",
+      "regex": "(?im)(?:согласны\\?|согласен\\?|согласна\\?|что думаете\\?|кто со мной\\?|я не прав\\?|я не права\\?|а вы как\\?|кто ещё\\b[^\\n]{0,30}\\?)\\s*$",
+      "name": "Рефлекторная приманка для вовлечения («Согласны?»)",
+      "fix": "Задайте вопрос, который можете задать только вы, про конкретную вещь выше."
+    },
+    {
+      "id": "ne-listay",
+      "regex": "(?im)^\\s*(?:стоп[,!.]?\\s*)?(?:не листай\\w*|не пролистыва\\w*|не скролль\\w*|остановись)\\b",
+      "name": "Зачин «Стоп, не листай»",
+      "fix": "Остановить палец должно само утверждение. Просьба о внимании выдаёт, что вы его не заработали."
+    },
+    {
+      "id": "v-etom-video",
+      "regex": "(?i)\\bв (?:этом|сегодняшнем) (?:видео|ролике|рилсе|рилс|посте)\\b|\\b(?:сегодня|сейчас) я (?:вам |тебе )?(?:покажу|расскажу)\\b",
+      "name": "Вступление «в этом видео я покажу»",
+      "fix": "Удалите и начните с сути. Первые две секунды решают всё."
+    },
+    {
+      "id": "podpis-primanka",
+      "regex": "(?i)\\bподпис\\w+,? чтобы не пропустить\\b|\\bотмет\\w+ (?:друга|подругу|того|тех)\\b|\\bставь\\w* лайк\\b|\\bлайк,? если\\b|\\bперешли\\w* тому\\b|\\bнапиш\\w+ в коммент\\w*,? если\\b",
+      "name": "Рефлекторное «подпишись / отметь друга / лайк, если»",
+      "fix": "Попросите одно действие, которое этот пост действительно заслужил. Общий призыв приучает аудиторию игнорировать любые призывы."
+    },
+    {
+      "id": "kantselyarit",
+      "regex": "(?i)\\b(?:явля(?:ется|ются|лся|лась|лось|лись)|данн(?:ый|ая|ое|ые|ого|ой|ому|ым|ыми|ых|ую|ом)|осуществ\\w+|в рамках|посредством|вследствие|в целях)\\b",
+      "name": "Канцелярит («является», «данный», «в рамках»)",
+      "fix": "Скажите так, как сказали бы вслух другу: «это», «этот», «делать», «чтобы»."
+    },
+    {
+      "id": "davayte",
+      "regex": "(?im)^\\s*давайте\\b",
+      "name": "Строка начинается с «Давайте...»",
+      "fix": "Не приглашайте, а делайте: сразу первая мысль."
+    },
+    {
+      "id": "novyi-uroven",
+      "regex": "(?i)\\bна (?:новый|следующий) уровень\\b",
+      "name": "«На новый уровень»",
+      "fix": "Назовите, что именно станет лучше и на сколько."
+    }
+  ]
+}
