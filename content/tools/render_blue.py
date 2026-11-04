@@ -41,6 +41,7 @@ def spoken(text):
 def glue(text):
     text = re.sub(r"(?<=\d) (?=\d{3}\b)", "\u00a0", text)
     text = re.sub(r"(?<=\d) (?=₽)", "\u00a0", text)
+    text = text.replace("«Все курсы мира»", "«Все\u00a0курсы\u00a0мира»")
     return text.replace(" - ", "\u00a0- ")
 
 
@@ -49,13 +50,14 @@ def is_key(w):
     return bool(ACCENT_RE.search(w)) or bare in KEY
 
 
-def layout(text, size, d):
+def layout(text, size, d, x1=None):
+    x1 = x1 or X1
     font = ImageFont.truetype(BOLD, size)
     lines, cur = [], []
     for w in [t for t in text.split(" ") if t]:
         trial = " ".join(cur + [w])
         extra = sum(int(size * 0.3) for t in cur + [w] if is_key(t))
-        if cur and d.textlength(trial, font=font) + extra > X1 - X0:
+        if cur and d.textlength(trial, font=font) + extra > x1 - X0:
             lines.append(cur); cur = [w]
         else:
             cur.append(w)
