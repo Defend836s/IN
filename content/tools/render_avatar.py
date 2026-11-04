@@ -14,6 +14,8 @@ TEXT_TOP, TEXT_BOT = 360, 880
 TEXT_X1 = 990                         # кнопки Instagram справа ниже, текст сверху их не задевает          # текст сверху
 CHAR_X, CHAR_Y = 470 - SIZE // 2, 1440 - SIZE + 30   # персонаж снизу, в безопасной зоне
 SP = sprites()
+BAR_Y = None                          # по умолчанию под плашкой с названием
+OVERLAY = None                        # RGBA-картинка поверх фона (например, баннер)
 
 
 def background():
@@ -23,11 +25,14 @@ def background():
         a = 1 - y / 260
         c = tuple(int(rb.BLUE[i] * (1 - 0.35 * a) + rb.BLUE_DK[i] * 0.35 * a) for i in range(3))
         d.line([(0, y), (W, y)], fill=c); d.line([(0, H - 1 - y), (W, H - 1 - y)], fill=c)
-    small = ImageFont.truetype(rb.SEMI, 36)
-    X0, Y0 = rb.X0, rb.Y0
-    d.rounded_rectangle([X0 - 4, Y0 + 8, X0 + d.textlength(TAG, font=small) + 28, Y0 + 64],
-                        radius=28, fill=rb.WHITE)
-    d.text((X0 + 12, Y0 + 15), TAG, font=small, fill=rb.BLUE)
+    if TAG:
+        small = ImageFont.truetype(rb.SEMI, 36)
+        X0, Y0 = rb.X0, rb.Y0
+        d.rounded_rectangle([X0 - 4, Y0 + 8, X0 + d.textlength(TAG, font=small) + 28, Y0 + 64],
+                            radius=28, fill=rb.WHITE)
+        d.text((X0 + 12, Y0 + 15), TAG, font=small, fill=rb.BLUE)
+    if OVERLAY is not None:
+        img.paste(OVERLAY, (0, 0), OVERLAY)
     return img
 
 
@@ -137,7 +142,7 @@ def render(lines, out, piper, voice):
         img = bg.copy()
         img.paste(layers[k], (0, 0), layers[k])
         d = ImageDraw.Draw(img)
-        py = rb.Y0 + 90                 # полоса прогресса под плашкой с названием
+        py = BAR_Y if BAR_Y else rb.Y0 + 90
         d.rounded_rectangle([rb.X0, py, rb.X1, py + 8], radius=4, fill=rb.BLUE_DK)
         d.rounded_rectangle([rb.X0, py, rb.X0 + max(8, int((rb.X1 - rb.X0) * tt / total)), py + 8],
                             radius=4, fill=rb.WHITE)
