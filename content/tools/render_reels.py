@@ -3,8 +3,6 @@ sys.path.insert(0, "/home/user/IN/skills/ig-reel")
 from beats import analyse
 from PIL import Image, ImageDraw, ImageFont
 
-SRC, OUT = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2])
-only = sys.argv[3:]  # optional reel numbers
 W, H = 1080, 1920
 BG, FG, ACC, MUTED = (14, 14, 16), (245, 245, 240), (255, 59, 48), (120, 120, 126)
 BOLD = "/usr/share/fonts/opentype/inter/Inter-ExtraBold.otf"
@@ -65,28 +63,35 @@ def frame(text, label, progress, path, is_hook):
     d.rectangle([X0, Y1 - 12, X0 + int((X1 - X0) * progress), Y1 - 6], fill=ACC)
     img.save(path)
 
-os.makedirs(OUT, exist_ok=True)
-for i in range(1, 11):
-    if only and str(i) not in only: continue
-    raw = open(os.path.join(SRC, f"r{i:02d}.txt"), encoding="utf-8").read()
-    a = analyse(raw, wpm=130, target=25)
-    work = os.path.join(OUT, f".work{i:02d}"); os.makedirs(work, exist_ok=True)
-    beats = a["beats"]
-    total = a["total_seconds"] + 0.5
-    concat = []
-    for k, b in enumerate(beats):
-        dur = b["dur"] + (0.5 if k == len(beats) - 1 else 0)   # пауза на последней фразе
-        p = os.path.join(work, f"{k:02d}.png")
-        frame(b["text"], b["label"], (b["start"] + b["dur"]) / a["total_seconds"], p, k == 0)
-        concat.append(f"file '{p}'\nduration {dur:.3f}")
-    concat.append(f"file '{os.path.join(work, f'{len(beats)-1:02d}.png')}'")
-    lst = os.path.join(work, "list.txt"); open(lst, "w").write("\n".join(concat) + "\n")
-    name = f"{i:02d}-" + re.sub(r"[«»\"]", "", TITLES[i-1]).replace(" ", "-").lower() + ".mp4"
-    out = os.path.join(OUT, name)
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst,
-                    "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
-                    "-vf", "fps=30,format=yuv420p", "-c:v", "libx264", "-preset", "medium", "-crf", "20",
-                    "-c:a", "aac", "-b:a", "128k", "-t", f"{total:.2f}", "-movflags", "+faststart",
-                    out], check=True)
-    subprocess.run(["rm", "-rf", work])
-    print(f"{name}  {total:.1f} s")
+def main():
+    SRC, OUT = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2])
+    only = sys.argv[3:]
+    os.makedirs(OUT, exist_ok=True)
+    for i in range(1, 11):
+        if only and str(i) not in only: continue
+        raw = open(os.path.join(SRC, f"r{i:02d}.txt"), encoding="utf-8").read()
+        a = analyse(raw, wpm=130, target=25)
+        work = os.path.join(OUT, f".work{i:02d}"); os.makedirs(work, exist_ok=True)
+        beats = a["beats"]
+        total = a["total_seconds"] + 0.5
+        concat = []
+        for k, b in enumerate(beats):
+            dur = b["dur"] + (0.5 if k == len(beats) - 1 else 0)   # пауза на последней фразе
+            p = os.path.join(work, f"{k:02d}.png")
+            frame(b["text"], b["label"], (b["start"] + b["dur"]) / a["total_seconds"], p, k == 0)
+            concat.append(f"file '{p}'\nduration {dur:.3f}")
+        concat.append(f"file '{os.path.join(work, f'{len(beats)-1:02d}.png')}'")
+        lst = os.path.join(work, "list.txt"); open(lst, "w").write("\n".join(concat) + "\n")
+        name = f"{i:02d}-" + re.sub(r"[«»\"]", "", TITLES[i-1]).replace(" ", "-").lower() + ".mp4"
+        out = os.path.join(OUT, name)
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst,
+                        "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+                        "-vf", "fps=30,format=yuv420p", "-c:v", "libx264", "-preset", "medium", "-crf", "20",
+                        "-c:a", "aac", "-b:a", "128k", "-t", f"{total:.2f}", "-movflags", "+faststart",
+                        out], check=True)
+        subprocess.run(["rm", "-rf", work])
+        print(f"{name}  {total:.1f} s")
+
+
+if __name__ == "__main__":
+    main()
