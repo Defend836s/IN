@@ -139,9 +139,29 @@ def tts_yandex(text, path, length):
     return len(pcm) / 2 / 48000, 48000
 
 
+_VOSK = None
+
+
+def tts_vosk(text, path, length):
+    """Vosk TTS (alphacephei), офлайн после скачивания модели с alphacephei.com.
+    Голос: VOSK_SPEAKER (номер диктора в многоголосой модели). Ударение: «+» перед гласной."""
+    global _VOSK
+    from vosk_tts import Model, Synth
+    if _VOSK is None:
+        name = os.environ.get("VOSK_MODEL")
+        _VOSK = Synth(Model(model_name=name) if name else Model(lang="ru"))
+    text = re.sub(r"([аеёиоуыэюяАЕЁИОУЫЭЮЯ])\u0301", r"+\1", text)
+    _VOSK.synth(text, path, speaker_id=int(os.environ.get("VOSK_SPEAKER", "2")),
+                speech_rate=1 / length)
+    with wave.open(path) as w:
+        return w.getnframes() / w.getframerate(), w.getframerate()
+
+
 def tts(piper, voice, text, path, length):
     if BACKEND == "yandex":
         return tts_yandex(text, path, length)
+    if BACKEND == "vosk":
+        return tts_vosk(text, path, length)
     subprocess.run([piper, "-m", voice, "-f", path, "--length-scale", str(length),
                     "--noise-scale", "0.55", "--noise-w-scale", "0.6", "--sentence-silence", "0.1"],
                    input=text.encode("utf-8"), check=True, capture_output=True)
@@ -153,7 +173,7 @@ def tts(piper, voice, text, path, length):
 VOICE_FX = ("asetrate={sr}*0.971,aresample={sr},atempo=1.0299,"
             "acompressor=threshold=-20dB:ratio=3:attack=5:release=80:makeup=4,"
             "equalizer=f=140:t=q:w=1:g=2.5,loudnorm=I=-14:TP=-1.5:LRA=9,aresample=44100")
-if BACKEND == "yandex":      # живому голосу сдвиг тона не нужен, только плотность и громкость
+if BACKEND in ("yandex", "vosk"):   # живому голосу сдвиг тона не нужен, только плотность и громкость
     VOICE_FX = ("acompressor=threshold=-20dB:ratio=2.5:attack=5:release=80:makeup=3,"
                 "loudnorm=I=-14:TP=-1.5:LRA=9,aresample=44100")
 
