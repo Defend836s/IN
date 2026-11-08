@@ -20,8 +20,15 @@ TEXT_TOP, TEXT_BOT, BAR_Y = 735, 990, 712
 SMALL = 430
 import bear, bear2
 CHARACTER = os.environ.get("CHARACTER", "owl")
-CHAR = {"owl": owl, "bear": bear, "bear2": bear}[CHARACTER]
+CHAR = {"owl": owl, "bear": bear, "bear2": bear, "bearfull": bear}[CHARACTER]
 RIG = bear2.Rig() if CHARACTER == "bear2" else None
+FULL = None
+if CHARACTER == "bearfull":
+    import bear_full
+    FULL = bear_full.FullRig(); RIG = FULL
+FULL_W, FULL_H = 350, 500                 # медведь в полный рост: ноги у нижнего края безопасной зоны
+FULL_Y = 1470 - FULL_H
+WALK_MIN, WALK_MAX, WALK_SPEED = 200, 630, 150   # центр по x, px; скорость px/с
 SP = {} if RIG else {k: v.resize((SMALL, SMALL), Image.LANCZOS) for k, v in CHAR.sprites().items()}
 
 
@@ -203,6 +210,7 @@ def render(segs, out, piper, voice, overlay=None):
                             "-c:a", "aac", "-b:a", "160k", "-ac", "2", "-shortest", "-movflags", "+faststart", out],
                            stdin=subprocess.PIPE)
     ans_k = next(k for k, s in enumerate(segs) if s["kind"] == "ОТВЕТ")
+    walk = {"x": float(WALK_MIN), "dir": 1, "phase": 0.0}
     for fr in range(n):
         tt = fr / FPS
         k = max(i for i, s in enumerate(segs) if s["start"] <= tt + 1e-6)
@@ -238,7 +246,25 @@ def render(segs, out, piper, voice, overlay=None):
         if s["kind"] == "ОТВЕТ" and tt - s["start"] < 0.25:
             shake = int(math.sin((tt - s["start"]) * 90) * 6)
         bob = int(math.sin(tt * 2 * math.pi * 0.8) * 8 - loud[fr] * 3)
-        if RIG:
+        if FULL:
+            kind = s["kind"]
+            pose, walking = "idle", kind in ("ВОПРОС", "ТЕКСТ")
+            if kind == "ПАУЗА":
+                pose = "palm"
+            elif kind == "ОТВЕТ" or (k == ans_k + 1 and tt - s["start"] < 0.8):
+                pose, walking = "point", False
+            dt = 1 / FPS
+            if walking:
+                walk["x"] += walk["dir"] * WALK_SPEED * dt; walk["phase"] += 2 * math.pi * 1.7 * dt
+                if walk["x"] > WALK_MAX or walk["x"] < WALK_MIN:
+                    walk["dir"] *= -1; walk["x"] = min(max(walk["x"], WALK_MIN), WALK_MAX)
+            brow = 1.0 if kind in ("ВОПРОС", "ПАУЗА") else 0.0
+            fig = FULL.frame(mouths[fr], shapes[fr], fr in blink, brow, pose, phase=walk["phase"],
+                             walking=walking, tilt=math.sin(tt * 2 * math.pi * 0.35) * 2 + (3 if brow else 0),
+                             nod=int(loud[fr] * 3), breath=math.sin(tt * 2 * math.pi * 0.25))
+            fig = fig.resize((FULL_W, FULL_H), Image.LANCZOS)
+            img.paste(fig, (int(walk["x"] - FULL_W / 2) + shake, FULL_Y + dy), fig)
+        elif RIG:
             kind = s["kind"]
             arm = "rest"
             if kind == "ПАУЗА":
@@ -264,7 +290,11 @@ class _RigCard:
     """Чтобы карточка баннера брала нового медведя."""
     @staticmethod
     def sprite(m, b):
-        return RIG.frame(0, "wide", False, 0, "rest", size=600)
+        if FULL:
+            f = FULL.frame(0, "wide", False, 0, "idle")
+            sq = Image.new("RGBA", (600, 600), (0, 0, 0, 0)); sq.alpha_composite(f.resize((420, 600)), (90, 0))
+            return sq
+        return bear2.Rig().frame(0, "wide", False, 0, "rest", size=600)
 
 
 if __name__ == "__main__":
