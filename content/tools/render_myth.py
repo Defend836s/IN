@@ -20,9 +20,13 @@ TEXT_TOP, TEXT_BOT, BAR_Y = 735, 990, 712
 SMALL = 430
 import bear, bear2
 CHARACTER = os.environ.get("CHARACTER", "owl")
-CHAR = {"owl": owl, "bear": bear, "bear2": bear, "bearfull": bear}[CHARACTER]
+CHAR = {"owl": owl, "bear": bear, "bear2": bear, "bearfull": bear, "bear3": bear}[CHARACTER]
 RIG = bear2.Rig() if CHARACTER == "bear2" else None
 FULL = None
+B3 = None
+if CHARACTER == "bear3":
+    import bear3
+    B3 = bear3; RIG = True
 if CHARACTER == "bearfull":
     import bear_full
     FULL = bear_full.FullRig(); RIG = FULL
@@ -173,14 +177,30 @@ def stamp(word):
 
 
 def header(d):
-    f = ImageFont.truetype(rb.BOLD, 54)
+    """Плашка «ПРАВДА ИЛИ МИФ?»; возвращает x её правого края (там встаёт отсчёт)."""
+    f = ImageFont.truetype(rb.BOLD, HEADER_PX)
     txt = "ПРАВДА ИЛИ МИФ?"
     w = d.textlength(txt, font=f)
-    d.rounded_rectangle([rb.X0 - 6, TEXT_TOP - 4, rb.X0 + w + 34, TEXT_TOP + 74], radius=22, fill=rb.WHITE)
+    hgt = int(HEADER_PX * 1.45)
+    d.rounded_rectangle([rb.X0 - 6, TEXT_TOP - 4, rb.X0 + w + 34, TEXT_TOP + hgt], radius=22, fill=rb.WHITE)
     d.text((rb.X0 + 14, TEXT_TOP + 4), txt, font=f, fill=rb.BLUE)
+    return rb.X0 + w + 34
+
+
+HEADER_PX, Q_OFFSET = 54, 95
+
+
+LAYOUTS = {   # TEXT_TOP, TEXT_BOT, BAR_Y, масштаб персонажа, низ ног, размер плашки, отступ вопроса
+    "banner": (728, 950, 708, 0.82, 1478, 40, 66),
+    "clean": (330, 700, 300, 1.15, 1482, 54, 95),
+}
 
 
 def render(segs, out, piper, voice, overlay=None):
+    global TEXT_TOP, TEXT_BOT, BAR_Y, HEADER_PX, Q_OFFSET
+    if B3:
+        TEXT_TOP, TEXT_BOT, BAR_Y, b3_scale, b3_floor, HEADER_PX, Q_OFFSET = \
+            LAYOUTS["banner" if overlay is not None else "clean"]
     work = out + ".work"; os.makedirs(work, exist_ok=True)
     vfx, final, total = build(segs, work, piper, voice)
     n = int(math.ceil(total * FPS))
@@ -191,7 +211,7 @@ def render(segs, out, piper, voice, overlay=None):
     if overlay is not None:
         bg.paste(overlay, (0, 0), overlay)
     q = next(s for s in segs if s["kind"] == "ВОПРОС")
-    ra.TEXT_TOP, ra.TEXT_BOT = TEXT_TOP + 95, TEXT_BOT
+    ra.TEXT_TOP, ra.TEXT_BOT = TEXT_TOP + Q_OFFSET, TEXT_BOT
     q_layer = ra.text_layer(q["text"], True)
     ra.TEXT_TOP = TEXT_TOP
     layers = {}
@@ -199,7 +219,7 @@ def render(segs, out, piper, voice, overlay=None):
         if s["kind"] == "ТЕКСТ":
             layers[k] = ra.text_layer(s["text"], False)
     stamps = {k: stamp(s["text"]) for k, s in enumerate(segs) if s["kind"] == "ОТВЕТ"}
-    num_font = ImageFont.truetype(rb.BOLD, 120)
+    num_font = ImageFont.truetype(rb.BOLD, int(HEADER_PX * 1.5))
     blink = set()
     t = 1.3
     while t < total:
@@ -211,6 +231,15 @@ def render(segs, out, piper, voice, overlay=None):
                            stdin=subprocess.PIPE)
     ans_k = next(k for k, s in enumerate(segs) if s["kind"] == "ОТВЕТ")
     walk = {"x": float(WALK_MIN), "dir": 1, "phase": 0.0}
+    if B3:
+        bw, bh = int(bear3.FW * b3_scale), int(bear3.FH * b3_scale)
+        x_min, x_max = 20 + bw // 2, 845 - bw // 2
+        st3 = dict(mouth=0, shape="wide", blink=False, brow=0.0, turn=0.0, ear=0, armL=12.0, armR=12.0,
+                   palmR=0.0, pointL=0.0, phase=0.0, walk=0.0, lean=0.0, tilt=0.0, nod=0, breath=0.0)
+        pos = {"x": float(x_min), "dir": 1}
+
+    def ease(cur, target, tau):
+        return cur + (target - cur) * min(1.0, (1 / FPS) / tau)
     for fr in range(n):
         tt = fr / FPS
         k = max(i for i, s in enumerate(segs) if s["start"] <= tt + 1e-6)
@@ -220,13 +249,14 @@ def render(segs, out, piper, voice, overlay=None):
                             radius=4, fill=rb.WHITE)
         s = segs[k]
         if k <= ans_k:                      # вопрос, отсчёт и штамп - на экране вопроса
-            header(d)
+            hx_end = header(d)
             img.paste(q_layer, (0, 0), q_layer)
             if s["kind"] == "ПАУЗА" and tt >= s.get("count_start", 1e9):
                 c = 3 - int((tt - s["count_start"]) / (COUNT / 3))
                 if c >= 1:
-                    cx, cy = 900, TEXT_TOP + 150
-                    d.ellipse([cx - 80, cy - 80, cx + 80, cy + 80], fill=rb.WHITE)
+                    rr = int(HEADER_PX * 0.95)
+                    cx, cy = hx_end + rr + 24, TEXT_TOP + int(HEADER_PX * 0.7)
+                    d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=rb.WHITE)
                     d.text((cx, cy - 4), str(c), font=num_font, fill=rb.BLUE, anchor="mm")
             if s["kind"] == "ОТВЕТ":
                 st = stamps[k]
@@ -246,7 +276,35 @@ def render(segs, out, piper, voice, overlay=None):
         if s["kind"] == "ОТВЕТ" and tt - s["start"] < 0.25:
             shake = int(math.sin((tt - s["start"]) * 90) * 6)
         bob = int(math.sin(tt * 2 * math.pi * 0.8) * 8 - loud[fr] * 3)
-        if FULL:
+        if B3:
+            kind = s["kind"]
+            walking = kind in ("ВОПРОС", "ТЕКСТ")
+            pointing = kind == "ОТВЕТ" or (k == ans_k + 1 and tt - s["start"] < 0.9)
+            if pointing:
+                walking = False
+            palm = kind == "ПАУЗА"
+            st3["walk"] = ease(st3["walk"], 1.0 if walking else 0.0, 0.18)
+            pos["x"] += pos["dir"] * 150 * st3["walk"] / FPS
+            if pos["x"] > x_max or pos["x"] < x_min:
+                pos["dir"] *= -1; pos["x"] = min(max(pos["x"], x_min), x_max)
+            st3["phase"] += 2 * math.pi * 1.7 * st3["walk"] / FPS
+            turn_t = -0.5 if pointing else (pos["dir"] * st3["walk"] if walking else 0.0)
+            st3["turn"] = ease(st3["turn"], turn_t, 0.14)
+            st3["lean"] = 4 * pos["dir"] * st3["walk"]
+            st3["palmR"] = ease(st3["palmR"], 1.0 if palm else 0.0, 0.1)
+            st3["pointL"] = ease(st3["pointL"], 1.0 if pointing else 0.0, 0.1)
+            swing = math.sin(st3["phase"]) * 18 * st3["walk"]
+            st3["armL"] = 12 + (138 - 12) * st3["pointL"] + swing * (1 - st3["pointL"])
+            st3["armR"] = 12 + (145 - 12) * st3["palmR"] - swing * (1 - st3["palmR"])
+            emph = 1.0 if (fr > 2 and loud[fr] - loud[fr - 3] > 1.6) else 0.0     # брови на ударных
+            st3["brow"] = max(1.0 if kind in ("ВОПРОС", "ПАУЗА") else 0.0, ease(st3["brow"], emph, 0.12))
+            st3.update(mouth=mouths[fr], shape=shapes[fr], blink=fr in blink,
+                       ear=1 if (tt % 4.3) < 0.12 else 0,
+                       tilt=math.sin(tt * 2 * math.pi * 0.35) * 2 + (3 if kind in ("ВОПРОС", "ПАУЗА") else 0),
+                       nod=int(loud[fr] * 3), breath=math.sin(tt * 2 * math.pi * 0.25))
+            fig = bear3.figure(st3).resize((bw, bh), Image.LANCZOS)
+            img.paste(fig, (int(pos["x"] - bw / 2) + shake, b3_floor - bh + dy), fig)
+        elif FULL:
             kind = s["kind"]
             pose, walking = "idle", kind in ("ВОПРОС", "ТЕКСТ")
             if kind == "ПАУЗА":
@@ -290,6 +348,11 @@ class _RigCard:
     """Чтобы карточка баннера брала нового медведя."""
     @staticmethod
     def sprite(m, b):
+        if B3:
+            f = bear3.figure(dict(mouth=0, shape="wide", blink=False, brow=0, turn=0.0, ear=0, armL=12, armR=12,
+                                  palmR=0, pointL=0, phase=0.0, walk=0.0, lean=0.0, tilt=0, nod=0, breath=0))
+            sq = Image.new("RGBA", (600, 600), (0, 0, 0, 0)); sq.alpha_composite(f.resize((430, 600)), (85, 0))
+            return sq
         if FULL:
             f = FULL.frame(0, "wide", False, 0, "idle")
             sq = Image.new("RGBA", (600, 600), (0, 0, 0, 0)); sq.alpha_composite(f.resize((420, 600)), (90, 0))
