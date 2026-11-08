@@ -18,7 +18,9 @@ rb.SAY[:0] = [(r"\b30\b", "тридцати"), (r"\b5 лет\b", "пяти ле�
 FPS, W, H, SR = 30, 1080, 1920, 44100
 TEXT_TOP, TEXT_BOT, BAR_Y = 735, 990, 712
 SMALL = 430
-SP = {k: v.resize((SMALL, SMALL), Image.LANCZOS) for k, v in owl.sprites().items()}
+import bear
+CHAR = {"owl": owl, "bear": bear}[os.environ.get("CHARACTER", "owl")]
+SP = {k: v.resize((SMALL, SMALL), Image.LANCZOS) for k, v in CHAR.sprites().items()}
 CHAR_X, CHAR_Y = 470 - SMALL // 2, 1440 - SMALL + 36
 COUNT = 1.8          # секунды отсчёта после «Как думаешь?»
 GAP, TAIL = 0.2, 0.35
@@ -49,8 +51,41 @@ def sfx_tick():
     return np.sin(2 * np.pi * 1300 * t) * np.exp(-t * 70) * 0.35
 
 
+def build_vosk(segs, work):
+    """Цельная речь Vosk: [вопрос + «Как думаешь?»] -> отсчёт -> [ответ] -> пауза -> [объяснение]."""
+    import vosk_voice as vv
+    groups, cur = [], []
+    for k, s in enumerate(segs):
+        if s["kind"] == "ОТВЕТ" or (s["kind"] == "ТЕКСТ" and cur and segs[cur[-1]]["kind"] == "ОТВЕТ"):
+            if cur: groups.append(cur)
+            cur = []
+        cur.append(k)
+    groups.append(cur)
+    t, sr, pieces = 0.0, None, []
+    for g, idx in enumerate(groups):
+        x, sr, spans = vv.chunk([rb.spoken(segs[k]["say"]) for k in idx], work, f"g{g}")
+        pieces.append((t, x))
+        for k, (a, b) in zip(idx, spans):
+            segs[k].update(start=t + a, dur=b - a)
+        t += len(x) / sr
+        last = segs[idx[-1]]
+        if last["kind"] == "ПАУЗА":
+            last["count_start"] = t + 0.1; t += COUNT
+        elif last["kind"] == "ОТВЕТ":
+            t += 0.7
+        t += GAP
+    total = t - GAP + TAIL
+    raw = np.zeros(int(total * sr) + sr)
+    for st, x in pieces:
+        i = int(st * sr); raw[i:i + len(x)] += x
+    return raw, sr, total, vv.BROADCAST
+
+
 def build(segs, work, piper, voice, length=0.95):
     """TTS по фразам -> единая дорожка голоса (с обработкой) + звуки -> таймлайн."""
+    if rb.BACKEND == "vosk":
+        raw, sr, total, chain = build_vosk(segs, work)
+        return _finish(segs, work, raw, sr, total, chain)
     t, timeline, voice_parts = 0.0, [], []
     for k, s in enumerate(segs):
         p = os.path.join(work, f"{k:02d}.wav")
@@ -71,16 +106,20 @@ def build(segs, work, piper, voice, length=0.95):
     raw = np.zeros(int(total * sr) + sr)
     for st, x, _ in voice_parts:
         i = int(st * sr); raw[i:i + len(x)] += x
+    return _finish(segs, work, raw, sr, total, rb.VOICE_FX.format(sr=sr))
+
+
+def _finish(segs, work, raw, sr, total, chain):
     rawp = os.path.join(work, "raw.wav")
     with wave.open(rawp, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
         w.writeframes((np.clip(raw, -1, 1) * 32767).astype(np.int16).tobytes())
     vfx = os.path.join(work, "voice.wav")
-    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", rawp, "-af", rb.VOICE_FX.format(sr=sr),
+    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", rawp, "-af", chain,
                     "-ac", "1", "-ar", str(SR), vfx], check=True)
     with wave.open(vfx) as w:
         v = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
-    mix = np.zeros(int(total * SR) + SR); mix[:len(v)] += v
+    mix = np.zeros(int(total * SR) + SR); v = v[:len(mix)]; mix[:len(v)] += v
     for s in segs:
         if s["kind"] == "ПАУЗА":
             for j in range(3):
@@ -188,7 +227,7 @@ def render(segs, out, piper, voice, overlay=None):
 if __name__ == "__main__":
     src, outdir, voice, piper = map(os.path.abspath, sys.argv[1:5])
     titles = sys.argv[5].split("|"); only = sys.argv[6:]
-    banner = Image.new("RGBA", (W, H), (0, 0, 0, 0)); banner.alpha_composite(card(), (40, 250))
+    banner = Image.new("RGBA", (W, H), (0, 0, 0, 0)); banner.alpha_composite(card(char=CHAR), (40, 250))
     for kind in ("чистые", "с-баннером"):
         os.makedirs(os.path.join(outdir, kind), exist_ok=True)
     for i, title in enumerate(titles, 1):

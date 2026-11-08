@@ -17,7 +17,7 @@ ra.SP = {k: v.resize((SMALL, SMALL), Image.LANCZOS) for k, v in owl.sprites().it
 ra.CHAR_X, ra.CHAR_Y = 470 - SMALL // 2, 1440 - SMALL + 36
 
 
-def card(w=1000, h=440):
+def card(w=1000, h=440, char=None):
     """Карточка баннера с совой."""
     img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
@@ -37,7 +37,7 @@ def card(w=1000, h=440):
     x = 44 + pw + 90
     d.text((x, 298), "Ссылка", font=f2, fill=rb.WHITE)
     d.text((x, 344), "в шапке профиля", font=f2, fill=rb.WHITE)
-    g = owl.sprite(0, False).resize((250, 250), Image.LANCZOS)
+    g = (char or owl).sprite(0, False).resize((250, 250), Image.LANCZOS)
     img.alpha_composite(g, (w - 250, 6))
     return img
 
