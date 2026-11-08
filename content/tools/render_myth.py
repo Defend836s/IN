@@ -18,10 +18,31 @@ rb.SAY[:0] = [(r"\b30\b", "тридцати"), (r"\b5 лет\b", "пяти ле�
 FPS, W, H, SR = 30, 1080, 1920, 44100
 TEXT_TOP, TEXT_BOT, BAR_Y = 735, 990, 712
 SMALL = 430
-import bear
-CHAR = {"owl": owl, "bear": bear}[os.environ.get("CHARACTER", "owl")]
-SP = {k: v.resize((SMALL, SMALL), Image.LANCZOS) for k, v in CHAR.sprites().items()}
+import bear, bear2
+CHARACTER = os.environ.get("CHARACTER", "owl")
+CHAR = {"owl": owl, "bear": bear, "bear2": bear}[CHARACTER]
+RIG = bear2.Rig() if CHARACTER == "bear2" else None
+SP = {} if RIG else {k: v.resize((SMALL, SMALL), Image.LANCZOS) for k, v in CHAR.sprites().items()}
+
+
+def mouth_shapes(wav_path, n):
+    """Форма рта по тембру: низкий спектральный центр - «о/у» (round), иначе wide."""
+    with wave.open(wav_path) as w:
+        sr = w.getframerate(); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32)
+    hop = sr / FPS; out = []
+    for i in range(n):
+        seg = x[int(i * hop):int((i + 1) * hop)]
+        if len(seg) < 64:
+            out.append("wide"); continue
+        sp = np.abs(np.fft.rfft(seg * np.hanning(len(seg)))); f = np.fft.rfftfreq(len(seg), 1 / sr)
+        band = (f > 150) & (f < 4000)
+        c = (sp[band] * f[band]).sum() / (sp[band].sum() + 1e-9)
+        out.append("round" if c < 950 else "wide")
+    return out
 CHAR_X, CHAR_Y = 470 - SMALL // 2, 1440 - SMALL + 36
+if RIG:                                   # медведь с туловищем: крупнее и ниже, плечи уходят за край зоны
+    SMALL = 510
+    CHAR_X, CHAR_Y = 470 - SMALL // 2, 1460 - SMALL + 80
 COUNT = 1.8          # секунды отсчёта после «Как думаешь?»
 GAP, TAIL = 0.2, 0.35
 
@@ -157,6 +178,7 @@ def render(segs, out, piper, voice, overlay=None):
     vfx, final, total = build(segs, work, piper, voice)
     n = int(math.ceil(total * FPS))
     mouths, loud = ra.mouth_levels(vfx, n)
+    shapes = mouth_shapes(vfx, n) if RIG else None
     ra.TAG = None
     bg = ra.background()
     if overlay is not None:
@@ -216,18 +238,39 @@ def render(segs, out, piper, voice, overlay=None):
         if s["kind"] == "ОТВЕТ" and tt - s["start"] < 0.25:
             shake = int(math.sin((tt - s["start"]) * 90) * 6)
         bob = int(math.sin(tt * 2 * math.pi * 0.8) * 8 - loud[fr] * 3)
-        spr = SP[(mouths[fr], fr in blink)].rotate(math.sin(tt * math.pi) * 2.5, resample=Image.BICUBIC)
-        img.paste(spr, (CHAR_X + shake, CHAR_Y + dy + bob), spr)
+        if RIG:
+            kind = s["kind"]
+            arm = "rest"
+            if kind == "ПАУЗА":
+                arm = "palm"
+            elif kind == "ОТВЕТ" or (k == ans_k + 1 and tt - s["start"] < 0.8):
+                arm = "point"
+            brow = 1.0 if kind in ("ВОПРОС", "ПАУЗА") else 0.0
+            nod = int(loud[fr] * 4 + math.sin(tt * 2 * math.pi * 1.6) * 2)
+            spr = RIG.frame(mouths[fr], shapes[fr], fr in blink, brow, arm,
+                            tilt=math.sin(tt * 2 * math.pi * 0.35) * 3 + (2 if brow else 0),
+                            nod=nod, breath=math.sin(tt * 2 * math.pi * 0.25), size=SMALL)
+            img.paste(spr, (CHAR_X + shake, CHAR_Y + dy + int(bob * 0.4)), spr)
+        else:
+            spr = SP[(mouths[fr], fr in blink)].rotate(math.sin(tt * math.pi) * 2.5, resample=Image.BICUBIC)
+            img.paste(spr, (CHAR_X + shake, CHAR_Y + dy + bob), spr)
         enc.stdin.write(img.tobytes())
     enc.stdin.close(); enc.wait()
     subprocess.run(["rm", "-rf", work])
     return total
 
 
+class _RigCard:
+    """Чтобы карточка баннера брала нового медведя."""
+    @staticmethod
+    def sprite(m, b):
+        return RIG.frame(0, "wide", False, 0, "rest", size=600)
+
+
 if __name__ == "__main__":
     src, outdir, voice, piper = map(os.path.abspath, sys.argv[1:5])
     titles = sys.argv[5].split("|"); only = sys.argv[6:]
-    banner = Image.new("RGBA", (W, H), (0, 0, 0, 0)); banner.alpha_composite(card(char=CHAR), (40, 250))
+    banner = Image.new("RGBA", (W, H), (0, 0, 0, 0)); banner.alpha_composite(card(char=CHAR if not RIG else _RigCard()), (40, 250))
     for kind in ("чистые", "с-баннером"):
         os.makedirs(os.path.join(outdir, kind), exist_ok=True)
     for i, title in enumerate(titles, 1):
