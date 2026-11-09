@@ -262,3 +262,33 @@
     Все курсы мира - ссылка в профиле.
 
     #курсы #обучение #самообразование #бесплатно
+- id: carousel-kak-uchitsya-besplatno
+  images:
+  - carousels/kak-uchitsya-besplatno/01.png
+  - carousels/kak-uchitsya-besplatno/02.png
+  - carousels/kak-uchitsya-besplatno/03.png
+  - carousels/kak-uchitsya-besplatno/04.png
+  - carousels/kak-uchitsya-besplatno/05.png
+  - carousels/kak-uchitsya-besplatno/06.png
+  - carousels/kak-uchitsya-besplatno/07.png
+  - carousels/kak-uchitsya-besplatno/08.png
+  - carousels/kak-uchitsya-besplatno/09.png
+  title: Как выучить навык без платного курса
+  caption: |-
+    Курс за 60 000 ₽ не нужен, чтобы начать.
+    Нужен план и 40 минут в день.
+
+    5 шагов, по которым можно выучить почти любой навык бесплатно. Сохрани, чтобы вернуться.
+
+    Все курсы мира - ссылка в профиле.
+
+    #обучение #самообразование #курсы #бесплатно
+- id: carousel-threads-kurs-ne-nuzhen
+  images:
+  - carousels/threads-kurs-ne-nuzhen/01.png
+  title: Программа платного курса - бесплатный план
+  caption: |-
+    Лайфхак: программа любого платного курса лежит в открытом доступе.
+    Это готовый план обучения. Осталось закрыть темы бесплатными материалами.
+
+    Какой навык разобрать следующим?

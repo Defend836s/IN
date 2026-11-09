@@ -26,10 +26,15 @@ class PublishError(RuntimeError):
 @dataclass(frozen=True)
 class Item:
     id: str
-    video: Path
-    rel: str  # путь ролика относительно content/
+    kind: str                # video | image | carousel
+    files: tuple[Path, ...]  # абсолютные пути
+    rels: tuple[str, ...]    # пути относительно content/ (для публичных ссылок)
     title: str
     caption: str
+
+    @property
+    def video(self) -> Path:
+        return self.files[0]
 
 
 def env(*names: str) -> dict[str, str] | None:
@@ -187,14 +192,14 @@ def publish_youtube(item: Item, cfg: dict[str, str]) -> str:
 
 # ---------------------------------------------------------------- общий публичный адрес ролика
 
-def public_url(item: Item, cfg: dict[str, str]) -> str:
-    """Threads и Rutube забирают ролик по ссылке, а не загрузкой файла.
+def public_url(rel: str, cfg: dict[str, str]) -> str:
+    """Threads, Rutube и картинки Instagram забираются по ссылке, а не загрузкой файла.
 
-    PUBLIC_VIDEO_BASE_URL - адрес, по которому лежит папка content/
+    PUBLIC_MEDIA_BASE_URL - адрес, по которому лежит папка content/
     (например raw-ссылка публичного репозитория или свой хостинг).
     """
-    base = cfg["PUBLIC_VIDEO_BASE_URL"].rstrip("/")
-    return f"{base}/{quote(item.rel)}"
+    base = cfg["PUBLIC_MEDIA_BASE_URL"].rstrip("/")
+    return f"{base}/{quote(rel)}"
 
 
 def wait_status(url: str, params: dict, headers: dict, field: str, ok: str, bad: tuple[str, ...], what: str) -> None:
@@ -221,7 +226,7 @@ def publish_threads(item: Item, cfg: dict[str, str]) -> str:
         requests.post(
             f"{THREADS}/{user}/threads",
             headers=auth,
-            data={"media_type": "VIDEO", "video_url": public_url(item, cfg), "text": item.caption[:500]},
+            data={"media_type": "VIDEO", "video_url": public_url(item.rels[0], cfg), "text": item.caption[:500]},
             timeout=TIMEOUT,
         ),
         "Threads create",
@@ -380,7 +385,7 @@ def publish_rutube(item: Item, cfg: dict[str, str]) -> str:
         "https://studio.rutube.ru/api/video/",
         headers={"Authorization": f"Token {cfg['RUTUBE_TOKEN']}"},
         json={
-            "url": public_url(item, cfg),
+            "url": public_url(item.rels[0], cfg),
             "title": item.title[:100],
             "description": item.caption,
             "is_short": True,
@@ -391,17 +396,189 @@ def publish_rutube(item: Item, cfg: dict[str, str]) -> str:
     return str(check(resp, "Rutube").get("video_id"))
 
 
-# ---------------------------------------------------------------- реестр
+# ================================================================ картинки и карусели
+#
+# image-функции принимают Item с kind image (1 файл) или carousel (2-10 файлов).
+
+
+def _images(item: Item) -> list[tuple[Path, str]]:
+    return list(zip(item.files, item.rels))
+
+
+# ---------------------------------------------------------------- Telegram
+
+def publish_telegram_images(item: Item, cfg: dict[str, str]) -> str:
+    base = f"https://api.telegram.org/bot{cfg['TELEGRAM_BOT_TOKEN']}"
+    chat = cfg["TELEGRAM_CHAT_ID"]
+    if len(item.files) == 1:
+        with item.files[0].open("rb") as fh:
+            resp = requests.post(f"{base}/sendPhoto", data={"chat_id": chat, "caption": item.caption[:1024]},
+                                 files={"photo": (item.files[0].name, fh, "image/png")}, timeout=TIMEOUT)
+        data = check(resp, "Telegram sendPhoto")
+        return str(data["result"]["message_id"])
+    media, files = [], {}
+    for i, path in enumerate(item.files):
+        entry = {"type": "photo", "media": f"attach://f{i}"}
+        if i == 0:
+            entry["caption"] = item.caption[:1024]
+        media.append(entry)
+        files[f"f{i}"] = (path.name, path.read_bytes(), "image/png")
+    resp = requests.post(f"{base}/sendMediaGroup", data={"chat_id": chat, "media": json.dumps(media, ensure_ascii=False)},
+                         files=files, timeout=TIMEOUT)
+    data = check(resp, "Telegram sendMediaGroup")
+    if not data.get("ok"):
+        raise PublishError(f"Telegram: {data.get('description')}")
+    return str(data["result"][0]["message_id"])
+
+
+# ---------------------------------------------------------------- Instagram и Threads (по ссылке)
+
+def _meta_carousel(api: str, user: str, auth: dict, item: Item, cfg: dict[str, str],
+                   text_field: str, text_limit: int, publish_path: str, what: str) -> str:
+    def container(**fields) -> str:
+        return check(requests.post(f"{api}/{user}/{'threads' if 'threads' in api else 'media'}",
+                                   headers=auth, data=fields, timeout=TIMEOUT), what)["id"]
+
+    status_field = "status" if "threads" in api else "status_code"
+    pics = _images(item)
+    if len(pics) == 1:
+        extra = {"media_type": "IMAGE"} if "threads" in api else {}
+        cid = container(image_url=public_url(pics[0][1], cfg), **{text_field: item.caption[:text_limit]}, **extra)
+    else:
+        kids = []
+        for _, rel in pics:
+            extra = {"media_type": "IMAGE"} if "threads" in api else {}
+            kids.append(container(image_url=public_url(rel, cfg), is_carousel_item="true", **extra))
+        for kid in kids:
+            wait_status(f"{api}/{kid}", {"fields": status_field}, auth, status_field, "FINISHED",
+                        ("ERROR", "EXPIRED"), f"{what} слайд")
+        cid = container(media_type="CAROUSEL", children=",".join(kids), **{text_field: item.caption[:text_limit]})
+    wait_status(f"{api}/{cid}", {"fields": status_field}, auth, status_field, "FINISHED", ("ERROR", "EXPIRED"), what)
+    done = check(requests.post(f"{api}/{user}/{publish_path}", headers=auth, data={"creation_id": cid},
+                               timeout=TIMEOUT), f"{what} publish")
+    return str(done["id"])
+
+
+def publish_instagram_images(item: Item, cfg: dict[str, str]) -> str:
+    auth = {"Authorization": f"OAuth {cfg['IG_ACCESS_TOKEN']}"}
+    return _meta_carousel(GRAPH, cfg["IG_USER_ID"], auth, item, cfg, "caption", 2200, "media_publish", "Instagram")
+
+
+def publish_threads_images(item: Item, cfg: dict[str, str]) -> str:
+    auth = {"Authorization": f"Bearer {cfg['THREADS_ACCESS_TOKEN']}"}
+    return _meta_carousel(THREADS, cfg["THREADS_USER_ID"], auth, item, cfg, "text", 500, "threads_publish", "Threads")
+
+
+# ---------------------------------------------------------------- VK
+
+def _vk(method: str, cfg: dict[str, str], **params) -> dict:
+    data = check(requests.post(f"{VK_API}/{method}", data={"access_token": cfg["VK_TOKEN"], "v": VK_VERSION, **params},
+                               timeout=TIMEOUT), f"VK {method}")
+    if "response" not in data:
+        raise PublishError(f"VK {method}: {data.get('error')}")
+    return data["response"]
+
+
+def publish_vk_images(item: Item, cfg: dict[str, str]) -> str:
+    gid = cfg["VK_GROUP_ID"].lstrip("-")
+    attachments = []
+    for path in item.files:
+        server = _vk("photos.getWallUploadServer", cfg, group_id=gid)
+        with path.open("rb") as fh:
+            up = check(requests.post(server["upload_url"], files={"photo": (path.name, fh, "image/png")},
+                                     timeout=TIMEOUT), "VK upload photo")
+        saved = _vk("photos.saveWallPhoto", cfg, group_id=gid, server=up["server"], photo=up["photo"], hash=up["hash"])
+        attachments.append(f"photo{saved[0]['owner_id']}_{saved[0]['id']}")
+    post = _vk("wall.post", cfg, owner_id=f"-{gid}", from_group=1, message=item.caption,
+               attachments=",".join(attachments))
+    return str(post["post_id"])
+
+
+# ---------------------------------------------------------------- Одноклассники
+
+def publish_ok_images(item: Item, cfg: dict[str, str]) -> str:
+    gid = cfg["OK_GROUP_ID"]
+    up = ok_call("photosV2.getUploadUrl", cfg, gid=gid, count=str(len(item.files)))
+    files = {f"pic{i + 1}": (p.name, p.read_bytes(), "image/png") for i, p in enumerate(item.files)}
+    result = check(requests.post(up["upload_url"], files=files, timeout=TIMEOUT), "OK upload photo")
+    tokens = [result["photos"][pid]["token"] for pid in up["photo_ids"]]
+    attachment = {"media": [{"type": "text", "text": item.caption},
+                            {"type": "photo", "list": [{"id": t} for t in tokens]}]}
+    post = ok_call("mediatopic.post", cfg, gid=gid, type="GROUP_THEME",
+                   attachment=json.dumps(attachment, ensure_ascii=False))
+    return str(post if not isinstance(post, dict) else post.get("id", ""))
+
+
+# ---------------------------------------------------------------- Facebook (страница)
+
+def publish_facebook_images(item: Item, cfg: dict[str, str]) -> str:
+    auth = {"Authorization": f"OAuth {cfg['FB_PAGE_TOKEN']}"}
+    page = cfg["FB_PAGE_ID"]
+    ids = []
+    for path in item.files:
+        with path.open("rb") as fh:
+            photo = check(requests.post(f"{GRAPH}/{page}/photos", headers=auth, data={"published": "false"},
+                                        files={"source": (path.name, fh, "image/png")}, timeout=TIMEOUT),
+                          "Facebook photo")
+        ids.append(photo["id"])
+    data = {"message": item.caption}
+    for i, pid in enumerate(ids):
+        data[f"attached_media[{i}]"] = json.dumps({"media_fbid": pid})
+    return str(check(requests.post(f"{GRAPH}/{page}/feed", headers=auth, data=data, timeout=TIMEOUT),
+                     "Facebook feed")["id"])
+
+
+# ---------------------------------------------------------------- Pinterest
+
+def publish_pinterest_images(item: Item, cfg: dict[str, str]) -> str:
+    import base64
+    auth = {"Authorization": f"Bearer {cfg['PINTEREST_TOKEN']}"}
+    blobs = [base64.b64encode(p.read_bytes()).decode() for p in item.files[:5]]  # Pinterest: до 5 в карусели
+    if len(blobs) == 1:
+        source = {"source_type": "image_base64", "content_type": "image/png", "data": blobs[0]}
+    else:
+        source = {"source_type": "multiple_image_base64",
+                  "items": [{"content_type": "image/png", "data": b} for b in blobs]}
+    pin = {"board_id": cfg["PINTEREST_BOARD_ID"], "title": item.title[:100],
+           "description": item.caption[:800], "media_source": source}
+    if os.environ.get("PINTEREST_LINK"):
+        pin["link"] = os.environ["PINTEREST_LINK"]
+    return str(check(requests.post(f"{PINTEREST}/pins", headers=auth, json=pin, timeout=TIMEOUT), "Pinterest pin")["id"])
+
+
+# ================================================================ реестр
+
+@dataclass(frozen=True)
+class Platform:
+    video: object                 # publish(item, cfg) для роликов
+    video_keys: tuple[str, ...]
+    images: object = None         # publish(item, cfg) для картинок и каруселей; None - не умеет
+    image_keys: tuple[str, ...] = ()
+
+    def handler(self, kind: str):
+        """(функция, нужные переменные) для типа контента или (None, ()) если площадка его не берёт."""
+        if kind == "video":
+            return self.video, self.video_keys
+        return (self.images, self.image_keys) if self.images else (None, ())
+
+
+TG = ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")
+VK = ("VK_TOKEN", "VK_GROUP_ID")
+OK = ("OK_ACCESS_TOKEN", "OK_APP_KEY", "OK_APP_SECRET", "OK_GROUP_ID")
+IG = ("IG_ACCESS_TOKEN", "IG_USER_ID")
+FB = ("FB_PAGE_TOKEN", "FB_PAGE_ID")
+TH = ("THREADS_ACCESS_TOKEN", "THREADS_USER_ID", "PUBLIC_MEDIA_BASE_URL")
+PIN = ("PINTEREST_TOKEN", "PINTEREST_BOARD_ID")
 
 PLATFORMS = {
-    "telegram": (publish_telegram, ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID")),
-    "vk": (publish_vk, ("VK_TOKEN", "VK_GROUP_ID")),
-    "ok": (publish_ok, ("OK_ACCESS_TOKEN", "OK_APP_KEY", "OK_APP_SECRET", "OK_GROUP_ID")),
-    "instagram": (publish_instagram, ("IG_ACCESS_TOKEN", "IG_USER_ID")),
-    "facebook": (publish_facebook, ("FB_PAGE_TOKEN", "FB_PAGE_ID")),
-    "threads": (publish_threads, ("THREADS_ACCESS_TOKEN", "THREADS_USER_ID", "PUBLIC_VIDEO_BASE_URL")),
-    "youtube": (publish_youtube, ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN")),
-    "tiktok": (publish_tiktok, ("TIKTOK_CLIENT_KEY", "TIKTOK_CLIENT_SECRET", "TIKTOK_REFRESH_TOKEN")),
-    "pinterest": (publish_pinterest, ("PINTEREST_TOKEN", "PINTEREST_BOARD_ID")),
-    "rutube": (publish_rutube, ("RUTUBE_TOKEN", "PUBLIC_VIDEO_BASE_URL")),
+    "telegram": Platform(publish_telegram, TG, publish_telegram_images, TG),
+    "vk": Platform(publish_vk, VK, publish_vk_images, VK),
+    "ok": Platform(publish_ok, OK, publish_ok_images, OK),
+    "instagram": Platform(publish_instagram, IG, publish_instagram_images, IG + ("PUBLIC_MEDIA_BASE_URL",)),
+    "facebook": Platform(publish_facebook, FB, publish_facebook_images, FB),
+    "threads": Platform(publish_threads, TH, publish_threads_images, TH),
+    "youtube": Platform(publish_youtube, ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN")),
+    "tiktok": Platform(publish_tiktok, ("TIKTOK_CLIENT_KEY", "TIKTOK_CLIENT_SECRET", "TIKTOK_REFRESH_TOKEN")),
+    "pinterest": Platform(publish_pinterest, PIN, publish_pinterest_images, PIN),
+    "rutube": Platform(publish_rutube, ("RUTUBE_TOKEN", "PUBLIC_MEDIA_BASE_URL")),
 }

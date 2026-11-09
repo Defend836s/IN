@@ -11,6 +11,7 @@ python3 content/autopost/autopost.py status          # что подключен
 python3 content/autopost/autopost.py run --dry-run   # проба, ничего не публикует
 python3 content/autopost/autopost.py run             # публикация
 python3 content/autopost/autopost.py run --platform telegram --count 3
+python3 content/autopost/autopost.py run --kind carousel --kind image   # только карусели и картинки
 python3 content/autopost/build_queue.py              # добавить новые ролики в очередь
 ```
 
@@ -20,6 +21,28 @@ python3 content/autopost/build_queue.py              # добавить новы
 `citaty`: серии чередуются, подпись берётся из сценария. Подписи можно
 править руками, `build_queue.py` правки не затирает. Чтобы ролик не
 публиковался, добавьте ему `skip: true`.
+
+## Карусели и картинки
+
+Карусели (2-10 слайдов) и посты-картинки рисует `content/tools/render_carousel.py`
+по `content/carousels/<слаг>/spec.yaml` (формат описан в docstring). После рендера
+`build_queue.py` добавляет их в очередь как `images: [...]`.
+
+| Площадка | Ролики | Картинка | Карусель |
+|---|---|---|---|
+| Telegram | да | да | да (альбом до 10) |
+| VK | да | да | да (до 10 фото в посте) |
+| Одноклассники | да | да | да |
+| Instagram | да | да* | да* (до 10) |
+| Facebook | да | да | да (пост с несколькими фото) |
+| Threads | да* | да* | да* |
+| Pinterest | да | да | да (до 5) |
+| YouTube, TikTok, Rutube | да | нет | нет |
+
+\* площадка забирает файл по ссылке, нужен `PUBLIC_MEDIA_BASE_URL` (см. Threads).
+
+Ролики и картинки идут в одной очереди. Чтобы в день выходил и ролик, и карусель,
+запускайте два раза: `run --kind video` и `run --kind carousel --kind image`.
 
 ## Ключи
 
@@ -43,8 +66,9 @@ python3 content/autopost/build_queue.py              # добавить новы
 1. Нужен **пользовательский** токен администратора сообщества с правами
    `video` и `wall` (токен сообщества метод `video.save` не принимает).
 2. Переменные: `VK_TOKEN`, `VK_GROUP_ID` (число, без минуса).
-3. Домены: `api.vk.com` и домен загрузки, который VK выдаёт в ответе
-   `video.save` (он меняется; при блокировке скрипт напишет его в ошибке).
+3. Домены: `api.vk.com`, `pu.vk.com` (загрузка фото) и домен загрузки видео,
+   который VK выдаёт в ответе `video.save` (он меняется; при блокировке скрипт
+   напишет его в ошибке).
 
 ### Instagram Reels
 
@@ -56,6 +80,8 @@ python3 content/autopost/build_queue.py              # добавить новы
 3. Переменные: `IG_ACCESS_TOKEN`, `IG_USER_ID` (id Instagram-аккаунта).
 4. Домены: `graph.facebook.com`, `rupload.facebook.com`.
 5. Лимит API - 50 публикаций в сутки. Токен нужно продлевать раз в 60 дней.
+6. Для картинок и каруселей нужен ещё `PUBLIC_MEDIA_BASE_URL`: Instagram берёт
+   фото только по публичной ссылке (ролики загружаются файлом).
 
 ### YouTube Shorts
 
@@ -89,10 +115,10 @@ python3 content/autopost/build_queue.py              # добавить новы
 
 1. В приложении Meta добавьте Threads API, права `threads_basic`,
    `threads_content_publish`, получите долгоживущий токен (60 дней).
-2. Переменные: `THREADS_ACCESS_TOKEN`, `THREADS_USER_ID`, `PUBLIC_VIDEO_BASE_URL`.
+2. Переменные: `THREADS_ACCESS_TOKEN`, `THREADS_USER_ID`, `PUBLIC_MEDIA_BASE_URL`.
 3. Домен: `graph.threads.net`.
-4. Threads не принимает файл, а скачивает ролик по ссылке. Поэтому ролики
-   должны лежать по публичному адресу: `PUBLIC_VIDEO_BASE_URL` - адрес папки
+4. Threads (и картинки Instagram) не принимают файл, а скачивают его по ссылке. Поэтому ролики
+   должны лежать по публичному адресу: `PUBLIC_MEDIA_BASE_URL` - адрес папки
    `content/`, например `https://raw.githubusercontent.com/<владелец>/<репо>/<ветка>/content`
    для публичного репозитория или свой хостинг.
 
@@ -117,7 +143,7 @@ python3 content/autopost/build_queue.py              # добавить новы
 ### Rutube
 
 1. Токен: studio.rutube.ru → профиль → API-токен (или запрос в поддержку Rutube).
-2. Переменные: `RUTUBE_TOKEN`, `PUBLIC_VIDEO_BASE_URL` (как у Threads),
+2. Переменные: `RUTUBE_TOKEN`, `PUBLIC_MEDIA_BASE_URL` (как у Threads),
    необязательно `RUTUBE_CATEGORY`.
 3. Домен: `studio.rutube.ru`.
 

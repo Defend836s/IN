@@ -2,7 +2,7 @@
 """Собирает queue.yaml из готовых роликов и их сценариев.
 
 Ролики берутся из серий в content/, подпись - из сценария rNN.txt с тем же
-номером. Серии чередуются: 1-й ролик каждой серии, потом 2-й и так далее.
+номером. Карусели и картинки-посты - из content/carousels/<слаг>/spec.yaml. Серии чередуются: 1-й ролик каждой серии, потом 2-й и так далее.
 Уже существующие записи (по id) не перезаписываются, чтобы ручные правки
 подписей сохранялись.
 
@@ -48,6 +48,24 @@ def _str_repr(dumper: yaml.SafeDumper, value: str) -> yaml.Node:
 yaml.SafeDumper.add_representer(str, _str_repr)
 
 
+def carousels() -> list[dict]:
+    """Карусели и картинки-посты из content/carousels/<слаг>/spec.yaml (render_carousel.py)."""
+    items = []
+    for spec_path in sorted((CONTENT / "carousels").glob("*/spec.yaml")):
+        spec = yaml.safe_load(spec_path.read_text(encoding="utf-8"))
+        images = sorted(spec_path.parent.glob("[0-9][0-9].png"))
+        if not images:
+            print(f"{spec_path.parent.name}: нет картинок, сначала render_carousel.py", file=sys.stderr)
+            continue
+        items.append({
+            "id": f"carousel-{spec_path.parent.name}",
+            "images": [str(p.relative_to(CONTENT)) for p in images],
+            "title": spec.get("title", spec_path.parent.name),
+            "caption": spec.get("caption", ""),
+        })
+    return items
+
+
 def main() -> int:
     existing = []
     if QUEUE.exists():
@@ -71,6 +89,8 @@ def main() -> int:
                 "caption": caption,
             })
         per_series.append(items)
+
+    per_series.append(carousels())
 
     added = 0
     for i in range(max(len(s) for s in per_series)):
