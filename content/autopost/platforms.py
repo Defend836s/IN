@@ -391,7 +391,8 @@ def publish_pinterest(item: Item, cfg: dict[str, str]) -> str:
 def publish_rutube(item: Item, cfg: dict[str, str]) -> str:
     resp = requests.post(
         "https://studio.rutube.ru/api/video/",
-        headers={"Authorization": f"Token {cfg['RUTUBE_TOKEN']}"},
+        # сервер отвечает WWW-Authenticate: Bearer (проверено 10.11.2026); схему можно сменить RUTUBE_AUTH_SCHEME
+        headers={"Authorization": f"{os.environ.get('RUTUBE_AUTH_SCHEME', 'Bearer')} {cfg['RUTUBE_TOKEN']}"},
         json={
             "url": public_url(item.rels[0], cfg),
             "title": item.title[:100],
