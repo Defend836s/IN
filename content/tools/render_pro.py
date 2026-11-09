@@ -16,7 +16,9 @@
 - камера: наезд на хуке, рывок на каждой фразе, тряска на акцентах; петля в конце;
 - Сёма на пол-экрана, эмоция по фразе, рот по громкости, моргание, покачивание;
 - стикеры с суммами и числами (перечёркиваются, если перед ними «не»);
-- музыка с приглушением под голос, «вжух» на переходах, щелчки и «дзынь».
+- музыка с приглушением под голос, «вжух» на переходах, щелчки и «дзынь»;
+- плашка временной акции закрытого канала (после хука): PROMO_PRICE, PROMO_OLD,
+  PROMO_UNTIL («до 30 ноября»), PROMO_TITLE; PROMO=0 - без плашки.
 """
 from __future__ import annotations
 
@@ -49,6 +51,13 @@ CHAR_X, CHAR_Y = (W - CHAR_SIZE) // 2, H - CHAR_SIZE + 150   # низ худи �
 EMPH_WORDS = {"бесплатно", "бесплатное", "бесплатный", "даром", "серьёзно", "никогда", "всегда", "ноль"}
 EMOTIONS = {"удивлён": ("open", "up"), "хитрит": ("sly", "frown"), "радуется": ("happy", "normal"),
             "объясняет": ("open", "normal"), "спокоен": ("open", "normal")}
+# Плашка акции закрытого канала. PROMO=0 - без плашки. Цены и срок - переменными окружения.
+PROMO = os.environ.get("PROMO", "1") != "0"
+PROMO_TITLE = os.environ.get("PROMO_TITLE", "Закрытый канал")
+PROMO_PRICE = os.environ.get("PROMO_PRICE", "1 511 ₽")
+PROMO_OLD = os.environ.get("PROMO_OLD", "3 975 ₽")
+PROMO_UNTIL = os.environ.get("PROMO_UNTIL", "")          # например «до 30 ноября»; пусто - «временно»
+PROMO_FROM = 2.0                                          # появляется после хука, секунд
 TRICK = re.compile(r"\b(смотри|секрет|лайфхак|бери|хитрость|вот как|программ)", re.I)
 
 
@@ -272,6 +281,41 @@ def caption(chunk: list[dict], t: float) -> Image.Image:
     return layer
 
 
+def promo_banner() -> Image.Image:
+    """Компактная плашка: [часы АКЦИЯ] Закрытый канал / 3 975 ₽ (зачёркнуто) 1 511 ₽ / до ..."""
+    tag_f, small, old_f, new_f = font(30), font(28, "SemiBold"), font(34, "Bold"), font(50)
+    meas = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+    until = PROMO_UNTIL or "временно"
+    tag_w = 64 + meas.textlength("АКЦИЯ", font=tag_f) + 26
+    old_w = meas.textlength(PROMO_OLD, font=old_f)
+    new_w = meas.textlength(PROMO_PRICE, font=new_f)
+    body_w = max(meas.textlength(PROMO_TITLE, font=small), old_w + 18 + new_w)
+    until_w = meas.textlength(until, font=small)
+    w, h = int(16 + tag_w + 24 + body_w + 28 + until_w + 26), 112
+    im = Image.new("RGBA", (w + 12, h + 14), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle([6, 10, w + 6, h + 10], radius=30, fill=(0, 0, 0, 70))
+    d.rounded_rectangle([0, 0, w, h], radius=30, fill=(10, 22, 70, 225), outline=(255, 205, 60, 150), width=3)
+    # метка АКЦИЯ с часами
+    x0, y0 = 14, 18
+    d.rounded_rectangle([x0, y0, x0 + tag_w, h - 18], radius=22, fill=RED + (255,))
+    cx, cy, r = x0 + 34, h / 2, 15
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], outline=WHITE, width=4)
+    d.line([(cx, cy), (cx, cy - 9)], fill=WHITE, width=4)
+    d.line([(cx, cy), (cx + 7, cy + 3)], fill=WHITE, width=4)
+    d.text((x0 + 60, cy - 18), "АКЦИЯ", font=tag_f, fill=WHITE)
+    # название и цены
+    bx = x0 + tag_w + 24
+    d.text((bx, 12), PROMO_TITLE, font=small, fill=(178, 192, 230))
+    oy = 50
+    d.text((bx, oy + 10), PROMO_OLD, font=old_f, fill=(150, 160, 200))
+    d.line([(bx - 2, oy + 32), (bx + old_w + 2, oy + 26)], fill=RED, width=4)
+    d.text((bx + old_w + 18, oy - 2), PROMO_PRICE, font=new_f, fill=GOLD)
+    # срок
+    d.text((w - 26 - until_w, h / 2 - 16), until, font=small, fill=WHITE)
+    return im
+
+
 # ------------------------------------------------------------------ звук
 
 def sfx_whoosh(sr: int = SR) -> np.ndarray:
@@ -400,6 +444,7 @@ def render(script: str, out: str) -> None:
     chunks.append(cur)
 
     base, blobs = make_background()
+    banner = promo_banner() if PROMO else None
     get = poses()
     blink_frames = {f + d for f in range(int(1.8 * FPS), n_frames, int(3.1 * FPS)) for d in range(3)}
     rng = np.random.default_rng(7)
@@ -447,6 +492,18 @@ def render(script: str, out: str) -> None:
         d = ImageDraw.Draw(world)
         d.rounded_rectangle([60, 70, W - 60, 82], radius=6, fill=(255, 255, 255, 60))
         d.rounded_rectangle([60, 70, 60 + int((W - 120) * t / total), 82], radius=6, fill=GOLD)
+        if banner is not None and t >= PROMO_FROM:
+            a = ease_out((t - PROMO_FROM) / 0.4)
+            pulse = 0.5 + 0.5 * math.sin(t * 2 * math.pi / 1.6)   # метка «АКЦИЯ» мягко пульсирует
+            b = banner.copy()
+            if a < 1:
+                b.putalpha(b.getchannel("A").point(lambda v: int(v * a)))
+            world.alpha_composite(b, ((W - b.width) // 2, int(108 - (1 - a) * 20)))
+            glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+            gx = (W - b.width) // 2 + 14
+            ImageDraw.Draw(glow).rounded_rectangle([gx - 4, 108 + 14, gx + 150, 108 + 98], radius=26,
+                                                   outline=RED + (int(110 * pulse * a),), width=4)
+            world.alpha_composite(glow)
         proc.stdin.write(world.convert("RGB").tobytes())
     proc.stdin.close()
     proc.wait()
