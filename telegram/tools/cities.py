@@ -79,6 +79,10 @@ PERSON_NAMES = {"Владимир", "Королев", "Пушкин", "Пушк�
                 "Электросталь", "Киселевск", "Чапаевск", "Мичуринск", "Дзержинск", "Дзержинский", "Свердловский"}
 
 
+# Тёзки известных мест вне справочника (Донецк Ростовской обл. и Донецк ДНР): всегда нужен регион.
+OUTSIDE_NAMESAKES = {"Донецк", "Кировск", "Красный Луч", "Первомайск", "Северодонецк"}
+
+
 def region_pattern(region: str, rtype: str) -> str:
     alias = next((v for k, v in ALIASES.items() if region.startswith(k)), None)
     if alias and rtype == "Респ":          # у республик с короткими/общими словами в названии - только точные формы
@@ -124,7 +128,8 @@ def build(csv_path: str) -> list[dict]:
         entry = {"id": cid, "type": "news", "title": f"{name}: новости", "city": name, "region": region,
                  "district": r["federal_district"], "population": pop, "tz": r["timezone"],
                  "chat": old.get(cid, {}).get("chat", ""), "include": include}
-        if rtype != "г" and ((names[name] > 1 and pop < biggest[name]) or pop < REGION_FROM):
+        if rtype != "г" and ((names[name] > 1 and pop < biggest[name]) or pop < REGION_FROM
+                             or name in OUTSIDE_NAMESAKES):
             entry["require"] = [region_pattern(r["region"], rtype)]     # маленький город или тёзка: нужен и регион
         entry["posts_per_run"] = 3 if pop >= 500_000 else 2 if pop >= 100_000 else 1
         out.append(entry)
@@ -151,7 +156,7 @@ def main() -> int:
     import argparse
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("csv", help="city.csv из github.com/hflabs/city")
-    p.add_argument("--min-pop", type=int, default=100_000, help="минимум жителей (по умолчанию 100 000)")
+    p.add_argument("--min-pop", type=int, default=50_000, help="минимум жителей (по умолчанию 50 000)")
     a = p.parse_args()
     cities = [c for c in build(a.csv) if c["population"] >= a.min_pop]
     header = ("# Новостные каналы городов России - сгенерировано telegram/tools/cities.py\n"
