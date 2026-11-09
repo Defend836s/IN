@@ -1,7 +1,8 @@
 # Автопубликация роликов
 
-Публикует готовые ролики из `queue.yaml` в Telegram-канал, VK, Instagram
-Reels и YouTube Shorts. За один запуск на каждую подключённую площадку уходит
+Публикует готовые ролики из `queue.yaml` в Telegram, VK, Одноклассники,
+Instagram Reels, Facebook Reels, Threads, YouTube Shorts, TikTok, Pinterest и
+Rutube. За один запуск на каждую подключённую площадку уходит
 следующий ролик, который туда ещё не публиковался. Что и куда ушло, пишется в
 `state.json`, поэтому повторный запуск не дублирует посты.
 
@@ -66,6 +67,68 @@ python3 content/autopost/build_queue.py              # добавить новы
 4. Важно: пока проект Google не прошёл аудит API, YouTube делает все
    загруженные через API ролики приватными. Аудит запрашивается в консоли
    Google Cloud.
+
+### Одноклассники
+
+1. На ok.ru/devaccess получите права разработчика, создайте приложение,
+   запросите у поддержки ОК права `VIDEO_CONTENT`, `GROUP_CONTENT`, `LONG_ACCESS_TOKEN`.
+2. Получите вечный токен администратора группы.
+3. Переменные: `OK_ACCESS_TOKEN`, `OK_APP_KEY` (публичный ключ приложения),
+   `OK_APP_SECRET` (секретный ключ), `OK_GROUP_ID`.
+4. Домены: `api.ok.ru` и домен загрузки из ответа `video.getUploadUrl`
+   (меняется, при блокировке скрипт напишет его в ошибке).
+
+### Facebook Reels (страница)
+
+1. То же приложение Meta, что для Instagram, права `pages_manage_posts`,
+   `pages_read_engagement`, `pages_show_list`.
+2. Переменные: `FB_PAGE_TOKEN` (токен страницы), `FB_PAGE_ID`.
+3. Домены: `graph.facebook.com`, `rupload.facebook.com`.
+
+### Threads
+
+1. В приложении Meta добавьте Threads API, права `threads_basic`,
+   `threads_content_publish`, получите долгоживущий токен (60 дней).
+2. Переменные: `THREADS_ACCESS_TOKEN`, `THREADS_USER_ID`, `PUBLIC_VIDEO_BASE_URL`.
+3. Домен: `graph.threads.net`.
+4. Threads не принимает файл, а скачивает ролик по ссылке. Поэтому ролики
+   должны лежать по публичному адресу: `PUBLIC_VIDEO_BASE_URL` - адрес папки
+   `content/`, например `https://raw.githubusercontent.com/<владелец>/<репо>/<ветка>/content`
+   для публичного репозитория или свой хостинг.
+
+### TikTok
+
+1. На developers.tiktok.com создайте приложение, подключите Content Posting API
+   с Direct Post, scope `video.publish`, получите refresh token (действует год).
+2. Переменные: `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET`, `TIKTOK_REFRESH_TOKEN`,
+   `TIKTOK_PRIVACY` (по умолчанию `SELF_ONLY`).
+3. Домены: `open.tiktokapis.com`, `open-upload.tiktokapis.com`.
+4. Важно: пока приложение не прошло аудит TikTok, публиковать можно только
+   с `SELF_ONLY` (видно только вам). После аудита: `PUBLIC_TO_EVERYONE`.
+
+### Pinterest
+
+1. На developers.pinterest.com создайте приложение, scope `pins:write`,
+   `boards:read`, получите токен.
+2. Переменные: `PINTEREST_TOKEN`, `PINTEREST_BOARD_ID`, необязательно
+   `PINTEREST_LINK` (куда ведёт пин, например ваш Telegram-канал).
+3. Домены: `api.pinterest.com`, `pinterest-media-upload.s3-accelerate.amazonaws.com`.
+
+### Rutube
+
+1. Токен: studio.rutube.ru → профиль → API-токен (или запрос в поддержку Rutube).
+2. Переменные: `RUTUBE_TOKEN`, `PUBLIC_VIDEO_BASE_URL` (как у Threads),
+   необязательно `RUTUBE_CATEGORY`.
+3. Домен: `studio.rutube.ru`.
+
+### Чего нет и почему
+
+- **Дзен** - нет открытого API для публикации.
+- **X (Twitter)** - загрузка видео через API платная.
+- **Likee, Yappy, «Нельзяграм»-клоны** - нет публичного API.
+
+Для них остаётся ручная публикация или браузерная автоматизация, которая
+нарушает правила этих площадок и ведёт к блокировке аккаунта.
 
 ## По расписанию
 
