@@ -21,7 +21,7 @@ effort: high
 
 ## Новостной цикл (каналы type: news)
 
-Города: **все 1117 городов России** в `telegram/cities.yaml` (id - латиницей: kazan,
+Города: **167 городов России от 100 тыс. жителей** в `telegram/cities.yaml` (список - `telegram/ГОРОДА.md`; порог меняется `tools/cities.py --min-pop`) (id - латиницей: kazan,
 nizhniy-novgorod, kirov-kaluzhskaya для тёзок). Источники - **только российские
 издания**: Регнум, ТАСС, РИА, Интерфакс, РБК, Лента, РГ, Коммерсантъ, АиФ, МК, КП.
 Сначала `feeds.py --cities` (можно `--min-pop 100000`, `--district Приволжский`) -

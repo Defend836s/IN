@@ -51,7 +51,7 @@ channels:
     feeds: [tass, ria, interfax, rbc, regnum, lenta, rg, kommersant]
     include: [Росси, '\bРФ\b', губернатор, регион, Госдум, Правительств, Минздрав, Минпросвещ, Росстат]
 
-  # ---------------- города: все 1117 городов России - в telegram/cities.yaml (генератор tools/cities.py)
+  # ---------------- города: 167 городов от 100 тыс. жителей - telegram/cities.yaml, список - telegram/ГОРОДА.md
 
   # ---------------- инвестиции
   - id: invest

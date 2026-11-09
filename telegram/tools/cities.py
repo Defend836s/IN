@@ -2,9 +2,9 @@
 """Собирает telegram/cities.yaml - новостной канал на каждый город России.
 
     git clone --depth 1 https://github.com/hflabs/city /tmp/city
-    python3 -I telegram/tools/cities.py /tmp/city/city.csv
+    python3 -I telegram/tools/cities.py /tmp/city/city.csv [--min-pop 100000]
 
-Источник списка: справочник городов России HFLabs (github.com/hflabs/city, CC BY 4.0):
+Источник списка: справочник городов России HFLabs (github.com/hflabs/city, CC BY-SA 4.0):
 1117 городов с населением, регионом, федеральным округом и часовым поясом.
 
 Для каждого города строится шаблон названия с учётом падежей («Казань» -> «Казани»,
@@ -131,17 +131,37 @@ def build(csv_path: str) -> list[dict]:
     return out
 
 
+LIST = ROOT / "ГОРОДА.md"
+SOURCE = ("справочник городов России HFLabs (github.com/hflabs/city, лицензия CC BY-SA 4.0); "
+          "население - как в Википедии на момент выгрузки справочника, у части городов устарело")
+
+
+def write_list(cities: list[dict], min_pop: int) -> None:
+    lines = [f"# Города России от {min_pop:,} жителей - {len(cities)} новостных каналов".replace(",", " "), "",
+             f"Источник: {SOURCE}. Порядок - по населению. id - имя канала в `cities.yaml`;",
+             "chat - подключённый Telegram-канал (пусто - пока черновики).", "",
+             "| # | Город | Регион | Округ | Население | id | chat |", "|---|---|---|---|---|---|---|"]
+    for i, c in enumerate(cities, 1):
+        lines.append(f"| {i} | {c['city']} | {c['region']} | {c['district']} | "
+                     f"{c['population']:,} | `{c['id']}` | {c['chat'] or ''} |".replace(",", " "))
+    LIST.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def main() -> int:
-    if len(sys.argv) != 2:
-        print(__doc__)
-        return 2
-    cities = build(sys.argv[1])
-    header = ("# Новостной канал на каждый город России - сгенерировано telegram/tools/cities.py\n"
-              "# из справочника HFLabs (github.com/hflabs/city, CC BY 4.0). Меняйте только chat\n"
-              "# (@канал или -100...) - остальное пересоздаётся генератором; chat сохраняется.\n")
+    import argparse
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument("csv", help="city.csv из github.com/hflabs/city")
+    p.add_argument("--min-pop", type=int, default=100_000, help="минимум жителей (по умолчанию 100 000)")
+    a = p.parse_args()
+    cities = [c for c in build(a.csv) if c["population"] >= a.min_pop]
+    header = ("# Новостные каналы городов России - сгенерировано telegram/tools/cities.py\n"
+              f"# Источник: {SOURCE}.\n"
+              f"# Города от {a.min_pop} жителей. Меняйте только chat (@канал или -100...) -\n"
+              "# остальное пересоздаётся генератором; chat сохраняется. Список: telegram/ГОРОДА.md\n")
     OUT.write_text(header + yaml.safe_dump({"cities": cities}, allow_unicode=True, sort_keys=False, width=200),
                    encoding="utf-8")
-    print(f"{OUT}: {len(cities)} городов, тёзок с проверкой региона: {sum('require' in c for c in cities)}")
+    write_list(cities, a.min_pop)
+    print(f"{OUT}: {len(cities)} городов от {a.min_pop} жителей; список - {LIST}")
     return 0
 
 
