@@ -26,12 +26,27 @@ import yaml
 
 from platforms import PLATFORMS, Item, PublishError, env
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
+import compliance_check  # noqa: E402
+
 HERE = Path(__file__).resolve().parent
 CONTENT = HERE.parent
 QUEUE = HERE / "queue.yaml"
 STATE = HERE / "state.json"
 
 log = logging.getLogger("autopost")
+
+
+META = ("instagram", "facebook", "threads")
+CLEAN: dict[str, str] = {}   # id -> версия ролика без цены/акции для площадок Meta
+
+
+def for_platform(item: Item, name: str) -> Item:
+    """Площадкам Meta - чистая версия ролика (без плашки с ценой), если она есть."""
+    clean = CLEAN.get(item.id)
+    if name in META and clean and item.kind == "video":
+        return Item(item.id, item.kind, (CONTENT / clean,), (clean,), item.title, item.caption)
+    return item
 
 
 def load_queue() -> list[Item]:
@@ -49,6 +64,8 @@ def load_queue() -> list[Item]:
             kind = "image" if len(rels) == 1 else "carousel"
         items.append(Item(r["id"], kind, tuple(CONTENT / x for x in rels), rels,
                           r.get("title", r["id"]), r.get("caption", "")))
+        if r.get("video_clean"):
+            CLEAN[r["id"]] = r["video_clean"]
     return items
 
 
@@ -84,7 +101,7 @@ def cmd_status(_: argparse.Namespace) -> int:
     return 0
 
 
-def pick(queue: list[Item], done: dict, platform, kinds, count: int, dry_run: bool) -> list[Item]:
+def pick(queue: list[Item], done: dict, platform, kinds, count: int, dry_run: bool, name: str = "") -> list[Item]:
     """Следующие неопубликованные элементы, которые площадка умеет и для которых есть ключи."""
     out = []
     for item in queue:
@@ -94,6 +111,14 @@ def pick(queue: list[Item], done: dict, platform, kinds, count: int, dry_run: bo
             continue
         publish, keys = platform.handler(item.kind)
         if publish is None or (missing(keys) and not dry_run):
+            continue
+        raw = {"id": item.id, "title": item.title, "caption": item.caption,
+               ("video" if item.kind == "video" else "images"): item.rels[0] if item.kind == "video" else list(item.rels)}
+        if item.id in CLEAN:
+            raw["video_clean"] = CLEAN[item.id]
+        blocked = compliance_check.errors(raw, name)
+        if blocked:
+            log.warning("%s: %s не прошёл правила площадки: %s", name, item.id, "; ".join(i.message for i in blocked))
             continue
         out.append(item)
     return out
@@ -106,10 +131,11 @@ def cmd_run(args: argparse.Namespace) -> int:
         if args.platform and name not in args.platform:
             continue
         done = state.setdefault(name, {})
-        todo = pick(queue, done, platform, args.kind, args.count, args.dry_run)
+        todo = pick(queue, done, platform, args.kind, args.count, args.dry_run, name)
         if not todo:
             log.info("%s: нечего публиковать (очередь пуста, формат не поддерживается или нет ключей)", name)
         for item in todo:
+            item = for_platform(item, name)
             publish, keys = platform.handler(item.kind)
             lost = [f for f in item.files if not f.exists()]
             if lost:

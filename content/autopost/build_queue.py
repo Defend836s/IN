@@ -29,7 +29,10 @@ SERIES = {
     "citaty": ("citaty/с-баннером", "citaty/scripts", "#цитаты #классика #литература"),
 }
 
-CTA = "Все курсы мира - ссылка в профиле."
+BRAND = yaml.safe_load((CONTENT / "brand.yaml").read_text(encoding="utf-8"))
+OLD_CTA = "Все курсы мира - ссылка в профиле."
+CTA = (f"{BRAND['updates']}. {BRAND['free_channel']['pitch']}. "
+       f"{BRAND['link_hint']}.")
 PREFIX = re.compile(r"^[A-ZА-ЯЁ]+:\s*")
 
 
@@ -72,20 +75,28 @@ def main() -> int:
     if QUEUE.exists():
         existing = yaml.safe_load(QUEUE.read_text(encoding="utf-8")) or []
     known = {item["id"] for item in existing}
+    for item in existing:   # старый призыв -> актуальный из brand.yaml (опубликованное это не меняет)
+        item["caption"] = item.get("caption", "").replace(OLD_CTA, CTA)
+        if item.get("video"):   # чистая версия для площадок Meta, если появилась
+            clean = (CONTENT / item["video"]).with_name(Path(item["video"]).stem + "-clean.mp4")
+            if clean.exists():
+                item["video_clean"] = str(clean.relative_to(CONTENT))
 
     per_series: list[list[dict]] = []
     for name, (vdir, sdir, tags) in SERIES.items():
         items = []
-        for video in sorted((CONTENT / vdir).glob("*.mp4")):
+        for video in sorted(v for v in (CONTENT / vdir).glob("*.mp4") if not v.stem.endswith("-clean")):
             num = video.name.split("-", 1)[0]
             script = CONTENT / sdir / f"r{num}.txt"
             if not script.exists():
                 print(f"нет сценария для {video}, пропускаю", file=sys.stderr)
                 continue
             title, caption = caption_from_script(script, tags)
+            clean = video.with_name(video.stem + "-clean.mp4")
             items.append({
                 "id": f"{name}-{num}",
                 "video": str(video.relative_to(CONTENT)),
+                **({"video_clean": str(clean.relative_to(CONTENT))} if clean.exists() else {}),
                 "title": title,
                 "caption": caption,
             })

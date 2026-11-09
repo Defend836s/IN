@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -216,6 +217,13 @@ def wait_status(url: str, params: dict, headers: dict, field: str, ok: str, bad:
 
 # ---------------------------------------------------------------- Threads
 
+def threads_text(caption: str) -> str:
+    """Threads принимает одну тему (хэштег) на пост: оставляем первую, остальные убираем."""
+    tags = re.findall(r"(?<!\w)#[\wё]+", caption, flags=re.I)
+    for extra in tags[1:]:
+        caption = re.sub(r"\s*" + re.escape(extra) + r"(?!\w)", "", caption)
+    return caption.strip()
+
 THREADS = "https://graph.threads.net/v1.0"
 
 
@@ -226,7 +234,7 @@ def publish_threads(item: Item, cfg: dict[str, str]) -> str:
         requests.post(
             f"{THREADS}/{user}/threads",
             headers=auth,
-            data={"media_type": "VIDEO", "video_url": public_url(item.rels[0], cfg), "text": item.caption[:500]},
+            data={"media_type": "VIDEO", "video_url": public_url(item.rels[0], cfg), "text": threads_text(item.caption)[:500]},
             timeout=TIMEOUT,
         ),
         "Threads create",
@@ -466,6 +474,7 @@ def publish_instagram_images(item: Item, cfg: dict[str, str]) -> str:
 
 def publish_threads_images(item: Item, cfg: dict[str, str]) -> str:
     auth = {"Authorization": f"Bearer {cfg['THREADS_ACCESS_TOKEN']}"}
+    item = Item(item.id, item.kind, item.files, item.rels, item.title, threads_text(item.caption))
     return _meta_carousel(THREADS, cfg["THREADS_USER_ID"], auth, item, cfg, "text", 500, "threads_publish", "Threads")
 
 

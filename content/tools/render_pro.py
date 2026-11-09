@@ -17,8 +17,9 @@
 - Сёма на пол-экрана, эмоция по фразе, рот по громкости, моргание, покачивание;
 - стикеры с суммами и числами (перечёркиваются, если перед ними «не»);
 - музыка с приглушением под голос, «вжух» на переходах, щелчки и «дзынь»;
-- плашка временной акции закрытого канала (после хука): PROMO_PRICE, PROMO_OLD,
-  PROMO_UNTIL («до 30 ноября»), PROMO_TITLE; PROMO=0 - без плашки.
+- плашка временной акции закрытого канала (после хука) и карточка на последней фразе
+  («Новые курсы каждую неделю» + бесплатный канал с опросами) - тексты и цены из
+  content/brand.yaml; PROMO=0 / ENDCARD=0 - выключить, PROMO_* - переопределить.
 """
 from __future__ import annotations
 
@@ -51,12 +52,17 @@ CHAR_X, CHAR_Y = (W - CHAR_SIZE) // 2, H - CHAR_SIZE + 150   # низ худи �
 EMPH_WORDS = {"бесплатно", "бесплатное", "бесплатный", "даром", "серьёзно", "никогда", "всегда", "ноль"}
 EMOTIONS = {"удивлён": ("open", "up"), "хитрит": ("sly", "frown"), "радуется": ("happy", "normal"),
             "объясняет": ("open", "normal"), "спокоен": ("open", "normal")}
-# Плашка акции закрытого канала. PROMO=0 - без плашки. Цены и срок - переменными окружения.
-PROMO = os.environ.get("PROMO", "1") != "0"
-PROMO_TITLE = os.environ.get("PROMO_TITLE", "Закрытый канал")
-PROMO_PRICE = os.environ.get("PROMO_PRICE", "1 511 ₽")
-PROMO_OLD = os.environ.get("PROMO_OLD", "3 975 ₽")
-PROMO_UNTIL = os.environ.get("PROMO_UNTIL", "")          # например «до 30 ноября»; пусто - «временно»
+# Факты о бренде - из content/brand.yaml; переменные окружения переопределяют.
+import yaml  # noqa: E402
+BRAND = yaml.safe_load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "brand.yaml"),
+                            encoding="utf-8"))
+_P = BRAND.get("promo", {})
+PROMO = os.environ.get("PROMO", "1" if _P.get("enabled") else "0") != "0"
+PROMO_TITLE = os.environ.get("PROMO_TITLE", BRAND["closed_channel"]["name"].capitalize())
+PROMO_PRICE = os.environ.get("PROMO_PRICE", _P.get("price", ""))
+PROMO_OLD = os.environ.get("PROMO_OLD", _P.get("old_price", ""))
+PROMO_UNTIL = os.environ.get("PROMO_UNTIL", _P.get("until", ""))   # «до 30 ноября»; пусто - «временно»
+ENDCARD = os.environ.get("ENDCARD", "1") != "0"                     # карточка на последней фразе
 PROMO_FROM = 2.0                                          # появляется после хука, секунд
 TRICK = re.compile(r"\b(смотри|секрет|лайфхак|бери|хитрость|вот как|программ)", re.I)
 
@@ -316,6 +322,42 @@ def promo_banner() -> Image.Image:
     return im
 
 
+def end_card() -> Image.Image:
+    """Карточка на последней фразе: обновления каждую неделю + бесплатный канал с опросами."""
+    l1, l2 = BRAND["updates"], BRAND["free_channel"]["short"]
+    f1, f2 = font(46, "ExtraBold"), font(38, "Bold")
+    meas = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+    lines2, cur = [], ""
+    l2 = re.sub(r"(?<![\w-])(\w{1,2}) ", "\\1\u00a0", l2)   # предлоги не висят в конце строки
+    for word in l2.split(" "):
+        trial = f"{cur} {word}".strip()
+        if cur and meas.textlength(trial, font=f2) > 720:
+            lines2.append(cur); cur = word
+        else:
+            cur = trial
+    lines2.append(cur)
+    w = int(max(meas.textlength(l1, font=f1), *(meas.textlength(x, font=f2) for x in lines2))) + 150
+    h = 40 + 56 + 18 + 48 * len(lines2) + 34
+    im = Image.new("RGBA", (w + 14, h + 16), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle([7, 12, w + 7, h + 12], radius=34, fill=(0, 0, 0, 80))
+    d.rounded_rectangle([0, 0, w, h], radius=34, fill=(10, 22, 70, 235), outline=GOLD + (220,), width=4)
+    # календарь
+    x, y = 40, 46
+    d.rounded_rectangle([x, y, x + 50, y + 46], radius=8, outline=WHITE, width=4)
+    d.line([(x, y + 14), (x + 50, y + 14)], fill=WHITE, width=4)
+    for i in range(3):
+        d.ellipse([x + 9 + i * 13, y + 25, x + 16 + i * 13, y + 32], fill=GOLD)
+    d.text((110, 40), l1, font=f1, fill=WHITE)
+    # опрос: три полоски
+    y2 = 40 + 56 + 18
+    for i, bw in enumerate((44, 30, 20)):
+        d.rounded_rectangle([x, y2 + 6 + i * 14, x + bw, y2 + 14 + i * 14], radius=4, fill=GOLD if i == 0 else WHITE)
+    for i, line in enumerate(lines2):
+        d.text((110, y2 + i * 48), line, font=f2, fill=GOLD)
+    return im
+
+
 # ------------------------------------------------------------------ звук
 
 def sfx_whoosh(sr: int = SR) -> np.ndarray:
@@ -404,6 +446,7 @@ def char_pose(emotion: str, level: int, speaking: bool, blink: bool) -> tuple[in
 
 
 def render(script: str, out: str) -> None:
+    out = os.path.abspath(out)          # ffmpeg concat читает пути относительно списка - нужны абсолютные
     lines = parse(script)
     work = out + ".work"
     os.makedirs(work, exist_ok=True)
@@ -445,6 +488,7 @@ def render(script: str, out: str) -> None:
 
     base, blobs = make_background()
     banner = promo_banner() if PROMO else None
+    outro = end_card() if ENDCARD else None
     get = poses()
     blink_frames = {f + d for f in range(int(1.8 * FPS), n_frames, int(3.1 * FPS)) for d in range(3)}
     rng = np.random.default_rng(7)
@@ -485,6 +529,10 @@ def render(script: str, out: str) -> None:
             big = world.resize((zw, zh), Image.BILINEAR)
             left, top = (zw - W) // 2 + sx, int((zh - H) * 0.42) + sy
             world = big.crop((left, top, left + W, top + H))
+        if outro is not None and k == len(lines) - 1:
+            p = back_out(since_line / 0.35)
+            oc = outro.resize((max(1, int(outro.width * p)), max(1, int(outro.height * p))), Image.BICUBIC)
+            world.alpha_composite(oc, ((W - oc.width) // 2, int(930 - oc.height / 2)))
         chunk = next((c for c in reversed(chunks) if c[0]["start"] - 0.06 <= t), chunks[0])
         cap = caption(chunk, t)
         appear = ease_out((t - chunk[0]["start"] + 0.06) / 0.12)
