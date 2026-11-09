@@ -8,11 +8,20 @@
 # type: news (новости города/страны/мира) | invest (инвестиции, финансы, крипта) |
 #       predictions (спортивная аналитика с честной статистикой)
 
-feeds:   # общие ленты (RSS), из них отбираются новости по ключевым словам канала
+feeds:   # только российские издания (RSS); из них отбираются новости по названию города/региона
   tass: https://tass.ru/rss/v2.xml
   ria: https://ria.ru/export/rss2/archive/index.xml
   interfax: https://www.interfax.ru/rss.asp
   rbc: https://rssexport.rbc.ru/rbcnews/news/30/full.rss
+  regnum: https://regnum.ru/rss                      # больше всех пишет о регионах
+  lenta: https://lenta.ru/rss/news/russia
+  rg: https://rg.ru/xml/index.xml
+  kommersant: https://www.kommersant.ru/RSS/news.xml
+  aif: https://aif.ru/rss/all.php
+  mk: https://www.mk.ru/rss/index.xml
+  kp: https://www.kp.ru/rss/allsections.xml
+
+city_feeds: [regnum, tass, ria, interfax, rbc, lenta, rg, kommersant, aif, mk, kp]   # ленты для городских каналов
 
 defaults:
   news:
@@ -34,44 +43,26 @@ channels:
     chat: ""
     feeds: [tass, ria, interfax, rbc]
     include: []                 # пусто - все новости лент
-    google_news: "мир новости"
 
   - id: russia
     type: news
     title: Новости России
     chat: ""
-    feeds: [tass, ria, interfax, rbc]
-    include: [Росси, РФ, Москв, губернатор, регион]
+    feeds: [tass, ria, interfax, rbc, regnum, lenta, rg, kommersant]
+    include: [Росси, '\bРФ\b', губернатор, регион, Госдум, Правительств, Минздрав, Минпросвещ, Росстат]
 
-  # ---------------- города (добавляйте любые: id, title, include с основой названия, google_news)
-  - {id: msk, type: news, title: Новости Москвы, chat: "", feeds: [tass, ria, interfax, rbc], include: [Москв, Подмосков], google_news: Москва}
-  - {id: spb, type: news, title: Новости Петербурга, chat: "", feeds: [tass, ria, interfax, rbc], include: [Петербург, Ленинградск], google_news: Санкт-Петербург}
-  - {id: nsk, type: news, title: Новости Новосибирска, chat: "", feeds: [tass, ria, interfax], include: [Новосибирск], google_news: Новосибирск}
-  - {id: ekb, type: news, title: Новости Екатеринбурга, chat: "", feeds: [tass, ria, interfax], include: [Екатеринбург, Свердловск], google_news: Екатеринбург}
-  - {id: kzn, type: news, title: Новости Казани, chat: "", feeds: [tass, ria, interfax], include: [Казан, Татарстан], google_news: Казань}
-  - {id: nnov, type: news, title: Новости Нижнего Новгорода, chat: "", feeds: [tass, ria, interfax], include: ['Нижн\w* Новгород', Нижегородск], google_news: Нижний Новгород}
-  - {id: chel, type: news, title: Новости Челябинска, chat: "", feeds: [tass, ria, interfax], include: [Челябинск], google_news: Челябинск}
-  - {id: krsk, type: news, title: Новости Красноярска, chat: "", feeds: [tass, ria, interfax], include: [Красноярск], google_news: Красноярск}
-  - {id: samara, type: news, title: Новости Самары, chat: "", feeds: [tass, ria, interfax], include: [Самар], google_news: Самара}
-  - {id: ufa, type: news, title: Новости Уфы, chat: "", feeds: [tass, ria, interfax], include: ['Уф[аеы]\b', Башкир], google_news: Уфа}
-  - {id: rnd, type: news, title: Новости Ростова-на-Дону, chat: "", feeds: [tass, ria, interfax], include: [Ростов, Ростовск], google_news: Ростов-на-Дону}
-  - {id: krd, type: news, title: Новости Краснодара, chat: "", feeds: [tass, ria, interfax], include: [Краснодар, Кубан], google_news: Краснодар}
-  - {id: omsk, type: news, title: Новости Омска, chat: "", feeds: [tass, ria, interfax], include: [Омск], google_news: Омск}
-  - {id: vrn, type: news, title: Новости Воронежа, chat: "", feeds: [tass, ria, interfax], include: [Воронеж], google_news: Воронеж}
-  - {id: perm, type: news, title: Новости Перми, chat: "", feeds: [tass, ria, interfax], include: [Перм], google_news: Пермь}
-  - {id: vlg, type: news, title: Новости Волгограда, chat: "", feeds: [tass, ria, interfax], include: [Волгоград], google_news: Волгоград}
+  # ---------------- города: все 1117 городов России - в telegram/cities.yaml (генератор tools/cities.py)
 
   # ---------------- инвестиции
   - id: invest
     type: invest
     title: Инвестиции и финансы
     chat: ""
-    feeds: [rbc, interfax, tass]
+    feeds: [rbc, interfax, tass, kommersant, rg, ria]
     include: ['\bакци[ийяю]\w* (компани|эмитент|\w+банк|Сбер|Газпром|Яндекс)', облигаци, '\bбирж', 'курс[а-я]* (рубл|доллар|юан|евро)',
               'ключев\w+ ставк', Центробанк, 'Банк[а-я]* России', '\bЦБ\b', инфляци, 'нефт\w* (подорож|подешев|цен)', Brent,
               'цен\w* на золото', биткоин, криптовалют, Bitcoin, '\bBTC\b', '\bETF\b', дивиденд, '\bIPO\b', Мосбирж,
               'индекс\w* (Мосбирж|S&P|Nasdaq|IMOEX|РТС)', '\bВВП\b', 'ФРС', 'Минфин', 'рынок акций']
-    google_news: инвестиции биржа
 
   # ---------------- прогнозы
   - id: predictions
