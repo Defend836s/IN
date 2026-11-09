@@ -26,6 +26,13 @@ effort: high
    - `render_myth.py` - «Правда или миф» (строки ВОПРОС/ПАУЗА/ОТВЕТ), Сова;
    - `render_quotes.py` - цитаты классиков (только общественное достояние), Сова;
    - `bear3.py` / `bear_full.py` - Медведь-наставник;
+   - **Енот Сёма** (`semya.py`, главный маскот: находит бесплатное там, где другие
+     платят) - в любом говорящем формате через `CHARACTER=semya`
+     (`render_avatar.py`, `render_motiv.py`, `render_myth.py`). Эмоции:
+     `semya.pose(рот, глаза, брови)`: глаза open/blink/happy/side/sly, брови
+     normal/up/frown, рот 0-4 для речи и 5 - ухмылка. Подбирай эмоцию под фразу:
+     удивление (`open`+`up`) на хуке, хитрость (`sly`+`frown`+5) на лайфхаке, радость
+     (`happy`) на призыве. Лист персонажа: `content/characters/semya/model-sheet.png`.
    - озвучка: `vosk_voice.py` (вариант D) или Piper; числа пиши словами для
      синтезатора, ударения проверяй `stress_audit.py`.
    Сценарий кладёшь в `content/<серия>/scripts/rNN.txt`, ролик с баннером - в
@@ -50,8 +57,8 @@ effort: high
    docstring `content/tools/render_carousel.py`):
    - `format: carousel` для Instagram (2-10 слайдов) или `format: post` (1 слайд)
      для Threads;
-   - `character`: globus (мотивация, курсы), sova (цитаты, «Правда или миф»),
-     medved (наставления) или none;
+   - `character`: semya (по умолчанию, главный маскот), globus (мотивация),
+     sova (цитаты, «Правда или миф»), medved (наставления) или none;
    - `caption`: для Instagram - хук первой строкой, до 125 знаков до «ещё», призыв,
      3-5 хэштегов; для Threads - до 500 знаков, разговорно, вопрос в конце, без
      хэштегов-простыней (максимум 1 тема).

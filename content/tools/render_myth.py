@@ -18,9 +18,9 @@ rb.SAY[:0] = [(r"\b30\b", "тридцати"), (r"\b5 лет\b", "пяти ле�
 FPS, W, H, SR = 30, 1080, 1920, 44100
 TEXT_TOP, TEXT_BOT, BAR_Y = 735, 990, 712
 SMALL = 430
-import bear, bear2
+import bear, bear2, semya
 CHARACTER = os.environ.get("CHARACTER", "owl")
-CHAR = {"owl": owl, "bear": bear, "bear2": bear, "bearfull": bear, "bear3": bear}[CHARACTER]
+CHAR = {"owl": owl, "bear": bear, "bear2": bear, "bearfull": bear, "bear3": bear, "semya": semya}[CHARACTER]
 RIG = bear2.Rig() if CHARACTER == "bear2" else None
 FULL = None
 B3 = None

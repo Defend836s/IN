@@ -6,7 +6,10 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render_blue as rb
-from globus import sprites, SIZE
+if os.environ.get("CHARACTER") == "semya":   # Енот Сёма вместо Профессора Глобуса
+    from semya import sprites, SIZE
+else:
+    from globus import sprites, SIZE
 
 FPS, W, H = 30, 1080, 1920
 TAG = "ВСЕ КУРСЫ МИРА"

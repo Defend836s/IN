@@ -6,7 +6,7 @@
 Рядом со spec.yaml появляются 01.png, 02.png ... (1080x1350, 4:5). Формат spec:
 
     format: carousel          # carousel - листалка (2-10 слайдов), post - одна картинка
-    character: globus         # globus | sova | medved | none - персонаж на обложке и призыве
+    character: semya          # semya | globus | sova | medved | none - персонаж на обложке и призыве
     title: Короткое название  # для очереди публикации
     caption: |                # подпись к посту (Instagram до 2200, Threads до 500 знаков)
       ...
@@ -118,8 +118,11 @@ def character(name: str) -> Image.Image | None:
     elif name == "medved":
         import bear
         img = bear.sprite(0, False)
+    elif name == "semya":
+        import semya
+        img = semya.pose(0, "open", "normal")
     else:
-        raise SystemExit(f"неизвестный персонаж: {name} (globus | sova | medved | none)")
+        raise SystemExit(f"неизвестный персонаж: {name} (semya | globus | sova | medved | none)")
     return img.resize((CHAR_SIZE, CHAR_SIZE), Image.LANCZOS)
 
 
