@@ -127,7 +127,8 @@ def build(csv_path: str) -> list[dict]:
             include.append(region_pattern(r["region"], rtype))
         entry = {"id": cid, "type": "news", "title": f"{name}: новости", "city": name, "region": region,
                  "district": r["federal_district"], "population": pop, "tz": r["timezone"],
-                 "chat": old.get(cid, {}).get("chat", ""), "include": include}
+                 "chat": old.get(cid, {}).get("chat", ""), "max_chat": old.get(cid, {}).get("max_chat", ""),
+                 "include": include}
         if rtype != "г" and ((names[name] > 1 and pop < biggest[name]) or pop < REGION_FROM
                              or name in OUTSIDE_NAMESAKES):
             entry["require"] = [region_pattern(r["region"], rtype)]     # маленький город или тёзка: нужен и регион

@@ -51,15 +51,20 @@ def key(title: str) -> str:
     return hashlib.sha1(norm.encode()).hexdigest()[:16]
 
 
-def seen(cid: str) -> set[str]:
-    path = STATE / f"seen-{cid}.json"
+def _seen_path(cid: str, platform: str) -> Path:
+    # у каждой площадки свои отметки: пост в MAX не прячет новость от Telegram и наоборот
+    return STATE / (f"seen-{cid}.json" if platform == "telegram" else f"seen-{platform}-{cid}.json")
+
+
+def seen(cid: str, platform: str = "telegram") -> set[str]:
+    path = _seen_path(cid, platform)
     return set(json.loads(path.read_text())) if path.exists() else set()
 
 
-def mark_seen(cid: str, keys: list[str]) -> None:
+def mark_seen(cid: str, keys: list[str], platform: str = "telegram") -> None:
     STATE.mkdir(exist_ok=True)
-    path = STATE / f"seen-{cid}.json"
-    data = list(seen(cid) | set(keys))[-5000:]
+    path = _seen_path(cid, platform)
+    data = list(seen(cid, platform) | set(keys))[-5000:]
     path.write_text(json.dumps(data))
 
 
@@ -115,7 +120,7 @@ def fetch(url: str, source: str) -> list[dict]:
     return items
 
 
-def collect(cid: str) -> list[dict]:
+def collect(cid: str, platform: str = "telegram") -> list[dict]:
     ch = channel(cid)
     items = []
     for name in ch.get("feeds", []):
@@ -128,7 +133,7 @@ def collect(cid: str) -> list[dict]:
     include = [re.compile(p, flags) for p in ch.get("include", [])]
     require = [re.compile(p, flags) for p in ch.get("require", [])]
     cutoff = datetime.now(timezone.utc) - timedelta(hours=ch.get("max_age_hours", 6))
-    used, out, keys = seen(cid), [], set()
+    used, out, keys = seen(cid, platform), [], set()
     for it in items:
         k = key(it["title"])
         if k in used or k in keys or not it["title"]:
@@ -153,6 +158,8 @@ def main() -> int:
     p.add_argument("--md", action="store_true")
     p.add_argument("--limit", type=int, default=20)
     p.add_argument("--list", action="store_true")
+    p.add_argument("--platform", default="telegram", choices=["telegram", "max"],
+                   help="чьи отметки «уже опубликовано» учитывать (по умолчанию telegram)")
     p.add_argument("--cities", action="store_true", help="сводка: в каких городах сейчас есть свежие новости")
     p.add_argument("--min-pop", type=int, default=0, help="с --cities: только города от N жителей")
     p.add_argument("--district", help="с --cities: федеральный округ (Центральный, Приволжский...)")
@@ -162,7 +169,7 @@ def main() -> int:
         for ch in CITIES:
             if ch["population"] < a.min_pop or (a.district and ch["district"] != a.district):
                 continue
-            news = collect(ch["id"])
+            news = collect(ch["id"], a.platform)
             if news:
                 found += 1
                 print(f"{ch['id']:28} {ch['city']:22} {len(news):3}  {news[0]['source']}: {news[0]['title'][:70]}")
@@ -175,7 +182,7 @@ def main() -> int:
         print(f"+ городов: {len(CITIES)} в telegram/cities.yaml (с подключённым каналом: {with_chat}); "
               f"сводка - feeds.py --cities")
         return 0
-    news = collect(a.channel)[: a.limit]
+    news = collect(a.channel, a.platform)[: a.limit]
     if a.md:
         for n in news:
             print(f"- [{n['published'] or '?'}] {n['source']}: {n['title']}\n  {n['summary'][:200]}\n  {n['link']}")
