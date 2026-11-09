@@ -26,7 +26,7 @@ CONTENT = Path(__file__).resolve().parent.parent
 BRAND = yaml.safe_load((CONTENT / "brand.yaml").read_text(encoding="utf-8"))
 
 META = ("instagram", "facebook", "threads")
-ALL = ("telegram", "vk", "ok", "instagram", "facebook", "threads", "youtube", "tiktok", "pinterest", "rutube")
+ALL = ("telegram", "vk", "ok", "instagram", "facebook", "threads", "youtube", "tiktok", "pinterest", "rutube", "dzen")
 
 # Жёсткие лимиты подписи (знаков) и длительности видео (секунд) по площадкам.
 CAPTION_LIMIT = {"telegram": 1024, "instagram": 2200, "facebook": 63206, "threads": 500, "tiktok": 2200,
