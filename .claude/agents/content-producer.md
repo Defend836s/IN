@@ -33,6 +33,16 @@ effort: high
      normal/up/frown, рот 0-4 для речи и 5 - ухмылка. Подбирай эмоцию под фразу:
      удивление (`open`+`up`) на хуке, хитрость (`sly`+`frown`+5) на лайфхаке, радость
      (`happy`) на призыве. Лист персонажа: `content/characters/semya/model-sheet.png`.
+   - **Голос Сёмы** (`semya_voice.py`) включается сам при `CHARACTER=semya`
+     (движок `TTS_BACKEND=semya`): мужской голос Vosk, поднятый на 3 полутона,
+     с эфирной обработкой. Тембр - `SEMYA_VOICE`: ozornoy (по умолчанию),
+     multyashny, druzhelyubny, podrostok; образцы в `content/characters/semya/voice/`.
+     Нужен vosk-tts (`python3 -m venv /tmp/vk && /tmp/vk/bin/pip install vosk-tts numpy pillow`,
+     запускать рендер через `/tmp/vk/bin/python`); модель (~750 МБ) скачивается
+     с alphacephei.com при первом запуске. Пример:
+     `CHARACTER=semya /tmp/vk/bin/python content/tools/render_avatar.py content/semya/scripts content/semya/videos - - "слаг-1|слаг-2"`.
+     Числа и ₽ в сценарии озвучиваются через таблицу `SAY` в `render_blue.py`:
+     новое число - добавь замену словами, иначе рендер остановится.
    - озвучка: `vosk_voice.py` (вариант D) или Piper; числа пиши словами для
      синтезатора, ударения проверяй `stress_audit.py`.
    Сценарий кладёшь в `content/<серия>/scripts/rNN.txt`, ролик с баннером - в

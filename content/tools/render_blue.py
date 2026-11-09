@@ -20,6 +20,7 @@ SAY = [
     (r"Неделя 1:", "Неделя первая:"), (r"Неделя 2:", "Неделя вторая:"), (r"Неделя 3:", "Неделя третья:"),
     (r"Неделя 4:", "Неделя четвёртая:"), (r"\b40 часов\b", "сорок часов"), (r"\b2 раза\b", "два раза"),
     (r"\bSMM\b", "эс-эм-эм"),
+    (r"\b60 000 ₽", "шестьдесят тысяч рублей"),
     # ударения, которые синтезатор ставит неправильно (проверено stress_audit.py)
     (r"\b[Уу]же\b", lambda m: m.group(0) + "\u0301"),
     (r"\b[Нн]ейросети\b", "нейросе\u0301ти"),
@@ -115,7 +116,8 @@ def frame(text, progress, path, is_hook):
     img.save(path)
 
 
-BACKEND = os.environ.get("TTS_BACKEND", "piper")      # piper | yandex
+# piper | yandex | vosk | semya (голос Енота Сёмы); для CHARACTER=semya по умолчанию semya
+BACKEND = os.environ.get("TTS_BACKEND", "semya" if os.environ.get("CHARACTER") == "semya" else "piper")
 
 
 def tts_yandex(text, path, length):
@@ -158,6 +160,9 @@ def tts_vosk(text, path, length):
 
 
 def tts(piper, voice, text, path, length):
+    if BACKEND == "semya":
+        import semya_voice
+        return semya_voice.phrase(text, path, length)
     if BACKEND == "yandex":
         return tts_yandex(text, path, length)
     if BACKEND == "vosk":
@@ -176,6 +181,9 @@ VOICE_FX = ("asetrate={sr}*0.971,aresample={sr},atempo=1.0299,"
 if BACKEND in ("yandex", "vosk"):   # живому голосу сдвиг тона не нужен, только плотность и громкость
     VOICE_FX = ("acompressor=threshold=-20dB:ratio=2.5:attack=5:release=80:makeup=3,"
                 "loudnorm=I=-14:TP=-1.5:LRA=9,aresample=44100")
+if BACKEND == "semya":              # тон и тембр уже в каждой фразе, тут только плотность и громкость
+    import semya_voice as _sv
+    VOICE_FX = _sv.MASTER
 
 
 def render(lines, out, piper, voice, length=0.95):

@@ -22,6 +22,7 @@ QUEUE = HERE / "queue.yaml"
 
 # серия -> (папка с роликами, папка со сценариями, хэштеги)
 SERIES = {
+    "semya": ("semya/videos", "semya/scripts", "#курсы #обучение #самообразование #бесплатно #енот"),
     "kanal": ("kanal/videos", "kanal/scripts", "#курсы #обучение #самообразование #бесплатно"),
     "motivaciya": ("motivaciya/с-баннером", "motivaciya/scripts", "#мотивация #саморазвитие #привычки"),
     "pravda-ili-mif": ("pravda-ili-mif/с-баннером", "pravda-ili-mif/scripts", "#правдаилимиф #обучение #факты"),
