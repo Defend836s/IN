@@ -31,11 +31,12 @@ VARIANTS = {
                          title="Дружелюбный: естественный тембр, выше обычного (+4 полутона)"),
     "podrostok": dict(speaker=2, pitch=1.12, formant="shifted", tempo=1.05, noise=0.85,
                       title="Подросток: звонкий, лёгкий (+2 полутона)"),
-    # Голоса гостей (content/characters/registry.yaml): должны отличаться от Сёмы на слух.
-    "nika": dict(speaker=1, pitch=1.06, formant="preserved", tempo=1.02, noise=0.75,
-                 title="Лиса Ника: женский, ясный, чуть выше обычного"),
-    "borya": dict(speaker=3, pitch=0.9, formant="preserved", tempo=0.98, noise=0.7,
-                  title="Бобр Боря: мужской, басовитый, спокойный"),
+    # Голоса гостей - в стиле ozornoy (тот же сдвиг тембра, темп и живость), но другие дикторы,
+    # чтобы на слух было понятно, кто говорит.
+    "nika": dict(speaker=1, pitch=1.12, formant="shifted", tempo=1.04, noise=0.85,
+                 title="Лиса Ника: как ozornoy, но девичий голос (+2 полутона)"),
+    "borya": dict(speaker=3, pitch=1.1, formant="shifted", tempo=1.04, noise=0.85,
+                  title="Бобр Боря: как ozornoy, но другой парень, чуть ниже Сёмы (+1,5 полутона)"),
 }
 DEFAULT = "ozornoy"
 

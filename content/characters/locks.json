@@ -27,11 +27,11 @@
     },
     "voice": "borya",
     "voice_params": {
-      "formant": "preserved",
-      "noise": 0.7,
-      "pitch": 0.9,
+      "formant": "shifted",
+      "noise": 0.85,
+      "pitch": 1.1,
       "speaker": 3,
-      "tempo": 0.98
+      "tempo": 1.04
     }
   },
   "nika": {
@@ -62,11 +62,11 @@
     },
     "voice": "nika",
     "voice_params": {
-      "formant": "preserved",
-      "noise": 0.75,
-      "pitch": 1.06,
+      "formant": "shifted",
+      "noise": 0.85,
+      "pitch": 1.12,
       "speaker": 1,
-      "tempo": 1.02
+      "tempo": 1.04
     }
   },
   "semya": {
