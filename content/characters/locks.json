@@ -1,15 +1,72 @@
 {
-  "globus": {
+  "borya": {
     "files": {
-      "content/tools/globus.py": "38258ba6fe52ae13d8b6f4be7075185ca970652052d942fdb5e60bdf112f9cb6"
+      "content/characters/borya/sprites/m0-blink-normal.png": "38fabf7a2dd72c6073fc972ecbff3501412e94599c4a9c9965645aafba15dc02",
+      "content/characters/borya/sprites/m0-happy-normal.png": "cc3a7c48bb212e855666c5f594bf2820daca21701ea011ebdd078604bac9e441",
+      "content/characters/borya/sprites/m0-open-normal.png": "e8df0dbf49fa8843e198b895d6740e66075dad61fb2c32fa4aa48aa99c3d59b8",
+      "content/characters/borya/sprites/m0-open-up.png": "a5bd787d84dfcacf5622c359152a413b2d44f4a5f951f8ba85e6c40064b177e3",
+      "content/characters/borya/sprites/m0-side-normal.png": "4f0782b10ab205f48647dc45b2059bf04d4a43e49542f471db2c135695311fd0",
+      "content/characters/borya/sprites/m1-blink-normal.png": "c47c8adaab42494cb5164cd87c5c0ceeb9aaa07bc48554cc4b236b3888c851da",
+      "content/characters/borya/sprites/m1-open-normal.png": "b21ebe202d866a6fed091fc36eb8706817c07bd8c68cac66e6395f699d9bbb03",
+      "content/characters/borya/sprites/m1-sly-frown.png": "13e82da0f8aea31b199aa80e3687473b4f96b5f2ccd9dd7cce4d26e29404eb15",
+      "content/characters/borya/sprites/m2-blink-normal.png": "b89b61099184aa9874f73fa0171ce07210e65bf6e145951d382724a24f8d5f61",
+      "content/characters/borya/sprites/m2-happy-normal.png": "50af1cabe8ef75eca4de89d58eb93c6f5ec2a26393c0e9c165737df2ab7eb68e",
+      "content/characters/borya/sprites/m2-open-normal.png": "763092bdc1caf5313e129ece5b36f7ae8885435ada32eba263a3833aea235bb8",
+      "content/characters/borya/sprites/m2-open-up.png": "b2e612c75364c20514077b58e07ee67fa2101e9bc3217b6fda569e197481453b",
+      "content/characters/borya/sprites/m2-side-normal.png": "16f94e19d2a34537085d2488171a82ff828da94a90a5cb81a5dd86fbe9a5b62a",
+      "content/characters/borya/sprites/m2-sly-frown.png": "3ef42f1bbbbd376ff1f0d961da550ac6613b3753c38d9337d507c898404bd402",
+      "content/characters/borya/sprites/m3-blink-normal.png": "738a6f866a1def07be45ac900d446f6895418be99f816282dee5c5091fa257a3",
+      "content/characters/borya/sprites/m3-open-normal.png": "e3e11392e916a2b4cbdc374a2ecf92411ecfd01e8d383fd32212c20441ca4889",
+      "content/characters/borya/sprites/m4-blink-normal.png": "bacceb849f00c80377fa25c690eaabb8a5918732d3d1843a0846a7da85d57e9c",
+      "content/characters/borya/sprites/m4-happy-normal.png": "34d7ae84e9f2657270239078e5f07819d417a09e7a50928799e5aa60824fed47",
+      "content/characters/borya/sprites/m4-open-normal.png": "e26a9fcfd55b3f2c01805b0ac31334da4c93a464884ac7de1373f579b6702800",
+      "content/characters/borya/sprites/m4-open-up.png": "8f839798e2594bd064ae1b6d133281a8f1987be1f0d0644045aaec02c2c73876",
+      "content/characters/borya/sprites/m4-side-normal.png": "d278bb48ff38517de280b16bc1ac784977ac482d4cc2130941f294f3f2007515",
+      "content/characters/borya/sprites/m5-sly-frown.png": "f22b5a78f2fc16bf188dd4164cedeb51e4c484bbadea14f82568160859bc8801",
+      "content/tools/guests_svg.py": "7d73aa9ea3bc54fc02d9699f8c2ba1dc29d4550fa8a608f954a4a17d847356bb"
     },
-    "voice": "professor",
+    "voice": "borya",
     "voice_params": {
       "formant": "preserved",
       "noise": 0.7,
-      "pitch": 0.94,
+      "pitch": 0.9,
       "speaker": 3,
       "tempo": 0.98
+    }
+  },
+  "nika": {
+    "files": {
+      "content/characters/nika/sprites/m0-blink-normal.png": "c487f1717a24c69269aa902414fb6158890a92419d61ec98c160d24fbdd1a73d",
+      "content/characters/nika/sprites/m0-happy-normal.png": "e521b7ffcb8479d6749fa94006e9c071ea8af0f14e506d0b7fe5489fe3a01682",
+      "content/characters/nika/sprites/m0-open-normal.png": "815ebf17d745e6abe60806a0f199b92a0c2aad4d4b1750085af2afef296830d4",
+      "content/characters/nika/sprites/m0-open-up.png": "634b24b568333cca92a386c7aa98e125ee483df82167d1a38349a2406d288bf3",
+      "content/characters/nika/sprites/m0-side-normal.png": "47ce9c237773fe1a3782952ef416c118bd361bdf71ec84d7f3e1e534bc1c9fc6",
+      "content/characters/nika/sprites/m1-blink-normal.png": "5347640b57558fb8afa36ff67f75aa155fe741e93449de177adf37a53ce5a972",
+      "content/characters/nika/sprites/m1-open-normal.png": "37f3d63de45e2fe4db75c1b56febb8a1b6174cc69e449c64ef205e835b1f4a80",
+      "content/characters/nika/sprites/m1-sly-frown.png": "2306944410e5e689b66814eb5136dba082e03bdbeb9dedd771631a37ff6136cb",
+      "content/characters/nika/sprites/m2-blink-normal.png": "517ce213e6d2de22ced438fefc13abad0ef3f2f7d6ad9876f9d89430d449eddd",
+      "content/characters/nika/sprites/m2-happy-normal.png": "1e668b89812cafcbd549fa4a01bfaa55929aa6af47a05ace1fc78a10b868a94e",
+      "content/characters/nika/sprites/m2-open-normal.png": "fef119f05093d5d9e20614b6f585cfadc77d995c739b229ca13d1c430966df7e",
+      "content/characters/nika/sprites/m2-open-up.png": "6a0dce2e7f4a431fa6ed14f33b569d15187a827f04891f6dccad19958c89f91a",
+      "content/characters/nika/sprites/m2-side-normal.png": "1a0ce351f2d6a1633c5fb100f839f5fd89570199d80db4667ccaeb9a613e00b0",
+      "content/characters/nika/sprites/m2-sly-frown.png": "9e9113293ab48cbc136d59008e5e1b13a6da1f5d756ded22774a7754f2782cf7",
+      "content/characters/nika/sprites/m3-blink-normal.png": "f8c6b5739caddfcf0d055231a777346e194b84237942d7065fe12495c388cd87",
+      "content/characters/nika/sprites/m3-open-normal.png": "3dcb299f02e024fa9b65a98266b066c54499f4a7b7fbb9345e3aceb1638efef5",
+      "content/characters/nika/sprites/m4-blink-normal.png": "ab887527b7c275cc1737e5c4f6dba0744f03679d9be86d7cc802db1d572f1205",
+      "content/characters/nika/sprites/m4-happy-normal.png": "b63ad002424664801b6b53d4f93b2411fdcd0ee62dc50e19601cd14f687fee02",
+      "content/characters/nika/sprites/m4-open-normal.png": "f7912ac7095a43ecbc7cdf05cef55cb57bd93eccc472039a4e58f355174bfa88",
+      "content/characters/nika/sprites/m4-open-up.png": "aed7cc995e39f35d47c228cd0e2bfb564c7d150572abe0ca30a4ca0ab569747b",
+      "content/characters/nika/sprites/m4-side-normal.png": "c433ca6fd86ec4ef9f64957c990ec779bcc51276737d337e5685c312ab71e12f",
+      "content/characters/nika/sprites/m5-sly-frown.png": "ac2b5e5574415677ef6616a31310fb9d5671e77cb2cbf0fdcd35bf80da73a1b3",
+      "content/tools/guests_svg.py": "7d73aa9ea3bc54fc02d9699f8c2ba1dc29d4550fa8a608f954a4a17d847356bb"
+    },
+    "voice": "nika",
+    "voice_params": {
+      "formant": "preserved",
+      "noise": 0.75,
+      "pitch": 1.06,
+      "speaker": 1,
+      "tempo": 1.02
     }
   },
   "semya": {
@@ -51,19 +108,6 @@
       "pitch": 1.19,
       "speaker": 4,
       "tempo": 1.04
-    }
-  },
-  "sova": {
-    "files": {
-      "content/tools/owl.py": "20be2bb41cbf416e86bb60ba40eee725887916035ea5e7a3a90332e88d04eb58"
-    },
-    "voice": "sova",
-    "voice_params": {
-      "formant": "preserved",
-      "noise": 0.75,
-      "pitch": 1.04,
-      "speaker": 1,
-      "tempo": 1.0
     }
   }
 }

@@ -2,7 +2,7 @@
 #
 # main - ведущий: он есть в каждом ролике, внешность и голос не меняются.
 # Остальные - гости: появляются рядом с ведущим, когда в сценарии строка
-# начинается с их имени («Глобус: ...»). У каждого свой голос.
+# начинается с их имени («Ника: ...»). У каждого свой голос.
 #
 # Внешность и голос каждого персонажа «заперты» в content/characters/locks.json.
 # render_pro.py не соберёт ролик, если рисунок или голос изменились без
@@ -19,18 +19,18 @@ characters:
     voice: ozornoy           # вариант из content/tools/semya_voice.py (VARIANTS)
     look: [content/tools/semya_svg.py, content/characters/semya/sprites]
 
-  globus:
-    name: Профессор Глобус
-    aliases: [Глобус, Профессор]
-    role: гость; знает, где и чему учат в мире
-    module: globus           # content/tools/globus.py: sprite(рот, моргание)
-    voice: professor
-    look: [content/tools/globus.py]
+  nika:
+    name: Лиса Ника
+    aliases: [Ника, Лиса]
+    role: гость; проверяет факты - «правда или миф», где подвох
+    module: guests_svg:nika  # вектор, как у Сёмы: content/tools/guests_svg.py
+    voice: nika
+    look: [content/tools/guests_svg.py, content/characters/nika/sprites]
 
-  sova:
-    name: Сова
-    aliases: [Сова]
-    role: гость; проверяет факты, «правда или миф»
-    module: owl              # content/tools/owl.py: sprite(рот, моргание)
-    voice: sova
-    look: [content/tools/owl.py]
+  borya:
+    name: Бобр Боря
+    aliases: [Боря, Бобр]
+    role: гость; практик - «проверено руками», пошаговые советы
+    module: guests_svg:borya
+    voice: borya
+    look: [content/tools/guests_svg.py, content/characters/borya/sprites]

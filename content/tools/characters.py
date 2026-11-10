@@ -7,7 +7,7 @@ content/characters/locks.json: отпечатки файлов рисунка и
 без подтверждения - так Сёма в каждом ролике выглядит и звучит одинаково.
 
     python3 content/tools/characters.py                # список и проверка замков
-    python3 content/tools/characters.py --lock globus  # запереть персонажа (только
+    python3 content/tools/characters.py --lock nika    # запереть персонажа (только
                                                        # новый или перерисованный с согласия владельца)
 """
 from __future__ import annotations
@@ -43,7 +43,13 @@ class Character:
     look: tuple[str, ...]
 
     def pose(self, mouth: int = 0, eyes: str = "open", brows: str = "normal") -> Image.Image:
-        """RGBA 600x600. Ведущий - полный набор эмоций, гости - рот и моргание."""
+        """RGBA 600x600, полный набор эмоций.
+
+        module «файл:функция» - векторный персонаж (функция отдаёт SVG), спрайты рисуются
+        браузером и кэшируются в content/characters/<id>/sprites/, как у Сёмы;
+        module «файл» - модуль с pose(рот, глаза, брови) или старый sprite(рот, моргание)."""
+        if ":" in self.module:
+            return _vector_pose(self.id, self.module, mouth, eyes, brows)
         mod = _module(self.module)
         if hasattr(mod, "pose"):
             return mod.pose(mouth, eyes, brows)
@@ -53,6 +59,45 @@ class Character:
 @lru_cache(maxsize=None)
 def _module(name: str):
     return importlib.import_module(name)
+
+
+SPRITE = 600
+# Позы, которые рисуются заранее и запираются: речь (рот 0-4, моргание) и эмоции render_pro.
+BASE_POSES = ([(m, e, "normal") for m in range(5) for e in ("open", "blink")]
+              + [(m, e, b) for m in (0, 2, 4) for e, b in (("open", "up"), ("happy", "normal"), ("side", "normal"))]
+              + [(5, "sly", "frown"), (2, "sly", "frown"), (1, "sly", "frown")])
+
+
+def sprite_dir(cid: str) -> Path:
+    return HERE.parent / "characters" / cid / "sprites"
+
+
+def render_sprites(cid: str, module: str, poses: list[tuple[int, str, str]], force: bool = False) -> None:
+    """Дорисовать недостающие спрайты векторного персонажа одним запуском браузера."""
+    import subprocess
+    import tempfile
+    out = sprite_dir(cid)
+    todo = [p for p in poses if force or not (out / "m{}-{}-{}.png".format(*p)).exists()]
+    if not todo:
+        return
+    out.mkdir(parents=True, exist_ok=True)
+    mod_name, fn = module.split(":")
+    draw = getattr(_module(mod_name), fn)
+    with tempfile.TemporaryDirectory() as tmp:
+        jobs = []
+        for p in todo:
+            svg = Path(tmp) / "m{}-{}-{}.svg".format(*p)
+            svg.write_text(draw(*p, size=SPRITE), encoding="utf-8")
+            jobs.append({"svg": str(svg), "png": str(out / "m{}-{}-{}.png".format(*p))})
+        (Path(tmp) / "jobs.json").write_text(json.dumps(jobs), encoding="utf-8")
+        subprocess.run(["node", str(HERE / "svg2png.js"), str(Path(tmp) / "jobs.json")], check=True)
+
+
+def _vector_pose(cid: str, module: str, mouth: int, eyes: str, brows: str) -> Image.Image:
+    path = sprite_dir(cid) / f"m{mouth}-{eyes}-{brows}.png"
+    if not path.exists():
+        render_sprites(cid, module, [(mouth, eyes, brows)])
+    return Image.open(path).convert("RGBA")
 
 
 @lru_cache(maxsize=1)
@@ -73,7 +118,7 @@ def main_id() -> str:
 
 
 def by_alias(word: str) -> str | None:
-    """«Глобус» -> globus. Регистр и ё не важны."""
+    """«Ника» -> nika. Регистр и ё не важны."""
     key = word.strip().lower().replace("ё", "е")
     for cid, data in registry()["characters"].items():
         names = [cid, data["name"], *data.get("aliases", [])]
@@ -140,6 +185,9 @@ def verify(ids: list[str]) -> None:
 
 
 def lock(cid: str) -> None:
+    ch = get(cid)
+    if ":" in ch.module:            # нарисовать базовые позы заново - именно они и запираются
+        render_sprites(cid, ch.module, BASE_POSES, force=True)
     locks = _locks()
     locks[cid] = fingerprint(cid)
     LOCKS.write_text(json.dumps(locks, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")

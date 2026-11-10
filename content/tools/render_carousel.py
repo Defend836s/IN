@@ -6,7 +6,7 @@
 Рядом со spec.yaml появляются 01.png, 02.png ... (1080x1350, 4:5). Формат spec:
 
     format: carousel          # carousel - листалка (2-10 слайдов), post - одна картинка
-    character: semya          # semya | globus | sova | medved | none - персонаж на обложке и призыве
+    character: semya          # semya | nika | borya | none (content/characters/registry.yaml) - персонаж на обложке и призыве
     title: Короткое название  # для очереди публикации
     caption: |                # подпись к посту (Instagram до 2200, Threads до 500 знаков)
       ...
@@ -109,20 +109,11 @@ def draw_block(draw: ImageDraw.ImageDraw, lines: list[str], fnt, line_h: int, x:
 def character(name: str) -> Image.Image | None:
     if name in (None, "", "none"):
         return None
-    if name == "globus":
-        import globus
-        img = globus.sprites()[(0, False)]
-    elif name == "sova":
-        import owl
-        img = owl.sprites()[(0, False)]
-    elif name == "medved":
-        import bear
-        img = bear.sprite(0, False)
-    elif name == "semya":
-        import semya
-        img = semya.pose(0, "open", "normal")
-    else:
-        raise SystemExit(f"неизвестный персонаж: {name} (semya | globus | sova | medved | none)")
+    import characters   # реестр content/characters/registry.yaml: semya, nika, borya, ...
+    if name not in characters.registry()["characters"]:
+        raise SystemExit(f"неизвестный персонаж: {name} ({' | '.join(characters.registry()['characters'])} | none)")
+    characters.verify([name])
+    img = characters.get(name).pose(0, "open", "normal")
     return img.resize((CHAR_SIZE, CHAR_SIZE), Image.LANCZOS)
 
 
