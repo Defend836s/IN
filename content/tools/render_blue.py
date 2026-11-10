@@ -159,10 +159,11 @@ def tts_vosk(text, path, length):
         return w.getnframes() / w.getframerate(), w.getframerate()
 
 
-def tts(piper, voice, text, path, length):
+def tts(piper, voice, text, path, length, speaker=None):
+    """speaker - вариант голоса semya_voice (голос персонажа из реестра); None - по умолчанию."""
     if BACKEND == "semya":
         import semya_voice
-        return semya_voice.phrase(text, path, length)
+        return semya_voice.phrase(text, path, length, speaker)
     if BACKEND == "yandex":
         return tts_yandex(text, path, length)
     if BACKEND == "vosk":

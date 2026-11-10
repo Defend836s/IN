@@ -31,6 +31,11 @@ VARIANTS = {
                          title="Дружелюбный: естественный тембр, выше обычного (+4 полутона)"),
     "podrostok": dict(speaker=2, pitch=1.12, formant="shifted", tempo=1.05, noise=0.85,
                       title="Подросток: звонкий, лёгкий (+2 полутона)"),
+    # Голоса гостей (content/characters/registry.yaml): должны отличаться от Сёмы на слух.
+    "professor": dict(speaker=3, pitch=0.94, formant="preserved", tempo=0.98, noise=0.7,
+                      title="Профессор Глобус: взрослый, спокойный, на полтона ниже"),
+    "sova": dict(speaker=1, pitch=1.04, formant="preserved", tempo=1.0, noise=0.75,
+                 title="Сова: женский, ясный, чуть выше обычного"),
 }
 DEFAULT = "ozornoy"
 

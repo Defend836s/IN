@@ -78,11 +78,13 @@ def text_layer(text, is_hook):
     return img
 
 
-def build_audio(lines, work, piper, voice, length=0.95):
+def build_audio(lines, work, piper, voice, length=0.95, speakers=None):
+    """speakers - голос на каждую фразу (диалог персонажей); None - один голос на весь ролик."""
     while True:
         durs = []
         for k, line in enumerate(lines):
-            d, sr = rb.tts(piper, voice, rb.spoken(line), os.path.join(work, f"{k:02d}.wav"), length)
+            d, sr = rb.tts(piper, voice, rb.spoken(line), os.path.join(work, f"{k:02d}.wav"), length,
+                           speakers[k] if speakers else None)
             durs.append(d)
         total = sum(durs) + rb.GAP * (len(lines) - 1) + rb.TAIL
         if total <= rb.LIMIT or length <= 0.8:

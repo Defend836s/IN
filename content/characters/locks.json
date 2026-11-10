@@ -1,0 +1,69 @@
+{
+  "globus": {
+    "files": {
+      "content/tools/globus.py": "38258ba6fe52ae13d8b6f4be7075185ca970652052d942fdb5e60bdf112f9cb6"
+    },
+    "voice": "professor",
+    "voice_params": {
+      "formant": "preserved",
+      "noise": 0.7,
+      "pitch": 0.94,
+      "speaker": 3,
+      "tempo": 0.98
+    }
+  },
+  "semya": {
+    "files": {
+      "content/characters/semya/sprites/m0-blink-normal.png": "5c72a6d73c4f9ea742e2afcdc818c4952fadef0d4ab03782b7838845a98e25be",
+      "content/characters/semya/sprites/m0-blink-up.png": "1b866f8e76adcbc9fb4b5c0798c8936931de290afb33a889acd23bd43f7853cf",
+      "content/characters/semya/sprites/m0-happy-normal.png": "46b50b9a54db6e412d11987a99048426ade6d637acecbc8c89dbd72d861dcbc7",
+      "content/characters/semya/sprites/m0-open-normal.png": "96a03a3bdece2c423169862ad529e58e808ab2a54c0bc186bb92cb99e1146bec",
+      "content/characters/semya/sprites/m0-open-up.png": "c79dbcebbf235ba6334f430aad54f2304bdd5f1198c2d57e7ee7e1160a48b316",
+      "content/characters/semya/sprites/m0-side-normal.png": "ebe1cfbcf5b04fda7614b95af1c01a36ad54df6f10895631ee1aa3395053034e",
+      "content/characters/semya/sprites/m0-sly-frown.png": "6a81757c022247a3076a092f59815a5c5e93eb4eefeb5d9ec62f8e7e5effaa66",
+      "content/characters/semya/sprites/m1-blink-normal.png": "82d0f982c3fdbf11cb88d63854c4c8501f374b733fd79547f9ae57ee8d6b11a7",
+      "content/characters/semya/sprites/m1-open-normal.png": "a6d4f13b00b9ea4282acec4df2e81639d836e2ce35b66f49e11d1bbfe49e83e1",
+      "content/characters/semya/sprites/m1-open-up.png": "9b5ca66c3116b83afccd6f52e7054ab5e080f0c76a5f41047203074f83a0e543",
+      "content/characters/semya/sprites/m1-sly-frown.png": "205c2326893fe214b6cee29f18ec9d66ad8711e48a469ff4a85e89ab96a40824",
+      "content/characters/semya/sprites/m2-blink-normal.png": "cae67b72e65b4f8c05c68eab5c34daa6a36b7fe387ff54873141f427b66e9dcc",
+      "content/characters/semya/sprites/m2-blink-up.png": "f7add6a6ef155c96e4713bd3409795c35cbf7151e515ddced2ec496034ee8cd5",
+      "content/characters/semya/sprites/m2-happy-normal.png": "4e804618a62cca6b80db4b79d802e29e9b1aeb47ad3cb8874f4e0aeb192bde1f",
+      "content/characters/semya/sprites/m2-open-normal.png": "49a79efdba790c2ff61daec434aecfdff5173d0e4257490e0c7d6edf72d4f83b",
+      "content/characters/semya/sprites/m2-open-up.png": "5e8a2e77edd2d50e71fc66a6ad78ffd4c0ffdbf93c2dd2fceffdd13180440848",
+      "content/characters/semya/sprites/m2-side-normal.png": "a52c79584a39d2d1d291f5bd75a76a22e26afed1cab37409df33673caf4e05ad",
+      "content/characters/semya/sprites/m2-sly-frown.png": "06c0eb6463fa09ae3ee5f619e3c94b3365fa28d53b034f379e728b13b80a1cec",
+      "content/characters/semya/sprites/m3-blink-normal.png": "73004b997b7bd2237fff74eb59f988c07cee7a4a49f39c47ee7a3d596f4dd813",
+      "content/characters/semya/sprites/m3-happy-normal.png": "af7983663a7d400decbd6609797cc5013974d9cae7d6dce80de2b32b9ed42c04",
+      "content/characters/semya/sprites/m3-open-normal.png": "e5571f5bdc2bce54f974e50ad9ad09215ecb2fb11a14a1fdf3ed876197f9f08f",
+      "content/characters/semya/sprites/m3-open-up.png": "3512295dd7acb7ba6d5a2697f03592be1c77e61990b7b75b509a7a1dcaca8114",
+      "content/characters/semya/sprites/m4-blink-normal.png": "89aa5f30c462e7cf2113c0a16f3991f32d6244436ec1502d5de3a813beff4d48",
+      "content/characters/semya/sprites/m4-happy-normal.png": "1a76e680e882ebed9ce989da954cedb733461069fb5dbb53a17913dec46ec6e9",
+      "content/characters/semya/sprites/m4-open-normal.png": "eef43158387bc4b2f34cfeaf7611a64bd65c2d7009e321e78dd222811a721158",
+      "content/characters/semya/sprites/m4-open-up.png": "013a886a2912ef361c2d5ad155e15cd226d1c87cda31e67a8613400af3fb3493",
+      "content/characters/semya/sprites/m4-side-normal.png": "a9dbc1f745d7274e1c1e11ca3345caff99389ce91044c5e844c0fe44ec073f49",
+      "content/characters/semya/sprites/m5-sly-frown.png": "692586753966b8e9319d57b0fd62a67c9ce5b87b935d7024fcc35c6917f83aef",
+      "content/tools/semya_svg.py": "9145eb5a09bac6f46549060ee2974f16a8c59a1200f28da8500a853bb7ffb85f"
+    },
+    "voice": "ozornoy",
+    "voice_params": {
+      "formant": "shifted",
+      "noise": 0.85,
+      "pitch": 1.19,
+      "speaker": 4,
+      "tempo": 1.04
+    }
+  },
+  "sova": {
+    "files": {
+      "content/tools/owl.py": "20be2bb41cbf416e86bb60ba40eee725887916035ea5e7a3a90332e88d04eb58"
+    },
+    "voice": "sova",
+    "voice_params": {
+      "formant": "preserved",
+      "noise": 0.75,
+      "pitch": 1.04,
+      "speaker": 1,
+      "tempo": 1.0
+    }
+  }
+}

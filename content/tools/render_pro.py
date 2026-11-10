@@ -6,6 +6,12 @@
 Сценарий - по фразе в строке. Необязательная разметка:
     [удивлён] [хитрит] [радуется] [объясняет] [спокоен]  - эмоция фразы (в начале строки);
     *слово*                                              - акцент: золото, тряска, щелчок.
+    Глобус: текст                                        - реплика гостя (имя из
+                                                           content/characters/registry.yaml).
+Ведущий (Енот Сёма) есть в каждом ролике и говорит строки без имени. Гость выходит
+справа на своей первой реплике, Сёма сдвигается влево; говорящий крупнее, у каждого
+свой голос. Перед рендером проверяется замок персонажей (characters.py): если рисунок
+или голос изменились без подтверждения, ролик не собирается.
 Без разметки эмоции и акценты расставляются сами: хук и вопросы - удивление,
 лайфхаки - хитрость, последняя фраза - радость; числа, ₽ и «бесплатно» - акценты.
 
@@ -39,7 +45,7 @@ os.environ.setdefault("CHARACTER", "semya")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render_avatar as ra  # noqa: E402  (голос, громкость рта)
 import render_blue as rb  # noqa: E402
-import semya  # noqa: E402
+import characters  # noqa: E402  (реестр, позы, замок внешности и голоса)
 
 W, H, FPS = 1080, 1920, 30
 SR = 44100
@@ -49,6 +55,8 @@ FONT_DIR = "/usr/share/fonts/opentype/inter"
 CAP_SIZE, CAP_Y, CAP_W = 118, 560, 900
 CHAR_SIZE = 1000
 CHAR_X, CHAR_Y = (W - CHAR_SIZE) // 2, H - CHAR_SIZE + 150   # низ худи уходит за кадр
+DUO_SIZE = 700                                            # размер каждого в диалоге
+DUO_X = (290, 790)                                        # центры: ведущий слева, гость справа
 EMPH_WORDS = {"бесплатно", "бесплатное", "бесплатный", "даром", "серьёзно", "никогда", "всегда", "ноль"}
 EMOTIONS = {"удивлён": ("open", "up"), "хитрит": ("sly", "frown"), "радуется": ("happy", "normal"),
             "объясняет": ("open", "normal"), "спокоен": ("open", "normal")}
@@ -73,9 +81,13 @@ def parse(path: str) -> list[dict]:
     raw = [l.strip() for l in open(path, encoding="utf-8") if l.strip()]
     lines = []
     for k, l in enumerate(raw):
+        speaker, l = split_speaker(l)
         m = re.match(r"^\[(\w+)\]\s*", l)
         emo = m.group(1) if m and m.group(1) in EMOTIONS else None
         text = l[m.end():] if m else l
+        if speaker is None:
+            speaker, text = split_speaker(text)
+        speaker = speaker or characters.main_id()
         marked = set(re.findall(r"\*([^*]+)\*", text))
         text = text.replace("*", "")
         if emo is None:
@@ -87,8 +99,21 @@ def parse(path: str) -> list[dict]:
                 emo = "хитрит"
             else:
                 emo = "объясняет" if k % 2 else "спокоен"
-        lines.append({"text": text, "emotion": emo, "marked": marked})
+        lines.append({"text": text, "emotion": emo, "marked": marked, "speaker": speaker})
     return lines
+
+
+def split_speaker(line: str) -> tuple[str | None, str]:
+    """«Глобус: текст» -> ("globus", "текст"). «Смотри: ...» - обычный текст ведущего."""
+    m = re.match(r"^([А-ЯЁA-Z][\w ]{1,24}):\s+", line)
+    if not m:
+        return None, line
+    cid = characters.by_alias(m.group(1))
+    if cid is None:
+        print(f"внимание: «{m.group(1)}:» - не имя персонажа, читаю как текст. Если это гость -"
+              f" добавьте его в content/characters/registry.yaml", file=sys.stderr)
+        return None, line
+    return cid, line[m.end():]
 
 
 def tokens(text: str) -> list[str]:
@@ -426,12 +451,22 @@ def mix(voice_wav: str, total: float, events: list[tuple[float, str]], out: str)
 def poses() -> dict:
     cache = {}
 
-    def get(mouth: int, eyes: str, brows: str) -> Image.Image:
-        key = (mouth, eyes, brows)
+    def get(cid: str, mouth: int, eyes: str, brows: str, size: int = CHAR_SIZE) -> Image.Image:
+        key = (cid, mouth, eyes, brows, size)
         if key not in cache:
-            cache[key] = semya.pose(*key).resize((CHAR_SIZE, CHAR_SIZE), Image.LANCZOS)
+            cache[key] = characters.get(cid).pose(mouth, eyes, brows).resize((size, size), Image.LANCZOS)
         return cache[key]
     return get
+
+
+def place(world: Image.Image, spr: Image.Image, cx: float, size: int, squash: float, tilt: float,
+          bob: float) -> None:
+    """Персонаж низом за кадр: центр по x, сжатие на новой фразе, наклон, покачивание."""
+    if squash < 0.999:
+        spr = spr.resize((int(size * (2 - squash)), int(size * squash)), Image.BICUBIC)
+    spr = spr.rotate(tilt, resample=Image.BICUBIC, center=(spr.width / 2, spr.height * 0.8))
+    bottom = H + 150 * size / CHAR_SIZE
+    world.alpha_composite(spr, (int(cx - spr.width / 2), int(bottom - spr.height + bob)))
 
 
 def char_pose(emotion: str, level: int, speaking: bool, blink: bool) -> tuple[int, str, str]:
@@ -450,7 +485,11 @@ def render(script: str, out: str) -> None:
     lines = parse(script)
     work = out + ".work"
     os.makedirs(work, exist_ok=True)
-    wav, starts, durs, total, _ = ra.build_audio([l["text"] for l in lines], work, None, None)
+    host = characters.main_id()
+    characters.verify([host] + [l["speaker"] for l in lines])
+    voices = [characters.get(l["speaker"]).voice for l in lines]
+    wav, starts, durs, total, _ = ra.build_audio([l["text"] for l in lines], work, None, None,
+                                                 speakers=voices)
     total = round(total + 0.4, 2)
     n_frames = int(math.ceil(total * FPS))
     mouths, loud = ra.mouth_levels(wav, n_frames)
@@ -490,6 +529,8 @@ def render(script: str, out: str) -> None:
     banner = promo_banner() if PROMO else None
     outro = end_card() if ENDCARD else None
     get = poses()
+    guests = [(starts[i], l["speaker"]) for i, l in enumerate(lines) if l["speaker"] != host]
+    guest_from = guests[0][0] if guests else 0.0
     blink_frames = {f + d for f in range(int(1.8 * FPS), n_frames, int(3.1 * FPS)) for d in range(3)}
     rng = np.random.default_rng(7)
     proc = subprocess.Popen(["ffmpeg", "-loglevel", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24",
@@ -507,17 +548,24 @@ def render(script: str, out: str) -> None:
         sx, sy = (rng.integers(-9, 10), rng.integers(-9, 10)) if shake else (0, 0)
 
         world = background(t, base, blobs)
-        level = mouths[f] if speaking else 0
-        mouth, eyes, brows = char_pose(lines[k]["emotion"], level, speaking, f in blink_frames)
-        spr = get(mouth, eyes, brows)
-        squash = 1 - 0.05 * (1 - ease_out(since_line / 0.22))
-        bob = math.sin(t * 5.2) * (10 if speaking else 4) + float(loud[f]) * 6
-        tilt = math.sin(t * 1.9) * 2.4 + (4 if eyes == "sly" else 0)
-        if squash < 0.999:
-            spr = spr.resize((int(CHAR_SIZE * (2 - squash)), int(CHAR_SIZE * squash)), Image.BICUBIC)
-        spr = spr.rotate(tilt, resample=Image.BICUBIC, center=(spr.width / 2, spr.height * 0.8))
-        world.alpha_composite(spr, (int(CHAR_X + (CHAR_SIZE - spr.width) / 2),
-                                    int(CHAR_Y + (CHAR_SIZE - spr.height) + bob)))
+        talker = lines[k]["speaker"]
+        guest = next((g for t0, g in reversed(guests) if t0 <= t + 0.3), None)
+        duo = ease_out((t - guest_from + 0.3) / 0.45) if guest else 0.0     # выход гостя
+        cast = [(host, (W / 2) * (1 - duo) + DUO_X[0] * duo, CHAR_SIZE + (DUO_SIZE - CHAR_SIZE) * duo)]
+        if guest:
+            cast.append((guest, DUO_X[1] + (1 - duo) * 600, DUO_SIZE))
+        for cid, cx, size in sorted(cast, key=lambda c: c[0] == talker):   # говорящий - поверх
+            talking = cid == talker
+            level = mouths[f] if speaking and talking else 0
+            emo = lines[k]["emotion"] if talking else "спокоен"
+            mouth, eyes, brows = char_pose(emo, level, speaking and talking, f in blink_frames)
+            size = int(size * (1.0 if talking or len(cast) == 1 else 0.9))
+            spr = get(cid, mouth, eyes, brows, size)
+            squash = 1 - 0.05 * (1 - ease_out(since_line / 0.22)) if talking else 1.0
+            bob = math.sin(t * 5.2 + (0 if cid == host else 1.7)) * (10 if speaking and talking else 4)
+            bob += float(loud[f]) * 6 if talking else 0
+            tilt = math.sin(t * 1.9 + (0 if cid == host else 2.3)) * 2.4 + (4 if eyes == "sly" else 0)
+            place(world, spr, cx, size, squash, tilt, bob)
         for st in stickers:
             if st["start"] <= t <= st["end"]:
                 p = back_out((t - st["start"]) / 0.3)

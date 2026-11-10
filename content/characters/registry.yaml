@@ -1,0 +1,36 @@
+# Персонажи роликов «Все курсы мира».
+#
+# main - ведущий: он есть в каждом ролике, внешность и голос не меняются.
+# Остальные - гости: появляются рядом с ведущим, когда в сценарии строка
+# начинается с их имени («Глобус: ...»). У каждого свой голос.
+#
+# Внешность и голос каждого персонажа «заперты» в content/characters/locks.json.
+# render_pro.py не соберёт ролик, если рисунок или голос изменились без
+# подтверждения владельца. Как добавить нового персонажа - content/characters/README.md.
+
+main: semya
+
+characters:
+  semya:
+    name: Енот Сёма
+    aliases: [Сёма, Сема, Енот]
+    role: ведущий; находит бесплатное там, где другие платят
+    module: semya            # content/tools/semya.py: pose(рот, глаза, брови)
+    voice: ozornoy           # вариант из content/tools/semya_voice.py (VARIANTS)
+    look: [content/tools/semya_svg.py, content/characters/semya/sprites]
+
+  globus:
+    name: Профессор Глобус
+    aliases: [Глобус, Профессор]
+    role: гость; знает, где и чему учат в мире
+    module: globus           # content/tools/globus.py: sprite(рот, моргание)
+    voice: professor
+    look: [content/tools/globus.py]
+
+  sova:
+    name: Сова
+    aliases: [Сова]
+    role: гость; проверяет факты, «правда или миф»
+    module: owl              # content/tools/owl.py: sprite(рот, моргание)
+    voice: sova
+    look: [content/tools/owl.py]
