@@ -257,7 +257,7 @@ def back_out(x: float) -> float:
 
 # ------------------------------------------------------------------ архивный снимок
 
-PHOTO_BOX = (80, 660, 1000, 1280)                         # x0, y0, x1, y1 - снимок в центре кадра
+PHOTO_BOX = (80, 760, 1000, 1340)                         # x0, y0, x1, y1 - снимок в центре кадра
 PHOTO_Y_CHAR = 1340                                        # ниже - персонажи (формат истории)
 
 
@@ -694,7 +694,7 @@ def render(script: str, out: str) -> None:
             bob += float(loud[f]) * 6 if talking else 0
             tilt = math.sin(t * 1.9 + (0 if cid == host else 2.3)) * 2.4 + (4 if eyes == "sly" else 0)
             place(world, spr, cx, size, squash, tilt, bob)
-        for st in stickers:
+        for st in ([] if history else stickers):    # в истории даты уже в субтитрах, снимок не закрываем
             if st["start"] <= t <= st["end"]:
                 p = back_out((t - st["start"]) / 0.3)
                 im = sticker(st["text"], ease_out((t - st["start"] - 0.45) / 0.3) if st["strike"] else 0)
