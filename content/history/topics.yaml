@@ -1,0 +1,47 @@
+# Темы серии «Расследование истории» (ролики с архивными снимками).
+# wiki - статья русской Википедии: факты сценария берутся ТОЛЬКО из неё (archive.py facts);
+# photos - запросы к архивам по-английски (archive.py photos); status: new | done.
+# Темы выбраны так, чтобы были снимки в общественном достоянии: до ~1930 года
+# или работы правительства США (NASA, Библиотека Конгресса).
+# Новые темы добавляйте в конец; выпуск NN = порядковый номер с done.
+
+- {id: 1, title: "Первый полёт братьев Райт", wiki: "Братья Райт", photos: ["Wright Flyer 1903 first flight", "Wright brothers Kitty Hawk glider"], status: done}
+- {id: 2, title: "Титаник: что видели последние снимки", wiki: "Титаник", photos: ["Titanic 1912", "RMS Titanic Southampton"]}
+- {id: 3, title: "Как строили Эйфелеву башню", wiki: "Эйфелева башня", photos: ["Eiffel Tower construction", "Eiffel Tower 1889"]}
+- {id: 4, title: "Статуя Свободы по частям", wiki: "Статуя Свободы", photos: ["Statue of Liberty construction", "Statue of Liberty head Paris"]}
+- {id: 5, title: "Первый автомобиль для всех: Форд Т", wiki: "Ford Model T", photos: ["Ford Model T", "Ford assembly line 1913"]}
+- {id: 6, title: "Экспедиция Амундсена к Южному полюсу", wiki: "Амундсен, Руаль", photos: ["Roald Amundsen", "Amundsen South Pole 1911"]}
+- {id: 7, title: "Панамский канал: стройка века", wiki: "Панамский канал", photos: ["Panama Canal construction", "Culebra Cut"]}
+- {id: 8, title: "Небоскрёб, построенный за 410 дней", wiki: "Эмпайр-стейт-билдинг", photos: ["Empire State Building construction", "Empire State Building workers"]}
+- {id: 9, title: "Мост Золотые Ворота", wiki: "Золотые Ворота (мост)", photos: ["Golden Gate Bridge construction"]}
+- {id: 10, title: "Первые люди на Луне", wiki: "Аполлон-11", photos: ["Apollo 11", "Apollo 11 lunar surface"]}
+- {id: 11, title: "Телефон Белла: первый звонок", wiki: "Белл, Александр Грейам", photos: ["Alexander Graham Bell telephone"]}
+- {id: 12, title: "Лампочка Эдисона и его лаборатория", wiki: "Эдисон, Томас", photos: ["Thomas Edison laboratory", "Edison light bulb"]}
+- {id: 13, title: "Никола Тесла и его башня", wiki: "Тесла, Никола", photos: ["Nikola Tesla", "Wardenclyffe Tower"]}
+- {id: 14, title: "Дирижабль Гинденбург", wiki: "Гинденбург (дирижабль)", photos: ["Hindenburg airship", "Hindenburg Lakehurst"]}
+- {id: 15, title: "Золотая лихорадка на Клондайке", wiki: "Клондайкская золотая лихорадка", photos: ["Klondike gold rush", "Chilkoot Pass"]}
+- {id: 16, title: "Остров Эллис: ворота в Америку", wiki: "Эллис-Айленд", photos: ["Ellis Island immigrants"]}
+- {id: 17, title: "Первая трансатлантическая радиосвязь Маркони", wiki: "Маркони, Гульельмо", photos: ["Guglielmo Marconi wireless"]}
+- {id: 18, title: "Как Карнеги учил миллионы: библиотеки", wiki: "Карнеги, Эндрю", photos: ["Carnegie library", "Andrew Carnegie"]}
+- {id: 19, title: "Гарри Гудини: как он выбирался", wiki: "Гудини, Гарри", photos: ["Harry Houdini", "Houdini escape"]}
+- {id: 20, title: "Первые кинокамеры братьев Люмьер", wiki: "Братья Люмьер", photos: ["Lumiere brothers cinematograph"]}
+- {id: 21, title: "Дирижабли Цеппелина", wiki: "Цеппелин, Фердинанд фон", photos: ["Zeppelin airship 1900s"]}
+- {id: 22, title: "Перелёт Линдберга через Атлантику", wiki: "Линдберг, Чарльз", photos: ["Charles Lindbergh Spirit of St. Louis"]}
+- {id: 23, title: "Амелия Эрхарт: последний полёт", wiki: "Эрхарт, Амелия", photos: ["Amelia Earhart", "Amelia Earhart Electra"]}
+- {id: 24, title: "Нью-Йоркское метро: первый поезд", wiki: "Нью-Йоркский метрополитен", photos: ["New York subway 1904 construction"]}
+- {id: 25, title: "Бруклинский мост и семья Рёблинг", wiki: "Бруклинский мост", photos: ["Brooklyn Bridge construction", "Brooklyn Bridge 1883"]}
+- {id: 26, title: "Мария Кюри: два Нобеля", wiki: "Склодовская-Кюри, Мария", photos: ["Marie Curie laboratory"]}
+- {id: 27, title: "Шерлок, Конан Дойл и феи из Коттингли", wiki: "Феи из Коттингли", photos: ["Cottingley Fairies"]}
+- {id: 28, title: "Великая депрессия: снимки Доротеи Ланж", wiki: "Ланж, Доротея", photos: ["Dorothea Lange Migrant Mother", "Dust Bowl farm"]}
+- {id: 29, title: "Пыльный котёл: бури, которые закрыли солнце", wiki: "Пыльный котёл", photos: ["Dust Bowl storm 1935"]}
+- {id: 30, title: "Гора Рашмор: лица в скале", wiki: "Рашмор", photos: ["Mount Rushmore construction"]}
+- {id: 31, title: "Плотина Гувера", wiki: "Плотина Гувера", photos: ["Hoover Dam construction"]}
+- {id: 32, title: "Первый спутник и космическая гонка", wiki: "Спутник-1", photos: ["Sputnik 1 replica", "Explorer 1 launch"]}
+- {id: 33, title: "Шаттл: как летал космический челнок", wiki: "Спейс шаттл", photos: ["Space Shuttle launch", "Space Shuttle Columbia first launch"]}
+- {id: 34, title: "Телескоп Хаббл: очки для телескопа", wiki: "Хаббл (телескоп)", photos: ["Hubble Space Telescope servicing mission"]}
+- {id: 35, title: "Выставка 1900 года в Париже", wiki: "Всемирная выставка 1900 года", photos: ["Exposition Universelle 1900 Paris"]}
+- {id: 36, title: "Чикагская выставка и первое колесо обозрения", wiki: "Колесо Ферриса", photos: ["Ferris Wheel 1893 Chicago"]}
+- {id: 37, title: "Хрустальный дворец", wiki: "Хрустальный дворец", photos: ["Crystal Palace London 1851"]}
+- {id: 38, title: "Тадж-Махал на старых снимках", wiki: "Тадж-Махал", photos: ["Taj Mahal 19th century photograph"]}
+- {id: 39, title: "Пирамиды Гизы 150 лет назад", wiki: "Пирамиды Гизы", photos: ["Giza pyramids 19th century photograph"]}
+- {id: 40, title: "Гробница Тутанхамона: как её нашли", wiki: "Гробница Тутанхамона", photos: ["Tutankhamun tomb Howard Carter 1922"]}

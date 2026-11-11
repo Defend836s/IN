@@ -6,11 +6,17 @@
 Сценарий - по фразе в строке. Необязательная разметка:
     [удивлён] [хитрит] [радуется] [объясняет] [спокоен]  - эмоция фразы (в начале строки);
     *слово*                                              - акцент: золото, тряска, щелчок.
+    [фото 2]                                             - архивный снимок media/02.jpg (держится,
+                                                           пока не сменят); формат «Расследование истории»
+    {1903|тысяча девятьсот третьего}                     - на экране 1903, голос читает слова
     Ника: текст                                          - реплика гостя (имя из
                                                            content/characters/registry.yaml).
 Ведущий (Енот Сёма) есть в каждом ролике и говорит строки без имени. Гость выходит
 справа на своей первой реплике, Сёма сдвигается влево; говорящий крупнее, у каждого
-свой голос. Перед рендером проверяется замок персонажей (characters.py): если рисунок
+свой голос. Со снимками ([фото N]) ролик идёт в формате «Расследование истории»: снимок из
+архива в центре с медленным наездом и подписью источника (media/sources.yaml, см. archive.py),
+персонажи меньше и ниже. Папка снимков - MEDIA_DIR или <серия>/media/NN для сценария
+<серия>/scripts/rNN.txt. Перед рендером проверяется замок персонажей (characters.py): если рисунок
 или голос изменились без подтверждения, ролик не собирается.
 Без разметки эмоции и акценты расставляются сами: хук и вопросы - удивление,
 лайфхаки - хитрость, последняя фраза - радость; числа, ₽ и «бесплатно» - акценты.
@@ -77,17 +83,28 @@ TRICK = re.compile(r"\b(смотри|секрет|лайфхак|бери|хит
 
 # ------------------------------------------------------------------ сценарий
 
+SAY_MARK = re.compile(r"\{([^|{}]+)\|([^{}]+)\}")     # {1903|тысяча девятьсот третьего}
+
+
 def parse(path: str) -> list[dict]:
     raw = [l.strip() for l in open(path, encoding="utf-8") if l.strip()]
-    lines = []
+    lines, photo = [], None
     for k, l in enumerate(raw):
-        speaker, l = split_speaker(l)
-        m = re.match(r"^\[(\w+)\]\s*", l)
-        emo = m.group(1) if m and m.group(1) in EMOTIONS else None
-        text = l[m.end():] if m else l
-        if speaker is None:
-            speaker, text = split_speaker(text)
+        speaker, emo, text = None, None, l
+        while True:                       # префиксы в любом порядке: Имя:, [эмоция], [фото N]
+            m = re.match(r"^\[(\w+)\]\s*", text)
+            pm = re.match(r"^\[фото\s+(\w+)\]\s*", text, re.I)
+            if pm:
+                photo, text = pm.group(1).zfill(2), text[pm.end():]
+            elif m and m.group(1) in EMOTIONS:
+                emo, text = m.group(1), text[m.end():]
+            elif speaker is None and split_speaker(text)[0]:
+                speaker, text = split_speaker(text)
+            else:
+                break
         speaker = speaker or characters.main_id()
+        say = [(a.strip(), b.strip()) for a, b in SAY_MARK.findall(text)]
+        text = SAY_MARK.sub(lambda mm: mm.group(1).strip(), text)
         marked = set(re.findall(r"\*([^*]+)\*", text))
         text = text.replace("*", "")
         if emo is None:
@@ -99,8 +116,16 @@ def parse(path: str) -> list[dict]:
                 emo = "хитрит"
             else:
                 emo = "объясняет" if k % 2 else "спокоен"
-        lines.append({"text": text, "emotion": emo, "marked": marked, "speaker": speaker})
+        lines.append({"text": text, "emotion": emo, "marked": marked, "speaker": speaker,
+                      "say": say, "photo": photo})
     return lines
+
+
+def say_text(text: str, say: list[tuple[str, str]]) -> str:
+    """Текст для голоса: числа из разметки {1903|...} заменяются словами."""
+    for shown, spoken in say:
+        text = text.replace(shown, spoken, 1)
+    return text
 
 
 def split_speaker(line: str) -> tuple[str | None, str]:
@@ -159,12 +184,13 @@ def syllables(w: str) -> int:
     return max(1, len(re.findall(r"[аеёиоуыэюя]", w.lower())))
 
 
-def spoken_groups(toks: list[str]) -> list[list[str]]:
+def spoken_groups(toks: list[str], say: list[tuple[str, str]] = ()) -> list[list[str]]:
     """Слова озвучки на каждый токен субтитров (числа раскрываются в несколько слов)."""
     groups, done = [], 0
     for i in range(len(toks)):
+        part = " ".join(toks[: i + 1]).replace("\u00a0", " ")
         try:
-            words = rb.spoken(" ".join(toks[: i + 1]).replace("\u00a0", " ")).split()
+            words = rb.spoken(say_text(part, [x for x in say if x[0] in part])).split()
         except AssertionError:
             words = None
         if words is None:
@@ -175,8 +201,9 @@ def spoken_groups(toks: list[str]) -> list[list[str]]:
     return groups
 
 
-def word_times(toks: list[str], wav: str, offset: float, dur: float) -> list[tuple[float, float]]:
-    groups = spoken_groups(toks)
+def word_times(toks: list[str], wav: str, offset: float, dur: float,
+               say: list[tuple[str, str]] = ()) -> list[tuple[float, float]]:
+    groups = spoken_groups(toks, say)
     flat = [(gi, w) for gi, g in enumerate(groups) for w in g]
     times: list[tuple[float, float] | None] = [None] * len(flat)
     rec = asr_words(wav)
@@ -226,6 +253,88 @@ def back_out(x: float) -> float:
     x = min(max(x, 0.0), 1.0)
     c = 1.9
     return 1 + (c + 1) * (x - 1) ** 3 + c * (x - 1) ** 2
+
+
+# ------------------------------------------------------------------ архивный снимок
+
+PHOTO_BOX = (80, 660, 1000, 1280)                         # x0, y0, x1, y1 - снимок в центре кадра
+PHOTO_Y_CHAR = 1340                                        # ниже - персонажи (формат истории)
+
+
+def media_dir(script: str) -> str:
+    """MEDIA_DIR или <серия>/media/NN для сценария <серия>/scripts/rNN.txt."""
+    if os.environ.get("MEDIA_DIR"):
+        return os.environ["MEDIA_DIR"]
+    path = os.path.abspath(script)
+    num = re.sub(r"\D", "", os.path.splitext(os.path.basename(path))[0])
+    return os.path.join(os.path.dirname(os.path.dirname(path)), "media", num)
+
+
+def photo_label(folder: str, key: str) -> str:
+    src_file = os.path.join(folder, "sources.yaml")
+    meta = (yaml.safe_load(open(src_file, encoding="utf-8")) or {}).get(key, {}) if os.path.exists(src_file) else {}
+    if not meta:
+        raise SystemExit(f"у снимка {key} нет записи в {src_file}: источник обязателен")
+    year = re.search(r"\b(1[0-9]{3}|20[0-9]{2})\b", str(meta.get("date", "")))
+    return "  ·  ".join(x for x in (meta.get("source", ""), year.group(1) if year else "") if x)
+
+
+@lru_cache(maxsize=None)
+def photo_source(folder: str, key: str) -> Image.Image:
+    """Снимок в архивном тоне (сепия), с запасом под наезд камеры."""
+    from PIL import ImageOps
+    path = os.path.join(folder, f"{key}.jpg")
+    if not os.path.exists(path):
+        raise SystemExit(f"нет снимка {path} (archive.py photos ...)")
+    img = Image.open(path).convert("L")
+    img = ImageOps.autocontrast(img, cutoff=1)
+    img = ImageOps.colorize(img, black=(26, 18, 6), white=(246, 236, 214))
+    bw, bh = PHOTO_BOX[2] - PHOTO_BOX[0], PHOTO_BOX[3] - PHOTO_BOX[1]
+    return ImageOps.fit(img, (int(bw * 1.12), int(bh * 1.12)), Image.LANCZOS)
+
+
+@lru_cache(maxsize=None)
+def photo_frame(label: str) -> tuple[Image.Image, Image.Image]:
+    """Рамка-фотокарточка с тенью и плашка «АРХИВ · источник · год» (без самого снимка)."""
+    bw, bh = PHOTO_BOX[2] - PHOTO_BOX[0], PHOTO_BOX[3] - PHOTO_BOX[1]
+    pad = 14
+    card = Image.new("RGBA", (bw + 2 * pad + 40, bh + 2 * pad + 40), (0, 0, 0, 0))
+    sh = Image.new("RGBA", card.size, (0, 0, 0, 0))
+    ImageDraw.Draw(sh).rounded_rectangle([20, 28, 20 + bw + 2 * pad, 28 + bh + 2 * pad], radius=10,
+                                         fill=(0, 0, 0, 150))
+    card.alpha_composite(sh.filter(ImageFilter.GaussianBlur(14)))
+    ImageDraw.Draw(card).rounded_rectangle([20, 20, 20 + bw + 2 * pad, 20 + bh + 2 * pad], radius=10,
+                                           fill=(250, 244, 230, 255))
+    font = ImageFont.truetype(f"{FONT_DIR}/Inter-SemiBold.otf", 30)
+    bold = ImageFont.truetype(f"{FONT_DIR}/Inter-Black.otf", 30)
+    tw = int(ImageDraw.Draw(card).textlength(label, font=font) + ImageDraw.Draw(card).textlength("АРХИВ  ", font=bold))
+    tag = Image.new("RGBA", (tw + 48, 58), (0, 0, 0, 0))
+    d = ImageDraw.Draw(tag)
+    d.rounded_rectangle([0, 0, tag.width - 1, 57], radius=29, fill=NAVY + (235,), outline=GOLD + (200,), width=2)
+    d.text((24, 11), "АРХИВ", font=bold, fill=GOLD)
+    d.text((24 + d.textlength("АРХИВ  ", font=bold), 11), label, font=font, fill=WHITE)
+    return card, tag
+
+
+def draw_photo(world: Image.Image, folder: str, key: str, progress: float, appear: float, drift: int) -> None:
+    """Снимок с медленным наездом (Ken Burns) и плашкой источника; appear 0..1 - появление."""
+    src = photo_source(folder, key)
+    card, tag = photo_frame(photo_label(folder, key))
+    bw, bh = PHOTO_BOX[2] - PHOTO_BOX[0], PHOTO_BOX[3] - PHOTO_BOX[1]
+    z = 1.0 - 0.09 * min(1.0, max(0.0, progress))            # окно кадрирования сужается - наезд
+    cw, ch = src.width / 1.12 * (1.12 * z), src.height / 1.12 * (1.12 * z)
+    cx = src.width / 2 + drift * (src.width - cw) / 2 * (progress - 0.5)
+    cy = src.height / 2
+    crop = src.crop((int(cx - cw / 2), int(cy - ch / 2), int(cx + cw / 2), int(cy + ch / 2))).resize((bw, bh), Image.BILINEAR)
+    frame = card.copy()
+    frame.paste(crop, (34, 34))
+    if appear < 1:
+        frame.putalpha(frame.getchannel("A").point(lambda v: int(v * appear)))
+        tag = tag.copy()
+        tag.putalpha(tag.getchannel("A").point(lambda v: int(v * appear)))
+    dy = int((1 - appear) * 30)
+    world.alpha_composite(frame, (PHOTO_BOX[0] - 34, PHOTO_BOX[1] - 34 + dy))
+    world.alpha_composite(tag, (PHOTO_BOX[0] + 10, PHOTO_BOX[3] - 38 + dy))
 
 
 def make_background() -> tuple[Image.Image, list[Image.Image]]:
@@ -488,8 +597,8 @@ def render(script: str, out: str) -> None:
     host = characters.main_id()
     characters.verify([host] + [l["speaker"] for l in lines])
     voices = [characters.get(l["speaker"]).voice for l in lines]
-    wav, starts, durs, total, _ = ra.build_audio([l["text"] for l in lines], work, None, None,
-                                                 speakers=voices)
+    wav, starts, durs, total, _ = ra.build_audio([say_text(l["text"], l["say"]) for l in lines], work,
+                                                 None, None, speakers=voices)
     total = round(total + 0.4, 2)
     n_frames = int(math.ceil(total * FPS))
     mouths, loud = ra.mouth_levels(wav, n_frames)
@@ -497,7 +606,7 @@ def render(script: str, out: str) -> None:
     words, events, stickers = [], [], []
     for k, line in enumerate(lines):
         toks = tokens(line["text"])
-        times = word_times(toks, os.path.join(work, f"{k:02d}.wav"), starts[k], durs[k])
+        times = word_times(toks, os.path.join(work, f"{k:02d}.wav"), starts[k], durs[k], line["say"])
         line_words = [{"text": tk.replace("\u00a0", " "), "start": s, "end": e, "line": k,
                        "emph": is_emph(tk, line["marked"])} for tk, (s, e) in zip(toks, times)]
         for i, w in enumerate(line_words):  # конец слова = начало следующего, чтобы не мигало
@@ -529,6 +638,11 @@ def render(script: str, out: str) -> None:
     banner = promo_banner() if PROMO else None
     outro = end_card() if ENDCARD else None
     get = poses()
+    folder = media_dir(script)
+    history = any(l["photo"] for l in lines)
+    for l in lines:
+        if l["photo"]:
+            photo_label(folder, l["photo"]), photo_source(folder, l["photo"])   # проверить до долгого рендера
     guests = [(starts[i], l["speaker"]) for i, l in enumerate(lines) if l["speaker"] != host]
     guest_from = guests[0][0] if guests else 0.0
     blink_frames = {f + d for f in range(int(1.8 * FPS), n_frames, int(3.1 * FPS)) for d in range(3)}
@@ -548,10 +662,24 @@ def render(script: str, out: str) -> None:
         sx, sy = (rng.integers(-9, 10), rng.integers(-9, 10)) if shake else (0, 0)
 
         world = background(t, base, blobs)
+        if history and lines[k]["photo"]:
+            key = lines[k]["photo"]
+            first, last = k, k                                   # подряд идущие фразы с этим снимком
+            while first > 0 and lines[first - 1]["photo"] == key:
+                first -= 1
+            while last + 1 < len(lines) and lines[last + 1]["photo"] == key:
+                last += 1
+            span_t0, span_t1 = starts[first], starts[last] + durs[last]
+            draw_photo(world, folder, key, (t - span_t0) / max(0.1, span_t1 - span_t0),
+                       ease_out((t - span_t0 + 0.12) / 0.3), 1 if first % 2 else -1)
         talker = lines[k]["speaker"]
         guest = next((g for t0, g in reversed(guests) if t0 <= t + 0.3), None)
         duo = ease_out((t - guest_from + 0.3) / 0.45) if guest else 0.0     # выход гостя
+        if history:
+            duo = 1.0 if guest else duo                          # в истории персонажи сразу внизу, меньше
         cast = [(host, (W / 2) * (1 - duo) + DUO_X[0] * duo, CHAR_SIZE + (DUO_SIZE - CHAR_SIZE) * duo)]
+        if history and not guest:
+            cast = [(host, DUO_X[0], DUO_SIZE)]
         if guest:
             cast.append((guest, DUO_X[1] + (1 - duo) * 600, DUO_SIZE))
         for cid, cx, size in sorted(cast, key=lambda c: c[0] == talker):   # говорящий - поверх
@@ -571,7 +699,8 @@ def render(script: str, out: str) -> None:
                 p = back_out((t - st["start"]) / 0.3)
                 im = sticker(st["text"], ease_out((t - st["start"] - 0.45) / 0.3) if st["strike"] else 0)
                 im = im.resize((max(1, int(im.width * p)), max(1, int(im.height * p))), Image.BICUBIC)
-                world.alpha_composite(im, (int(W - 60 - im.width - (1 - p) * 40), int(930 - im.height / 2)))
+                world.alpha_composite(im, (int(W - 60 - im.width - (1 - p) * 40),
+                                          int((PHOTO_BOX[1] + 10 if history else 930) - im.height / 2)))
         if zoom != 1.0 or sx or sy:
             zw, zh = int(W * zoom), int(H * zoom)
             big = world.resize((zw, zh), Image.BILINEAR)

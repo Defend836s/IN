@@ -27,6 +27,7 @@ SERIES = {
     "motivaciya": ("motivaciya/с-баннером", "motivaciya/scripts", "#мотивация #саморазвитие #привычки"),
     "pravda-ili-mif": ("pravda-ili-mif/с-баннером", "pravda-ili-mif/scripts", "#правдаилимиф #обучение #факты"),
     "citaty": ("citaty/с-баннером", "citaty/scripts", "#цитаты #классика #литература"),
+    "history": ("history/videos", "history/scripts", "#история #архив #фактыизистории #обучение"),
 }
 
 BRAND = yaml.safe_load((CONTENT / "brand.yaml").read_text(encoding="utf-8"))
@@ -34,13 +35,32 @@ OLD_CTA = "Все курсы мира - ссылка в профиле."
 CTA = (f"{BRAND['updates']}. {BRAND['free_channel']['pitch']}. "
        f"{BRAND['link_hint']}.")
 PREFIX = re.compile(r"^[A-ZА-ЯЁ]+:\s*")
+# разметка render_pro: [эмоция], [фото N], «Ника: », {1903|тысяча девятьсот третьего}, *акцент*
+MARKUP = [(re.compile(r"\[[^\]]*\]\s*"), ""), (re.compile(r"\{([^|{}]+)\|[^{}]+\}"), r"\1"),
+          (re.compile(r"\*"), "")]
+sys.path.insert(0, str(CONTENT / "tools"))
+
+
+def clean_line(line: str) -> str:
+    for rx, sub in MARKUP:
+        line = rx.sub(sub, line)
+    m = re.match(r"^([А-ЯЁA-Z][\w ]{1,24}):\s+", line.strip())
+    if m:
+        import characters
+        if characters.by_alias(m.group(1)):
+            line = line.strip()[m.end():]
+    return PREFIX.sub("", line).strip()
 
 
 def caption_from_script(path: Path, tags: str) -> tuple[str, str]:
-    lines = [PREFIX.sub("", l).strip() for l in path.read_text(encoding="utf-8").splitlines()]
+    lines = [clean_line(l) for l in path.read_text(encoding="utf-8").splitlines()]
     lines = [l for l in lines if l and not l.lower().startswith("как думаешь")]
     title = lines[0] if lines else path.stem
     body = "\n".join(lines[:4])
+    media = path.parent.parent / "media" / re.sub(r"\D", "", path.stem)
+    if media.is_dir():          # история: источники фактов и снимков - обязательно в подписи
+        import archive
+        body += "\n\n" + archive.credit(str(media))
     return title, f"{body}\n\n{CTA}\n\n{tags}"
 
 
