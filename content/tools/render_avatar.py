@@ -6,7 +6,10 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render_blue as rb
-from globus import sprites, SIZE
+if os.environ.get("CHARACTER") == "semya":   # Енот Сёма вместо Профессора Глобуса
+    from semya import sprites, SIZE
+else:
+    from globus import sprites, SIZE
 
 FPS, W, H = 30, 1080, 1920
 TAG = "ВСЕ КУРСЫ МИРА"
@@ -75,11 +78,13 @@ def text_layer(text, is_hook):
     return img
 
 
-def build_audio(lines, work, piper, voice, length=0.95):
+def build_audio(lines, work, piper, voice, length=0.95, speakers=None):
+    """speakers - голос на каждую фразу (диалог персонажей); None - один голос на весь ролик."""
     while True:
         durs = []
         for k, line in enumerate(lines):
-            d, sr = rb.tts(piper, voice, rb.spoken(line), os.path.join(work, f"{k:02d}.wav"), length)
+            d, sr = rb.tts(piper, voice, rb.spoken(line), os.path.join(work, f"{k:02d}.wav"), length,
+                           speakers[k] if speakers else None)
             durs.append(d)
         total = sum(durs) + rb.GAP * (len(lines) - 1) + rb.TAIL
         if total <= rb.LIMIT or length <= 0.8:

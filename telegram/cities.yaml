@@ -1,0 +1,4309 @@
+# Новостные каналы городов России - сгенерировано telegram/tools/cities.py
+# Источник: справочник городов России HFLabs (github.com/hflabs/city, лицензия CC BY-SA 4.0); население - как в Википедии на момент выгрузки справочника, у части городов устарело.
+# Города от 50000 жителей. Меняйте только chat (@канал или -100...) -
+# остальное пересоздаётся генератором; chat сохраняется. Список: telegram/ГОРОДА.md
+cities:
+- id: moskva
+  type: news
+  title: 'Москва: новости'
+  city: Москва
+  region: Москва
+  district: Центральный
+  population: 11514330
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bМоскв\w{0,3}\b
+  posts_per_run: 3
+- id: sankt-peterburg
+  type: news
+  title: 'Санкт-Петербург: новости'
+  city: Санкт-Петербург
+  region: Санкт-Петербург
+  district: Северо-Западный
+  population: 4848742
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bСанкт\w{0,3}-П[её]т[её]рбург\w{0,3}\b
+  posts_per_run: 3
+- id: novosibirsk
+  type: news
+  title: 'Новосибирск: новости'
+  city: Новосибирск
+  region: Новосибирская область
+  district: Сибирский
+  population: 1498921
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - \bНовосибирск\w{0,3}\b
+  - \b(?:Новосибирск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: ekaterinburg
+  type: news
+  title: 'Екатеринбург: новости'
+  city: Екатеринбург
+  region: Свердловская область
+  district: Уральский
+  population: 1377738
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \b[ЕЁ]кат[её]ринбург\w{0,3}\b
+  - \b(?:Св[её]рдловск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: nizhniy-novgorod
+  type: news
+  title: 'Нижний Новгород: новости'
+  city: Нижний Новгород
+  region: Нижегородская область
+  district: Приволжский
+  population: 1250615
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bНижн\w{0,3}\s+Новгород\w{0,3}\b
+  - \b(?:Ниж[её]городск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: kazan
+  type: news
+  title: 'Казань: новости'
+  city: Казань
+  region: Татарстан Республика
+  district: Приволжский
+  population: 1216965
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bКазан\w{0,3}\b
+  - \b(?:Татарстан\w{0,3})
+  posts_per_run: 3
+- id: samara
+  type: news
+  title: 'Самара: новости'
+  city: Самара
+  region: Самарская область
+  district: Приволжский
+  population: 1164900
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - \bСамар\w{0,3}\b
+  - \b(?:Самарск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: omsk
+  type: news
+  title: 'Омск: новости'
+  city: Омск
+  region: Омская область
+  district: Сибирский
+  population: 1154000
+  tz: UTC+6
+  chat: ''
+  max_chat: ''
+  include:
+  - \bОмск\w{0,3}\b
+  - \b(?:Омск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: chelyabinsk
+  type: news
+  title: 'Челябинск: новости'
+  city: Челябинск
+  region: Челябинская область
+  district: Уральский
+  population: 1130273
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \bЧ[её]лябинск\w{0,3}\b
+  - \b(?:Ч[её]лябинск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: rostov-na-donu
+  type: news
+  title: 'Ростов-на-Дону: новости'
+  city: Ростов-на-Дону
+  region: Ростовская область
+  district: Южный
+  population: 1091544
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bРостов\w{0,3}-на-Дону\w{0,3}\b
+  - \b(?:Ростовск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: ufa
+  type: news
+  title: 'Уфа: новости'
+  city: Уфа
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 1062300
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \bУфа\w{0,3}\b
+  - \b(?:Башкири)
+  posts_per_run: 3
+- id: volgograd
+  type: news
+  title: 'Волгоград: новости'
+  city: Волгоград
+  region: Волгоградская область
+  district: Южный
+  population: 1021244
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bВолгоград\w{0,3}\b
+  - \b(?:Волгоградск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: perm
+  type: news
+  title: 'Пермь: новости'
+  city: Пермь
+  region: Пермский край
+  district: Приволжский
+  population: 1000679
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \bП[её]рм\w{0,3}\b
+  - \b(?:П[её]рмск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: krasnoyarsk
+  type: news
+  title: 'Красноярск: новости'
+  city: Красноярск
+  region: Красноярский край
+  district: Сибирский
+  population: 973826
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - \bКрасноярск\w{0,3}\b
+  - \b(?:Красноярск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: voronezh
+  type: news
+  title: 'Воронеж: новости'
+  city: Воронеж
+  region: Воронежская область
+  district: Центральный
+  population: 889680
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bВорон[её]ж\w{0,3}\b
+  - \b(?:Ворон[её]жск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: saratov
+  type: news
+  title: 'Саратов: новости'
+  city: Саратов
+  region: Саратовская область
+  district: Приволжский
+  population: 836900
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - \bСаратов\w{0,3}\b
+  - \b(?:Саратовск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: krasnodar
+  type: news
+  title: 'Краснодар: новости'
+  city: Краснодар
+  region: Краснодарский край
+  district: Южный
+  population: 744933
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bКраснодар\w{0,3}\b
+  - \b(?:Краснодарск\w{0,3}\s+(обл|кра|автономн)|Кубан)
+  posts_per_run: 3
+- id: tolyatti
+  type: news
+  title: 'Тольятти: новости'
+  city: Тольятти
+  region: Самарская область
+  district: Приволжский
+  population: 719484
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - \bТольятт\w{0,3}\b
+  posts_per_run: 3
+- id: barnaul
+  type: news
+  title: 'Барнаул: новости'
+  city: Барнаул
+  region: Алтайский край
+  district: Сибирский
+  population: 635585
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - \bБарнаул\w{0,3}\b
+  - \b(?:Алтайск\w{0,3}\s+(обл|кра|автономн)|Республик\w* Алтай|Горн\w* Алта)
+  posts_per_run: 3
+- id: izhevsk
+  type: news
+  title: 'Ижевск: новости'
+  city: Ижевск
+  region: Удмуртская Республика
+  district: Приволжский
+  population: 628117
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - \bИж[её]вск\w{0,3}\b
+  - \b(?:Удмуртск\w{0,3})
+  posts_per_run: 3
+- id: ulyanovsk
+  type: news
+  title: 'Ульяновск: новости'
+  city: Ульяновск
+  region: Ульяновская область
+  district: Приволжский
+  population: 613793
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - \bУльяновск\w{0,3}\b
+  - \b(?:Ульяновск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: vladivostok
+  type: news
+  title: 'Владивосток: новости'
+  city: Владивосток
+  region: Приморский край
+  district: Дальневосточный
+  population: 592069
+  tz: UTC+10
+  chat: ''
+  max_chat: ''
+  include:
+  - \bВладивосток\w{0,3}\b
+  - \b(?:Приморск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: yaroslavl
+  type: news
+  title: 'Ярославль: новости'
+  city: Ярославль
+  region: Ярославская область
+  district: Центральный
+  population: 591486
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bЯрославл\w{0,3}\b
+  - \b(?:Ярославск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: irkutsk
+  type: news
+  title: 'Иркутск: новости'
+  city: Иркутск
+  region: Иркутская область
+  district: Сибирский
+  population: 587225
+  tz: UTC+8
+  chat: ''
+  max_chat: ''
+  include:
+  - \bИркутск\w{0,3}\b
+  - \b(?:Иркутск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: tyumen
+  type: news
+  title: 'Тюмень: новости'
+  city: Тюмень
+  region: Тюменская область
+  district: Уральский
+  population: 581758
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \bТюм[её]н\w{0,3}\b
+  - \b(?:Тюм[её]нск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: mahachkala
+  type: news
+  title: 'Махачкала: новости'
+  city: Махачкала
+  region: Дагестан Республика
+  district: Северо-Кавказский
+  population: 577990
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bМахачкал\w{0,3}\b
+  - \b(?:Даг[её]стан\w{0,3})
+  posts_per_run: 3
+- id: habarovsk
+  type: news
+  title: 'Хабаровск: новости'
+  city: Хабаровск
+  region: Хабаровский край
+  district: Дальневосточный
+  population: 577668
+  tz: UTC+10
+  chat: ''
+  max_chat: ''
+  include:
+  - \bХабаровск\w{0,3}\b
+  - \b(?:Хабаровск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: orenburg
+  type: news
+  title: 'Оренбург: новости'
+  city: Оренбург
+  region: Оренбургская область
+  district: Приволжский
+  population: 570329
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \bОр[её]нбург\w{0,3}\b
+  - \b(?:Ор[её]нбургск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: novokuznetsk
+  type: news
+  title: 'Новокузнецк: новости'
+  city: Новокузнецк
+  region: Кемеровская область - Кузбасс область
+  district: Сибирский
+  population: 547885
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - \bНовокузн[её]цк\w{0,3}\b
+  posts_per_run: 3
+- id: kemerovo
+  type: news
+  title: 'Кемерово: новости'
+  city: Кемерово
+  region: Кемеровская область - Кузбасс область
+  district: Сибирский
+  population: 532884
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - \bК[её]м[её]ров\w{0,3}\b
+  - \b(?:К[её]м[её]ровск\w{0,3}\s+(обл|кра|автономн)|Кузбасс)
+  posts_per_run: 3
+- id: ryazan
+  type: news
+  title: 'Рязань: новости'
+  city: Рязань
+  region: Рязанская область
+  district: Центральный
+  population: 525062
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bРязан\w{0,3}\b
+  - \b(?:Рязанск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: tomsk
+  type: news
+  title: 'Томск: новости'
+  city: Томск
+  region: Томская область
+  district: Сибирский
+  population: 522940
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - \bТомск\w{0,3}\b
+  - \b(?:Томск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: astrahan
+  type: news
+  title: 'Астрахань: новости'
+  city: Астрахань
+  region: Астраханская область
+  district: Южный
+  population: 520662
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - \bАстрахан\w{0,3}\b
+  - \b(?:Астраханск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: penza
+  type: news
+  title: 'Пенза: новости'
+  city: Пенза
+  region: Пензенская область
+  district: Приволжский
+  population: 519592
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bП[её]нз\w{0,3}\b
+  - \b(?:П[её]нз[её]нск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: naberezhnye-chelny
+  type: news
+  title: 'Набережные Челны: новости'
+  city: Набережные Челны
+  region: Татарстан Республика
+  district: Приволжский
+  population: 513242
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bНаб[её]р[её]жн\w{0,3}\s+Ч[её]лн\w{0,3}\b
+  posts_per_run: 3
+- id: lipetsk
+  type: news
+  title: 'Липецк: новости'
+  city: Липецк
+  region: Липецкая область
+  district: Центральный
+  population: 508124
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bЛип[её]цк\w{0,3}\b
+  - \b(?:Лип[её]цк\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: tula
+  type: news
+  title: 'Тула: новости'
+  city: Тула
+  region: Тульская область
+  district: Центральный
+  population: 501129
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bТул\w{0,3}\b
+  - \b(?:Тульск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 3
+- id: kirov
+  type: news
+  title: 'Киров: новости'
+  city: Киров
+  region: Кировская область
+  district: Приволжский
+  population: 473668
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Киров\w{0,3}\b
+  - \b(?:Кировск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: cheboksary
+  type: news
+  title: 'Чебоксары: новости'
+  city: Чебоксары
+  region: Чувашская Республика Республика
+  district: Приволжский
+  population: 447929
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bЧ[её]боксар\w{0,3}\b
+  - \b(?:Чувашск\w{0,3})
+  posts_per_run: 2
+- id: ulan-ude
+  type: news
+  title: 'Улан-Удэ: новости'
+  city: Улан-Удэ
+  region: Бурятия Республика
+  district: Дальневосточный
+  population: 431922
+  tz: UTC+8
+  chat: ''
+  max_chat: ''
+  include:
+  - \bУлан\w{0,3}-Удэ\w{0,3}\b
+  - \b(?:Буряти\w{0,3})
+  posts_per_run: 2
+- id: kaliningrad
+  type: news
+  title: 'Калининград: новости'
+  city: Калининград
+  region: Калининградская область
+  district: Северо-Западный
+  population: 431491
+  tz: UTC+2
+  chat: ''
+  max_chat: ''
+  include:
+  - \bКалининград\w{0,3}\b
+  - \b(?:Калининградск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: bryansk
+  type: news
+  title: 'Брянск: новости'
+  city: Брянск
+  region: Брянская область
+  district: Центральный
+  population: 415640
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bБрянск\w{0,3}\b
+  - \b(?:Брянск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: kursk
+  type: news
+  title: 'Курск: новости'
+  city: Курск
+  region: Курская область
+  district: Центральный
+  population: 414595
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bКурск\w{0,3}\b
+  - \b(?:Курск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: ivanovo
+  type: news
+  title: 'Иваново: новости'
+  city: Иваново
+  region: Ивановская область
+  district: Центральный
+  population: 409277
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Иванов\w{0,3}\b
+  - \b(?:Ивановск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: magnitogorsk
+  type: news
+  title: 'Магнитогорск: новости'
+  city: Магнитогорск
+  region: Челябинская область
+  district: Уральский
+  population: 408401
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \bМагнитогорск\w{0,3}\b
+  posts_per_run: 2
+- id: tver
+  type: news
+  title: 'Тверь: новости'
+  city: Тверь
+  region: Тверская область
+  district: Центральный
+  population: 403726
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bТв[её]р\w{0,3}\b
+  - \b(?:Тв[её]рск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: stavropol
+  type: news
+  title: 'Ставрополь: новости'
+  city: Ставрополь
+  region: Ставропольский край
+  district: Северо-Кавказский
+  population: 398266
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bСтавропол\w{0,3}\b
+  - \b(?:Ставропольск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: sevastopol
+  type: news
+  title: 'Севастополь: новости'
+  city: Севастополь
+  region: Севастополь
+  district: Южный
+  population: 393304
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bС[её]вастопол\w{0,3}\b
+  posts_per_run: 2
+- id: nizhniy-tagil
+  type: news
+  title: 'Нижний Тагил: новости'
+  city: Нижний Тагил
+  region: Свердловская область
+  district: Уральский
+  population: 361883
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \bНижн\w{0,3}\s+Тагил\w{0,3}\b
+  posts_per_run: 2
+- id: belgorod
+  type: news
+  title: 'Белгород: новости'
+  city: Белгород
+  region: Белгородская область
+  district: Центральный
+  population: 356426
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bБ[её]лгород\w{0,3}\b
+  - \b(?:Б[её]лгородск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: arhangelsk
+  type: news
+  title: 'Архангельск: новости'
+  city: Архангельск
+  region: Архангельская область
+  district: Северо-Западный
+  population: 348716
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bАрханг[её]льск\w{0,3}\b
+  - \b(?:Арханг[её]льск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: vladimir
+  type: news
+  title: 'Владимир: новости'
+  city: Владимир
+  region: Владимирская область
+  district: Центральный
+  population: 348256
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Владимир\w{0,3}\b
+  - \b(?:Владимирск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: sochi
+  type: news
+  title: 'Сочи: новости'
+  city: Сочи
+  region: Краснодарский край
+  district: Южный
+  population: 343285
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bСоч\w{0,3}\b
+  posts_per_run: 2
+- id: kurgan
+  type: news
+  title: 'Курган: новости'
+  city: Курган
+  region: Курганская область
+  district: Уральский
+  population: 333640
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \bКурган\w{0,3}\b
+  - \b(?:Курганск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: simferopol
+  type: news
+  title: 'Симферополь: новости'
+  city: Симферополь
+  region: Крым Республика
+  district: Южный
+  population: 332317
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bСимф[её]ропол\w{0,3}\b
+  posts_per_run: 2
+- id: smolensk
+  type: news
+  title: 'Смоленск: новости'
+  city: Смоленск
+  region: Смоленская область
+  district: Центральный
+  population: 326863
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bСмол[её]нск\w{0,3}\b
+  - \b(?:Смол[её]нск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: kaluga
+  type: news
+  title: 'Калуга: новости'
+  city: Калуга
+  region: Калужская область
+  district: Центральный
+  population: 325185
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bКалуг\w{0,3}\b
+  - \b(?:Калужск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: chita
+  type: news
+  title: 'Чита: новости'
+  city: Чита
+  region: Забайкальский край
+  district: Дальневосточный
+  population: 323964
+  tz: UTC+9
+  chat: ''
+  max_chat: ''
+  include:
+  - \bЧит\w{0,3}\b
+  - \b(?:Забайкальск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: saransk
+  type: news
+  title: 'Саранск: новости'
+  city: Саранск
+  region: Мордовия Республика
+  district: Приволжский
+  population: 318841
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bСаранск\w{0,3}\b
+  - \b(?:Мордови\w{0,3})
+  posts_per_run: 2
+- id: orel
+  type: news
+  title: 'Орёл: новости'
+  city: Орёл
+  region: Орловская область
+  district: Центральный
+  population: 317854
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ор[её]?ь?л\w{0,3}\b
+  - \b(?:Орловск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: volzhskiy
+  type: news
+  title: 'Волжский: новости'
+  city: Волжский
+  region: Волгоградская область
+  district: Южный
+  population: 314436
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bВолжск\w{0,3}\b
+  posts_per_run: 2
+- id: cherepovets
+  type: news
+  title: 'Череповец: новости'
+  city: Череповец
+  region: Вологодская область
+  district: Северо-Западный
+  population: 312311
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bЧ[её]р[её]пов[её]?ь?ц\w{0,3}\b
+  posts_per_run: 2
+- id: vladikavkaz
+  type: news
+  title: 'Владикавказ: новости'
+  city: Владикавказ
+  region: Северная Осетия - Алания Республика
+  district: Северо-Кавказский
+  population: 311635
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bВладикавказ\w{0,3}\b
+  - \b(?:Северн\w* Осети|Осети|Алани)
+  posts_per_run: 2
+- id: murmansk
+  type: news
+  title: 'Мурманск: новости'
+  city: Мурманск
+  region: Мурманская область
+  district: Северо-Западный
+  population: 307664
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bМурманск\w{0,3}\b
+  - \b(?:Мурманск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: surgut
+  type: news
+  title: 'Сургут: новости'
+  city: Сургут
+  region: Ханты-Мансийский Автономный округ - Югра автономный округ
+  district: Уральский
+  population: 306703
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - \bСургут\w{0,3}\b
+  posts_per_run: 2
+- id: vologda
+  type: news
+  title: 'Вологда: новости'
+  city: Вологда
+  region: Вологодская область
+  district: Северо-Западный
+  population: 301642
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - \bВологд\w{0,3}\b
+  - \b(?:Вологодск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: tambov
+  type: news
+  title: 'Тамбов: новости'
+  city: Тамбов
+  region: Тамбовская область
+  district: Центральный
+  population: 280457
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Тамбов\w{0,3}\b
+  - \b(?:Тамбовск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: sterlitamak
+  type: news
+  title: 'Стерлитамак: новости'
+  city: Стерлитамак
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 273432
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ст[её]рлитамак\w{0,3}\b
+  posts_per_run: 2
+- id: groznyy
+  type: news
+  title: 'Грозный: новости'
+  city: Грозный
+  region: Чеченская Республика
+  district: Северо-Кавказский
+  population: 271596
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Грозн\w{0,3}\b
+  - \b(?:Ч[её]ч[её]нск\w{0,3})
+  posts_per_run: 2
+- id: yakutsk
+  type: news
+  title: 'Якутск: новости'
+  city: Якутск
+  region: Саха /Якутия/ Республика
+  district: Дальневосточный
+  population: 269486
+  tz: UTC+9
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Якутск\w{0,3}\b
+  - \b(?:Якути)
+  posts_per_run: 2
+- id: kostroma
+  type: news
+  title: 'Кострома: новости'
+  city: Кострома
+  region: Костромская область
+  district: Центральный
+  population: 268617
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Костром\w{0,3}\b
+  - \b(?:Костромск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: komsomolsk-na-amure
+  type: news
+  title: 'Комсомольск-на-Амуре: новости'
+  city: Комсомольск-на-Амуре
+  region: Хабаровский край
+  district: Дальневосточный
+  population: 263906
+  tz: UTC+10
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Комсомольск\w{0,3}-на-Амур\w{0,3}\b
+  posts_per_run: 2
+- id: petrozavodsk
+  type: news
+  title: 'Петрозаводск: новости'
+  city: Петрозаводск
+  region: Карелия Республика
+  district: Северо-Западный
+  population: 263540
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)П[её]трозаводск\w{0,3}\b
+  - \b(?:Кар[её]ли\w{0,3})
+  posts_per_run: 2
+- id: taganrog
+  type: news
+  title: 'Таганрог: новости'
+  city: Таганрог
+  region: Ростовская область
+  district: Южный
+  population: 257692
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Таганрог\w{0,3}\b
+  posts_per_run: 2
+- id: nizhnevartovsk
+  type: news
+  title: 'Нижневартовск: новости'
+  city: Нижневартовск
+  region: Ханты-Мансийский Автономный округ - Югра автономный округ
+  district: Уральский
+  population: 251860
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Нижн[её]вартовск\w{0,3}\b
+  posts_per_run: 2
+- id: yoshkar-ola
+  type: news
+  title: 'Йошкар-Ола: новости'
+  city: Йошкар-Ола
+  region: Марий Эл Республика
+  district: Приволжский
+  population: 248688
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Йошкар\w{0,3}-Ола\w{0,3}\b
+  - \b(?:Марий Эл|Марийск)
+  posts_per_run: 2
+- id: bratsk
+  type: news
+  title: 'Братск: новости'
+  city: Братск
+  region: Иркутская область
+  district: Сибирский
+  population: 246348
+  tz: UTC+8
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Братск\w{0,3}\b
+  posts_per_run: 2
+- id: novorossiysk
+  type: news
+  title: 'Новороссийск: новости'
+  city: Новороссийск
+  region: Краснодарский край
+  district: Южный
+  population: 241788
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Новороссийск\w{0,3}\b
+  posts_per_run: 2
+- id: dzerzhinsk
+  type: news
+  title: 'Дзержинск: новости'
+  city: Дзержинск
+  region: Нижегородская область
+  district: Приволжский
+  population: 240762
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Дз[её]ржинск\w{0,3}\b
+  posts_per_run: 2
+- id: shahty
+  type: news
+  title: 'Шахты: новости'
+  city: Шахты
+  region: Ростовская область
+  district: Южный
+  population: 240152
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Шахт\w{0,3}\b
+  posts_per_run: 2
+- id: nalchik
+  type: news
+  title: 'Нальчик: новости'
+  city: Нальчик
+  region: Кабардино-Балкарская Республика
+  district: Северо-Кавказский
+  population: 240095
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Нальчик\w{0,3}\b
+  - \b(?:Кабардин\w{0,3})
+  posts_per_run: 2
+- id: orsk
+  type: news
+  title: 'Орск: новости'
+  city: Орск
+  region: Оренбургская область
+  district: Приволжский
+  population: 238006
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Орск\w{0,3}\b
+  posts_per_run: 2
+- id: syktyvkar
+  type: news
+  title: 'Сыктывкар: новости'
+  city: Сыктывкар
+  region: Коми Республика
+  district: Северо-Западный
+  population: 235006
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Сыктывкар\w{0,3}\b
+  - \b(?:Коми\b)
+  posts_per_run: 2
+- id: nizhnekamsk
+  type: news
+  title: 'Нижнекамск: новости'
+  city: Нижнекамск
+  region: Татарстан Республика
+  district: Приволжский
+  population: 234108
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Нижн[её]камск\w{0,3}\b
+  posts_per_run: 2
+- id: angarsk
+  type: news
+  title: 'Ангарск: новости'
+  city: Ангарск
+  region: Иркутская область
+  district: Сибирский
+  population: 233765
+  tz: UTC+8
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ангарск\w{0,3}\b
+  posts_per_run: 2
+- id: staryy-oskol
+  type: news
+  title: 'Старый Оскол: новости'
+  city: Старый Оскол
+  region: Белгородская область
+  district: Центральный
+  population: 221163
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Стар\w{0,3}\s+Оскол\w{0,3}\b
+  posts_per_run: 2
+- id: velikiy-novgorod
+  type: news
+  title: 'Великий Новгород: новости'
+  city: Великий Новгород
+  region: Новгородская область
+  district: Северо-Западный
+  population: 218724
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)В[её]лик\w{0,3}\s+Новгород\w{0,3}\b
+  - \b(?:Новгородск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: balashiha
+  type: news
+  title: 'Балашиха: новости'
+  city: Балашиха
+  region: Московская область
+  district: Центральный
+  population: 215353
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Балаших\w{0,3}\b
+  posts_per_run: 2
+- id: blagoveschensk
+  type: news
+  title: 'Благовещенск: новости'
+  city: Благовещенск
+  region: Амурская область
+  district: Дальневосточный
+  population: 214397
+  tz: UTC+9
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Благов[её]щ[её]нск\w{0,3}\b
+  - \b(?:Амурск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: prokopevsk
+  type: news
+  title: 'Прокопьевск: новости'
+  city: Прокопьевск
+  region: Кемеровская область - Кузбасс область
+  district: Сибирский
+  population: 210150
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Прокопь[её]вск\w{0,3}\b
+  posts_per_run: 2
+- id: himki
+  type: news
+  title: 'Химки: новости'
+  city: Химки
+  region: Московская область
+  district: Центральный
+  population: 207125
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Химк\w{0,3}\b
+  posts_per_run: 2
+- id: pskov
+  type: news
+  title: 'Псков: новости'
+  city: Псков
+  region: Псковская область
+  district: Северо-Западный
+  population: 203974
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Псков\w{0,3}\b
+  - \b(?:Псковск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: biysk
+  type: news
+  title: 'Бийск: новости'
+  city: Бийск
+  region: Алтайский край
+  district: Сибирский
+  population: 203826
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Бийск\w{0,3}\b
+  posts_per_run: 2
+- id: engels
+  type: news
+  title: 'Энгельс: новости'
+  city: Энгельс
+  region: Саратовская область
+  district: Приволжский
+  population: 202838
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Энг[её]льс\w{0,3}\b
+  posts_per_run: 2
+- id: rybinsk
+  type: news
+  title: 'Рыбинск: новости'
+  city: Рыбинск
+  region: Ярославская область
+  district: Центральный
+  population: 200771
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Рыбинск\w{0,3}\b
+  posts_per_run: 2
+- id: balakovo
+  type: news
+  title: 'Балаково: новости'
+  city: Балаково
+  region: Саратовская область
+  district: Приволжский
+  population: 199576
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Балаков\w{0,3}\b
+  posts_per_run: 2
+- id: severodvinsk
+  type: news
+  title: 'Северодвинск: новости'
+  city: Северодвинск
+  region: Архангельская область
+  district: Северо-Западный
+  population: 192265
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)С[её]в[её]родвинск\w{0,3}\b
+  posts_per_run: 2
+- id: armavir
+  type: news
+  title: 'Армавир: новости'
+  city: Армавир
+  region: Краснодарский край
+  district: Южный
+  population: 188897
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Армавир\w{0,3}\b
+  posts_per_run: 2
+- id: podolsk
+  type: news
+  title: 'Подольск: новости'
+  city: Подольск
+  region: Московская область
+  district: Центральный
+  population: 187956
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Подольск\w{0,3}\b
+  posts_per_run: 2
+- id: korolev
+  type: news
+  title: 'Королёв: новости'
+  city: Королёв
+  region: Московская область
+  district: Центральный
+  population: 183452
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Корол[её]в\w{0,3}\b
+  posts_per_run: 2
+- id: yuzhno-sahalinsk
+  type: news
+  title: 'Южно-Сахалинск: новости'
+  city: Южно-Сахалинск
+  region: Сахалинская область
+  district: Дальневосточный
+  population: 181727
+  tz: UTC+11
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Южн\w{0,3}-Сахалинск\w{0,3}\b
+  - \b(?:Сахалинск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: petropavlovsk-kamchatskiy
+  type: news
+  title: 'Петропавловск-Камчатский: новости'
+  city: Петропавловск-Камчатский
+  region: Камчатский край
+  district: Дальневосточный
+  population: 179526
+  tz: UTC+12
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)П[её]тропавловск\w{0,3}-Камчатск\w{0,3}\b
+  - \b(?:Камчатск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 2
+- id: syzran
+  type: news
+  title: 'Сызрань: новости'
+  city: Сызрань
+  region: Самарская область
+  district: Приволжский
+  population: 178773
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Сызран\w{0,3}\b
+  posts_per_run: 2
+- id: norilsk
+  type: news
+  title: 'Норильск: новости'
+  city: Норильск
+  region: Красноярский край
+  district: Сибирский
+  population: 175301
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Норильск\w{0,3}\b
+  posts_per_run: 2
+- id: zlatoust
+  type: news
+  title: 'Златоуст: новости'
+  city: Златоуст
+  region: Челябинская область
+  district: Уральский
+  population: 174985
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Златоуст\w{0,3}\b
+  posts_per_run: 2
+- id: kamensk-uralskiy
+  type: news
+  title: 'Каменск-Уральский: новости'
+  city: Каменск-Уральский
+  region: Свердловская область
+  district: Уральский
+  population: 174710
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кам[её]нск\w{0,3}-Уральск\w{0,3}\b
+  posts_per_run: 2
+- id: mytischi
+  type: news
+  title: 'Мытищи: новости'
+  city: Мытищи
+  region: Московская область
+  district: Центральный
+  population: 173341
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Мытищ\w{0,3}\b
+  posts_per_run: 2
+- id: lyubertsy
+  type: news
+  title: 'Люберцы: новости'
+  city: Люберцы
+  region: Московская область
+  district: Центральный
+  population: 171978
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Люб[её]рц\w{0,3}\b
+  posts_per_run: 2
+- id: volgodonsk
+  type: news
+  title: 'Волгодонск: новости'
+  city: Волгодонск
+  region: Ростовская область
+  district: Южный
+  population: 170621
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Волгодонск\w{0,3}\b
+  posts_per_run: 2
+- id: novocherkassk
+  type: news
+  title: 'Новочеркасск: новости'
+  city: Новочеркасск
+  region: Ростовская область
+  district: Южный
+  population: 169039
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Новоч[её]ркасск\w{0,3}\b
+  posts_per_run: 2
+- id: abakan
+  type: news
+  title: 'Абакан: новости'
+  city: Абакан
+  region: Хакасия Республика
+  district: Сибирский
+  population: 165183
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Абакан\w{0,3}\b
+  - \b(?:Хакаси\w{0,3})
+  posts_per_run: 2
+- id: nahodka
+  type: news
+  title: 'Находка: новости'
+  city: Находка
+  region: Приморский край
+  district: Дальневосточный
+  population: 159695
+  tz: UTC+10
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Находк\w{0,3}\b
+  posts_per_run: 2
+- id: ussuriysk
+  type: news
+  title: 'Уссурийск: новости'
+  city: Уссурийск
+  region: Приморский край
+  district: Дальневосточный
+  population: 157946
+  tz: UTC+10
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Уссурийск\w{0,3}\b
+  posts_per_run: 2
+- id: berezniki
+  type: news
+  title: 'Березники: новости'
+  city: Березники
+  region: Пермский край
+  district: Приволжский
+  population: 156350
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Б[её]р[её]зник\w{0,3}\b
+  posts_per_run: 2
+- id: salavat
+  type: news
+  title: 'Салават: новости'
+  city: Салават
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 156085
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Салават\w{0,3}\b
+  posts_per_run: 2
+- id: elektrostal
+  type: news
+  title: 'Электросталь: новости'
+  city: Электросталь
+  region: Московская область
+  district: Центральный
+  population: 155324
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Эл[её]ктростал\w{0,3}\b
+  posts_per_run: 2
+- id: miass
+  type: news
+  title: 'Миасс: новости'
+  city: Миасс
+  region: Челябинская область
+  district: Уральский
+  population: 151812
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Миасс\w{0,3}\b
+  posts_per_run: 2
+- id: pervouralsk
+  type: news
+  title: 'Первоуральск: новости'
+  city: Первоуральск
+  region: Свердловская область
+  district: Уральский
+  population: 149800
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)П[её]рвоуральск\w{0,3}\b
+  posts_per_run: 2
+- id: kerch
+  type: news
+  title: 'Керчь: новости'
+  city: Керчь
+  region: Крым Республика
+  district: Южный
+  population: 147033
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)К[её]рч\w{0,3}\b
+  posts_per_run: 2
+- id: rubtsovsk
+  type: news
+  title: 'Рубцовск: новости'
+  city: Рубцовск
+  region: Алтайский край
+  district: Сибирский
+  population: 146386
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Рубцовск\w{0,3}\b
+  posts_per_run: 2
+- id: almetevsk
+  type: news
+  title: 'Альметьевск: новости'
+  city: Альметьевск
+  region: Татарстан Республика
+  district: Приволжский
+  population: 146309
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Альм[её]ть[её]вск\w{0,3}\b
+  posts_per_run: 2
+- id: kovrov
+  type: news
+  title: 'Ковров: новости'
+  city: Ковров
+  region: Владимирская область
+  district: Центральный
+  population: 145492
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ковров\w{0,3}\b
+  posts_per_run: 2
+- id: kolomna
+  type: news
+  title: 'Коломна: новости'
+  city: Коломна
+  region: Московская область
+  district: Центральный
+  population: 144642
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Коломн\w{0,3}\b
+  posts_per_run: 2
+- id: maykop
+  type: news
+  title: 'Майкоп: новости'
+  city: Майкоп
+  region: Адыгея Республика
+  district: Южный
+  population: 144055
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Майкоп\w{0,3}\b
+  - \b(?:Адыге)
+  posts_per_run: 2
+- id: pyatigorsk
+  type: news
+  title: 'Пятигорск: новости'
+  city: Пятигорск
+  region: Ставропольский край
+  district: Северо-Кавказский
+  population: 142397
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Пятигорск\w{0,3}\b
+  posts_per_run: 2
+- id: odintsovo
+  type: news
+  title: 'Одинцово: новости'
+  city: Одинцово
+  region: Московская область
+  district: Центральный
+  population: 139021
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Одинцов\w{0,3}\b
+  posts_per_run: 2
+- id: kopeysk
+  type: news
+  title: 'Копейск: новости'
+  city: Копейск
+  region: Челябинская область
+  district: Уральский
+  population: 137604
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Коп[её]йск\w{0,3}\b
+  posts_per_run: 2
+- id: hasavyurt
+  type: news
+  title: 'Хасавюрт: новости'
+  city: Хасавюрт
+  region: Дагестан Республика
+  district: Северо-Кавказский
+  population: 133929
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Хасавюрт\w{0,3}\b
+  posts_per_run: 2
+- id: novomoskovsk
+  type: news
+  title: 'Новомосковск: новости'
+  city: Новомосковск
+  region: Тульская область
+  district: Центральный
+  population: 131227
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Новомосковск\w{0,3}\b
+  posts_per_run: 2
+- id: kislovodsk
+  type: news
+  title: 'Кисловодск: новости'
+  city: Кисловодск
+  region: Ставропольский край
+  district: Северо-Кавказский
+  population: 128502
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кисловодск\w{0,3}\b
+  posts_per_run: 2
+- id: serpuhov
+  type: news
+  title: 'Серпухов: новости'
+  city: Серпухов
+  region: Московская область
+  district: Центральный
+  population: 126496
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)С[её]рпухов\w{0,3}\b
+  posts_per_run: 2
+- id: novocheboksarsk
+  type: news
+  title: 'Новочебоксарск: новости'
+  city: Новочебоксарск
+  region: Чувашская Республика Республика
+  district: Приволжский
+  population: 124094
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Новоч[её]боксарск\w{0,3}\b
+  posts_per_run: 2
+- id: nefteyugansk
+  type: news
+  title: 'Нефтеюганск: новости'
+  city: Нефтеюганск
+  region: Ханты-Мансийский Автономный округ - Югра автономный округ
+  district: Уральский
+  population: 123276
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Н[её]фт[её]юганск\w{0,3}\b
+  posts_per_run: 2
+- id: dimitrovgrad
+  type: news
+  title: 'Димитровград: новости'
+  city: Димитровград
+  region: Ульяновская область
+  district: Приволжский
+  population: 122549
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Димитровград\w{0,3}\b
+  posts_per_run: 2
+- id: neftekamsk
+  type: news
+  title: 'Нефтекамск: новости'
+  city: Нефтекамск
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 121757
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Н[её]фт[её]камск\w{0,3}\b
+  posts_per_run: 2
+- id: cherkessk
+  type: news
+  title: 'Черкесск: новости'
+  city: Черкесск
+  region: Карачаево-Черкесская Республика
+  district: Северо-Кавказский
+  population: 121439
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ч[её]рк[её]сск\w{0,3}\b
+  - \b(?:Карача[её]в\w{0,3})
+  posts_per_run: 2
+- id: orehovo-zuevo
+  type: news
+  title: 'Орехово-Зуево: новости'
+  city: Орехово-Зуево
+  region: Московская область
+  district: Центральный
+  population: 120620
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ор[её]хов\w{0,3}-Зу[её]в\w{0,3}\b
+  posts_per_run: 2
+- id: derbent
+  type: news
+  title: 'Дербент: новости'
+  city: Дербент
+  region: Дагестан Республика
+  district: Северо-Кавказский
+  population: 119961
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Д[её]рб[её]нт\w{0,3}\b
+  posts_per_run: 2
+- id: kamyshin
+  type: news
+  title: 'Камышин: новости'
+  city: Камышин
+  region: Волгоградская область
+  district: Южный
+  population: 119924
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Камышин\w{0,3}\b
+  posts_per_run: 2
+- id: nevinnomyssk
+  type: news
+  title: 'Невинномысск: новости'
+  city: Невинномысск
+  region: Ставропольский край
+  district: Северо-Кавказский
+  population: 118351
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Н[её]винномысск\w{0,3}\b
+  posts_per_run: 2
+- id: krasnogorsk
+  type: news
+  title: 'Красногорск: новости'
+  city: Красногорск
+  region: Московская область
+  district: Центральный
+  population: 116738
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Красногорск\w{0,3}\b
+  posts_per_run: 2
+- id: murom
+  type: news
+  title: 'Муром: новости'
+  city: Муром
+  region: Владимирская область
+  district: Центральный
+  population: 116078
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Муром\w{0,3}\b
+  posts_per_run: 2
+- id: bataysk
+  type: news
+  title: 'Батайск: новости'
+  city: Батайск
+  region: Ростовская область
+  district: Южный
+  population: 112400
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Батайск\w{0,3}\b
+  posts_per_run: 2
+- id: novoshahtinsk
+  type: news
+  title: 'Новошахтинск: новости'
+  city: Новошахтинск
+  region: Ростовская область
+  district: Южный
+  population: 111087
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Новошахтинск\w{0,3}\b
+  posts_per_run: 2
+- id: sergiev-posad
+  type: news
+  title: 'Сергиев Посад: новости'
+  city: Сергиев Посад
+  region: Московская область
+  district: Центральный
+  population: 110878
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)С[её]рги[её]в\w{0,3}\s+Посад\w{0,3}\b
+  posts_per_run: 2
+- id: noyabrsk
+  type: news
+  title: 'Ноябрьск: новости'
+  city: Ноябрьск
+  region: Ямало-Ненецкий автономный округ
+  district: Уральский
+  population: 110572
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ноябрьск\w{0,3}\b
+  posts_per_run: 2
+- id: schelkovo
+  type: news
+  title: 'Щёлково: новости'
+  city: Щёлково
+  region: Московская область
+  district: Центральный
+  population: 110380
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Щ[её]лков\w{0,3}\b
+  posts_per_run: 2
+- id: kyzyl
+  type: news
+  title: 'Кызыл: новости'
+  city: Кызыл
+  region: Тыва Республика
+  district: Сибирский
+  population: 109906
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кызыл\w{0,3}\b
+  - \b(?:Тыв[аеуы]\b|Тувы|Туве)
+  posts_per_run: 2
+- id: oktyabrskiy
+  type: news
+  title: 'Октябрьский: новости'
+  city: Октябрьский
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 109379
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Октябрьск\w{0,3}\b
+  posts_per_run: 2
+- id: achinsk
+  type: news
+  title: 'Ачинск: новости'
+  city: Ачинск
+  region: Красноярский край
+  district: Сибирский
+  population: 109156
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ачинск\w{0,3}\b
+  posts_per_run: 2
+- id: seversk
+  type: news
+  title: 'Северск: новости'
+  city: Северск
+  region: Томская область
+  district: Сибирский
+  population: 108466
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)С[её]в[её]рск\w{0,3}\b
+  posts_per_run: 2
+- id: novokuybyshevsk
+  type: news
+  title: 'Новокуйбышевск: новости'
+  city: Новокуйбышевск
+  region: Самарская область
+  district: Приволжский
+  population: 108449
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Новокуйбыш[её]вск\w{0,3}\b
+  posts_per_run: 2
+- id: elets
+  type: news
+  title: 'Елец: новости'
+  city: Елец
+  region: Липецкая область
+  district: Центральный
+  population: 108404
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)[ЕЁ]л[её]?ь?ц\w{0,3}\b
+  posts_per_run: 2
+- id: arzamas
+  type: news
+  title: 'Арзамас: новости'
+  city: Арзамас
+  region: Нижегородская область
+  district: Приволжский
+  population: 106367
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Арзамас\w{0,3}\b
+  posts_per_run: 2
+- id: evpatoriya
+  type: news
+  title: 'Евпатория: новости'
+  city: Евпатория
+  region: Крым Республика
+  district: Южный
+  population: 105719
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)[ЕЁ]впатори\w{0,3}\b
+  posts_per_run: 2
+- id: obninsk
+  type: news
+  title: 'Обнинск: новости'
+  city: Обнинск
+  region: Калужская область
+  district: Центральный
+  population: 104798
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Обнинск\w{0,3}\b
+  posts_per_run: 2
+- id: novyy-urengoy
+  type: news
+  title: 'Новый Уренгой: новости'
+  city: Новый Уренгой
+  region: Ямало-Ненецкий автономный округ
+  district: Уральский
+  population: 104144
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Нов\w{0,3}\s+Ур[её]нг\w{0,3}\b
+  posts_per_run: 2
+- id: kaspiysk
+  type: news
+  title: 'Каспийск: новости'
+  city: Каспийск
+  region: Дагестан Республика
+  district: Северо-Кавказский
+  population: 103914
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Каспийск\w{0,3}\b
+  posts_per_run: 2
+- id: elista
+  type: news
+  title: 'Элиста: новости'
+  city: Элиста
+  region: Калмыкия Республика
+  district: Южный
+  population: 103728
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Элист\w{0,3}\b
+  - \b(?:Калмыки\w{0,3})
+  posts_per_run: 2
+- id: pushkino
+  type: news
+  title: 'Пушкино: новости'
+  city: Пушкино
+  region: Московская область
+  district: Центральный
+  population: 102840
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Пушкин\w{0,3}\b
+  posts_per_run: 2
+- id: zhukovskiy
+  type: news
+  title: 'Жуковский: новости'
+  city: Жуковский
+  region: Московская область
+  district: Центральный
+  population: 102729
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Жуковск\w{0,3}\b
+  posts_per_run: 2
+- id: artem
+  type: news
+  title: 'Артем: новости'
+  city: Артем
+  region: Приморский край
+  district: Дальневосточный
+  population: 102636
+  tz: UTC+10
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Арт[её]м\w{0,3}\b
+  posts_per_run: 2
+- id: mezhdurechensk
+  type: news
+  title: 'Междуреченск: новости'
+  city: Междуреченск
+  region: Кемеровская область - Кузбасс область
+  district: Сибирский
+  population: 101995
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)М[её]ждур[её]ч[её]нск\w{0,3}\b
+  posts_per_run: 2
+- id: leninsk-kuznetskiy
+  type: news
+  title: 'Ленинск-Кузнецкий: новости'
+  city: Ленинск-Кузнецкий
+  region: Кемеровская область - Кузбасс область
+  district: Сибирский
+  population: 101666
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Л[её]нинск\w{0,3}-Кузн[её]цк\w{0,3}\b
+  posts_per_run: 2
+- id: sarapul
+  type: news
+  title: 'Сарапул: новости'
+  city: Сарапул
+  region: Удмуртская Республика
+  district: Приволжский
+  population: 101390
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Сарапул\w{0,3}\b
+  posts_per_run: 2
+- id: essentuki
+  type: news
+  title: 'Ессентуки: новости'
+  city: Ессентуки
+  region: Ставропольский край
+  district: Северо-Кавказский
+  population: 100969
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)[ЕЁ]сс[её]нтук\w{0,3}\b
+  posts_per_run: 2
+- id: votkinsk
+  type: news
+  title: 'Воткинск: новости'
+  city: Воткинск
+  region: Удмуртская Республика
+  district: Приволжский
+  population: 100034
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Воткинск\w{0,3}\b
+  posts_per_run: 2
+- id: noginsk
+  type: news
+  title: 'Ногинск: новости'
+  city: Ногинск
+  region: Московская область
+  district: Центральный
+  population: 99762
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ногинск\w{0,3}\b
+  posts_per_run: 1
+- id: tobolsk
+  type: news
+  title: 'Тобольск: новости'
+  city: Тобольск
+  region: Тюменская область
+  district: Уральский
+  population: 99698
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Тобольск\w{0,3}\b
+  posts_per_run: 1
+- id: uhta
+  type: news
+  title: 'Ухта: новости'
+  city: Ухта
+  region: Коми Республика
+  district: Северо-Западный
+  population: 99642
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ухт\w{0,3}\b
+  posts_per_run: 1
+- id: serov
+  type: news
+  title: 'Серов: новости'
+  city: Серов
+  region: Свердловская область
+  district: Уральский
+  population: 99381
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)С[её]ров\w{0,3}\b
+  posts_per_run: 1
+- id: berdsk
+  type: news
+  title: 'Бердск: новости'
+  city: Бердск
+  region: Новосибирская область
+  district: Сибирский
+  population: 98809
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Б[её]рдск\w{0,3}\b
+  posts_per_run: 1
+- id: velikie-luki
+  type: news
+  title: 'Великие Луки: новости'
+  city: Великие Луки
+  region: Псковская область
+  district: Северо-Западный
+  population: 98778
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)В[её]лики\w{0,3}\s+Лук\w{0,3}\b
+  posts_per_run: 1
+- id: michurinsk
+  type: news
+  title: 'Мичуринск: новости'
+  city: Мичуринск
+  region: Тамбовская область
+  district: Центральный
+  population: 98758
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Мичуринск\w{0,3}\b
+  posts_per_run: 1
+- id: kiselevsk
+  type: news
+  title: 'Киселевск: новости'
+  city: Киселевск
+  region: Кемеровская область - Кузбасс область
+  district: Сибирский
+  population: 98382
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кис[её]л[её]вск\w{0,3}\b
+  posts_per_run: 1
+- id: novotroitsk
+  type: news
+  title: 'Новотроицк: новости'
+  city: Новотроицк
+  region: Оренбургская область
+  district: Приволжский
+  population: 97914
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Новотроицк\w{0,3}\b
+  posts_per_run: 1
+- id: zelenodolsk
+  type: news
+  title: 'Зеленодольск: новости'
+  city: Зеленодольск
+  region: Татарстан Республика
+  district: Приволжский
+  population: 97651
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)З[её]л[её]нодольск\w{0,3}\b
+  posts_per_run: 1
+- id: solikamsk
+  type: news
+  title: 'Соликамск: новости'
+  city: Соликамск
+  region: Пермский край
+  district: Приволжский
+  population: 97239
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Соликамск\w{0,3}\b
+  posts_per_run: 1
+- id: ramenskoe
+  type: news
+  title: 'Раменское: новости'
+  city: Раменское
+  region: Московская область
+  district: Центральный
+  population: 96355
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Рам[её]нск\w{0,3}\b
+  posts_per_run: 1
+- id: domodedovo
+  type: news
+  title: 'Домодедово: новости'
+  city: Домодедово
+  region: Московская область
+  district: Центральный
+  population: 96123
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Домод[её]дов\w{0,3}\b
+  posts_per_run: 1
+- id: magadan
+  type: news
+  title: 'Магадан: новости'
+  city: Магадан
+  region: Магаданская область
+  district: Дальневосточный
+  population: 95925
+  tz: UTC+11
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Магадан\w{0,3}\b
+  - \b(?:Магаданск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 1
+- id: glazov
+  type: news
+  title: 'Глазов: новости'
+  city: Глазов
+  region: Удмуртская Республика
+  district: Приволжский
+  population: 95835
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Глазов\w{0,3}\b
+  posts_per_run: 1
+- id: kamensk-shahtinskiy
+  type: news
+  title: 'Каменск-Шахтинский: новости'
+  city: Каменск-Шахтинский
+  region: Ростовская область
+  district: Южный
+  population: 95306
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кам[её]нск\w{0,3}-Шахтинск\w{0,3}\b
+  posts_per_run: 1
+- id: zheleznogorsk
+  type: news
+  title: 'Железногорск: новости'
+  city: Железногорск
+  region: Курская область
+  district: Центральный
+  population: 95057
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ж[её]л[её]зногорск\w{0,3}\b
+  posts_per_run: 1
+- id: kansk
+  type: news
+  title: 'Канск: новости'
+  city: Канск
+  region: Красноярский край
+  district: Сибирский
+  population: 94230
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Канск\w{0,3}\b
+  posts_per_run: 1
+- id: nazran
+  type: news
+  title: 'Назрань: новости'
+  city: Назрань
+  region: Ингушетия Республика
+  district: Северо-Кавказский
+  population: 93357
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Назран\w{0,3}\b
+  posts_per_run: 1
+- id: gatchina
+  type: news
+  title: 'Гатчина: новости'
+  city: Гатчина
+  region: Ленинградская область
+  district: Северо-Западный
+  population: 92566
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Гатчин\w{0,3}\b
+  posts_per_run: 1
+- id: sarov
+  type: news
+  title: 'Саров: новости'
+  city: Саров
+  region: Нижегородская область
+  district: Приволжский
+  population: 92073
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Саров\w{0,3}\b
+  posts_per_run: 1
+- id: novouralsk
+  type: news
+  title: 'Новоуральск: новости'
+  city: Новоуральск
+  region: Свердловская область
+  district: Уральский
+  population: 91813
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Новоуральск\w{0,3}\b
+  posts_per_run: 1
+- id: voskresensk
+  type: news
+  title: 'Воскресенск: новости'
+  city: Воскресенск
+  region: Московская область
+  district: Центральный
+  population: 91301
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Воскр[её]с[её]нск\w{0,3}\b
+  posts_per_run: 1
+- id: dolgoprudnyy
+  type: news
+  title: 'Долгопрудный: новости'
+  city: Долгопрудный
+  region: Московская область
+  district: Центральный
+  population: 90976
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Долгопрудн\w{0,3}\b
+  posts_per_run: 1
+- id: bugulma
+  type: news
+  title: 'Бугульма: новости'
+  city: Бугульма
+  region: Татарстан Республика
+  district: Приволжский
+  population: 89144
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Бугульм\w{0,3}\b
+  posts_per_run: 1
+- id: kuznetsk
+  type: news
+  title: 'Кузнецк: новости'
+  city: Кузнецк
+  region: Пензенская область
+  district: Приволжский
+  population: 88886
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кузн[её]цк\w{0,3}\b
+  posts_per_run: 1
+- id: gubkin
+  type: news
+  title: 'Губкин: новости'
+  city: Губкин
+  region: Белгородская область
+  district: Центральный
+  population: 88562
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Губкин\w{0,3}\b
+  posts_per_run: 1
+- id: kineshma
+  type: news
+  title: 'Кинешма: новости'
+  city: Кинешма
+  region: Ивановская область
+  district: Центральный
+  population: 88113
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кин[её]шм\w{0,3}\b
+  posts_per_run: 1
+- id: eysk
+  type: news
+  title: 'Ейск: новости'
+  city: Ейск
+  region: Краснодарский край
+  district: Южный
+  population: 87771
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)[ЕЁ]йск\w{0,3}\b
+  posts_per_run: 1
+- id: reutov
+  type: news
+  title: 'Реутов: новости'
+  city: Реутов
+  region: Московская область
+  district: Центральный
+  population: 87195
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Р[её]утов\w{0,3}\b
+  posts_per_run: 1
+- id: ust-ilimsk
+  type: news
+  title: 'Усть-Илимск: новости'
+  city: Усть-Илимск
+  region: Иркутская область
+  district: Сибирский
+  population: 86591
+  tz: UTC+8
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Уст\w{0,3}-Илимск\w{0,3}\b
+  posts_per_run: 1
+- id: zheleznogorsk-krasnoyarskiy
+  type: news
+  title: 'Железногорск: новости'
+  city: Железногорск
+  region: Красноярский край
+  district: Сибирский
+  population: 85559
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ж[её]л[её]зногорск\w{0,3}\b
+  require:
+  - \b(?:Красноярск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 1
+- id: usole-sibirskoe
+  type: news
+  title: 'Усолье-Сибирское: новости'
+  city: Усолье-Сибирское
+  region: Иркутская область
+  district: Сибирский
+  population: 83364
+  tz: UTC+8
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Усоль\w{0,3}-Сибирск\w{0,3}\b
+  posts_per_run: 1
+- id: chaykovskiy
+  type: news
+  title: 'Чайковский: новости'
+  city: Чайковский
+  region: Пермский край
+  district: Приволжский
+  population: 82933
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Чайковск\w{0,3}\b
+  posts_per_run: 1
+- id: azov
+  type: news
+  title: 'Азов: новости'
+  city: Азов
+  region: Ростовская область
+  district: Южный
+  population: 82882
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Азов\w{0,3}\b
+  posts_per_run: 1
+- id: buzuluk
+  type: news
+  title: 'Бузулук: новости'
+  city: Бузулук
+  region: Оренбургская область
+  district: Приволжский
+  population: 82816
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Бузулук\w{0,3}\b
+  posts_per_run: 1
+- id: ozersk
+  type: news
+  title: 'Озерск: новости'
+  city: Озерск
+  region: Челябинская область
+  district: Уральский
+  population: 82268
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Оз[её]рск\w{0,3}\b
+  posts_per_run: 1
+- id: balashov
+  type: news
+  title: 'Балашов: новости'
+  city: Балашов
+  region: Саратовская область
+  district: Приволжский
+  population: 82222
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Балашов\w{0,3}\b
+  posts_per_run: 1
+- id: yurga
+  type: news
+  title: 'Юрга: новости'
+  city: Юрга
+  region: Кемеровская область - Кузбасс область
+  district: Сибирский
+  population: 81536
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Юрг\w{0,3}\b
+  posts_per_run: 1
+- id: kirovo-chepetsk
+  type: news
+  title: 'Кирово-Чепецк: новости'
+  city: Кирово-Чепецк
+  region: Кировская область
+  district: Приволжский
+  population: 80920
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Киров\w{0,3}-Ч[её]п[её]цк\w{0,3}\b
+  posts_per_run: 1
+- id: kropotkin
+  type: news
+  title: 'Кропоткин: новости'
+  city: Кропоткин
+  region: Краснодарский край
+  district: Южный
+  population: 80743
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кропоткин\w{0,3}\b
+  posts_per_run: 1
+- id: klin
+  type: news
+  title: 'Клин: новости'
+  city: Клин
+  region: Московская область
+  district: Центральный
+  population: 80584
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Клин\w{0,3}\b
+  posts_per_run: 1
+- id: vyborg
+  type: news
+  title: 'Выборг: новости'
+  city: Выборг
+  region: Ленинградская область
+  district: Северо-Западный
+  population: 80013
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Выборг\w{0,3}\b
+  posts_per_run: 1
+- id: hanty-mansiysk
+  type: news
+  title: 'Ханты-Мансийск: новости'
+  city: Ханты-Мансийск
+  region: Ханты-Мансийский Автономный округ - Югра автономный округ
+  district: Уральский
+  population: 79410
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Хант\w{0,3}-Мансийск\w{0,3}\b
+  - \b(?:\bХанты\b\s+(обл|кра|автономн)|Югр)
+  posts_per_run: 1
+- id: troitsk
+  type: news
+  title: 'Троицк: новости'
+  city: Троицк
+  region: Челябинская область
+  district: Уральский
+  population: 78637
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Троицк\w{0,3}\b
+  posts_per_run: 1
+- id: bor
+  type: news
+  title: 'Бор: новости'
+  city: Бор
+  region: Нижегородская область
+  district: Приволжский
+  population: 78079
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Бор\w{0,3}\b
+  posts_per_run: 1
+- id: shadrinsk
+  type: news
+  title: 'Шадринск: новости'
+  city: Шадринск
+  region: Курганская область
+  district: Уральский
+  population: 77744
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Шадринск\w{0,3}\b
+  posts_per_run: 1
+- id: belovo
+  type: news
+  title: 'Белово: новости'
+  city: Белово
+  region: Кемеровская область - Кузбасс область
+  district: Сибирский
+  population: 76752
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Б[её]лов\w{0,3}\b
+  posts_per_run: 1
+- id: yalta
+  type: news
+  title: 'Ялта: новости'
+  city: Ялта
+  region: Крым Республика
+  district: Южный
+  population: 76746
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ялт\w{0,3}\b
+  posts_per_run: 1
+- id: mineralnye-vody
+  type: news
+  title: 'Минеральные Воды: новости'
+  city: Минеральные Воды
+  region: Ставропольский край
+  district: Северо-Кавказский
+  population: 76715
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Мин[её]ральн\w{0,3}\s+Вод\w{0,3}\b
+  posts_per_run: 1
+- id: anzhero-sudzhensk
+  type: news
+  title: 'Анжеро-Судженск: новости'
+  city: Анжеро-Судженск
+  region: Кемеровская область - Кузбасс область
+  district: Сибирский
+  population: 76669
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Анж[её]р\w{0,3}-Судж[её]нск\w{0,3}\b
+  posts_per_run: 1
+- id: birobidzhan
+  type: news
+  title: 'Биробиджан: новости'
+  city: Биробиджан
+  region: Еврейская автономная область
+  district: Дальневосточный
+  population: 75419
+  tz: UTC+10
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Биробиджан\w{0,3}\b
+  - \b(?:[ЕЁ]вр[её]йск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 1
+- id: lobnya
+  type: news
+  title: 'Лобня: новости'
+  city: Лобня
+  region: Московская область
+  district: Центральный
+  population: 74350
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Лобн\w{0,3}\b
+  posts_per_run: 1
+- id: novoaltaysk
+  type: news
+  title: 'Новоалтайск: новости'
+  city: Новоалтайск
+  region: Алтайский край
+  district: Сибирский
+  population: 73134
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Новоалтайск\w{0,3}\b
+  posts_per_run: 1
+- id: chapaevsk
+  type: news
+  title: 'Чапаевск: новости'
+  city: Чапаевск
+  region: Самарская область
+  district: Приволжский
+  population: 72689
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Чапа[её]вск\w{0,3}\b
+  posts_per_run: 1
+- id: georgievsk
+  type: news
+  title: 'Георгиевск: новости'
+  city: Георгиевск
+  region: Ставропольский край
+  district: Северо-Кавказский
+  population: 72126
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Г[её]орги[её]вск\w{0,3}\b
+  posts_per_run: 1
+- id: chernogorsk
+  type: news
+  title: 'Черногорск: новости'
+  city: Черногорск
+  region: Хакасия Республика
+  district: Сибирский
+  population: 72117
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ч[её]рногорск\w{0,3}\b
+  posts_per_run: 1
+- id: minusinsk
+  type: news
+  title: 'Минусинск: новости'
+  city: Минусинск
+  region: Красноярский край
+  district: Сибирский
+  population: 71171
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Минусинск\w{0,3}\b
+  posts_per_run: 1
+- id: mihaylovsk
+  type: news
+  title: 'Михайловск: новости'
+  city: Михайловск
+  region: Ставропольский край
+  district: Северо-Кавказский
+  population: 71018
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Михайловск\w{0,3}\b
+  posts_per_run: 1
+- id: elabuga
+  type: news
+  title: 'Елабуга: новости'
+  city: Елабуга
+  region: Татарстан Республика
+  district: Приволжский
+  population: 70750
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)[ЕЁ]лабуг\w{0,3}\b
+  posts_per_run: 1
+- id: dubna
+  type: news
+  title: 'Дубна: новости'
+  city: Дубна
+  region: Московская область
+  district: Центральный
+  population: 70569
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Дубн\w{0,3}\b
+  posts_per_run: 1
+- id: vorkuta
+  type: news
+  title: 'Воркута: новости'
+  city: Воркута
+  region: Коми Республика
+  district: Северо-Западный
+  population: 70551
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Воркут\w{0,3}\b
+  posts_per_run: 1
+- id: egorevsk
+  type: news
+  title: 'Егорьевск: новости'
+  city: Егорьевск
+  region: Московская область
+  district: Центральный
+  population: 70133
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)[ЕЁ]горь[её]вск\w{0,3}\b
+  posts_per_run: 1
+- id: asbest
+  type: news
+  title: 'Асбест: новости'
+  city: Асбест
+  region: Свердловская область
+  district: Уральский
+  population: 70067
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Асб[её]ст\w{0,3}\b
+  posts_per_run: 1
+- id: ishim
+  type: news
+  title: 'Ишим: новости'
+  city: Ишим
+  region: Тюменская область
+  district: Уральский
+  population: 69567
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ишим\w{0,3}\b
+  posts_per_run: 1
+- id: feodosiya
+  type: news
+  title: 'Феодосия: новости'
+  city: Феодосия
+  region: Крым Республика
+  district: Южный
+  population: 69038
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ф[её]одоси\w{0,3}\b
+  posts_per_run: 1
+- id: beloretsk
+  type: news
+  title: 'Белорецк: новости'
+  city: Белорецк
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 68804
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Б[её]лор[её]цк\w{0,3}\b
+  posts_per_run: 1
+- id: belogorsk
+  type: news
+  title: 'Белогорск: новости'
+  city: Белогорск
+  region: Амурская область
+  district: Дальневосточный
+  population: 68220
+  tz: UTC+9
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Б[её]логорск\w{0,3}\b
+  posts_per_run: 1
+- id: kungur
+  type: news
+  title: 'Кунгур: новости'
+  city: Кунгур
+  region: Пермский край
+  district: Приволжский
+  population: 67857
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кунгур\w{0,3}\b
+  posts_per_run: 1
+- id: lysva
+  type: news
+  title: 'Лысьва: новости'
+  city: Лысьва
+  region: Пермский край
+  district: Приволжский
+  population: 67712
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Лысьв\w{0,3}\b
+  posts_per_run: 1
+- id: gukovo
+  type: news
+  title: 'Гуково: новости'
+  city: Гуково
+  region: Ростовская область
+  district: Южный
+  population: 67268
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Гуков\w{0,3}\b
+  posts_per_run: 1
+- id: stupino
+  type: news
+  title: 'Ступино: новости'
+  city: Ступино
+  region: Московская область
+  district: Центральный
+  population: 66942
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ступин\w{0,3}\b
+  posts_per_run: 1
+- id: tuymazy
+  type: news
+  title: 'Туймазы: новости'
+  city: Туймазы
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 66849
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Туймаз\w{0,3}\b
+  posts_per_run: 1
+- id: kstovo
+  type: news
+  title: 'Кстово: новости'
+  city: Кстово
+  region: Нижегородская область
+  district: Приволжский
+  population: 66641
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кстов\w{0,3}\b
+  posts_per_run: 1
+- id: volsk
+  type: news
+  title: 'Вольск: новости'
+  city: Вольск
+  region: Саратовская область
+  district: Приволжский
+  population: 66520
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Вольск\w{0,3}\b
+  posts_per_run: 1
+- id: ishimbay
+  type: news
+  title: 'Ишимбай: новости'
+  city: Ишимбай
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 66259
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ишимба\w{0,3}\b
+  posts_per_run: 1
+- id: zelenogorsk
+  type: news
+  title: 'Зеленогорск: новости'
+  city: Зеленогорск
+  region: Красноярский край
+  district: Сибирский
+  population: 66018
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)З[её]л[её]ногорск\w{0,3}\b
+  posts_per_run: 1
+- id: sosnovyy-bor
+  type: news
+  title: 'Сосновый Бор: новости'
+  city: Сосновый Бор
+  region: Ленинградская область
+  district: Северо-Западный
+  population: 65901
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Соснов\w{0,3}\s+Бор\w{0,3}\b
+  posts_per_run: 1
+- id: buynaksk
+  type: news
+  title: 'Буйнакск: новости'
+  city: Буйнакск
+  region: Дагестан Республика
+  district: Северо-Кавказский
+  population: 65735
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Буйнакск\w{0,3}\b
+  posts_per_run: 1
+- id: borisoglebsk
+  type: news
+  title: 'Борисоглебск: новости'
+  city: Борисоглебск
+  region: Воронежская область
+  district: Центральный
+  population: 65585
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Борисогл[её]бск\w{0,3}\b
+  posts_per_run: 1
+- id: naro-fominsk
+  type: news
+  title: 'Наро-Фоминск: новости'
+  city: Наро-Фоминск
+  region: Московская область
+  district: Центральный
+  population: 64640
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Нар\w{0,3}-Фоминск\w{0,3}\b
+  posts_per_run: 1
+- id: budennovsk
+  type: news
+  title: 'Буденновск: новости'
+  city: Буденновск
+  region: Ставропольский край
+  district: Северо-Кавказский
+  population: 64628
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Буд[её]нновск\w{0,3}\b
+  posts_per_run: 1
+- id: donskoy
+  type: news
+  title: 'Донской: новости'
+  city: Донской
+  region: Тульская область
+  district: Центральный
+  population: 64561
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Донск\w{0,3}\b
+  posts_per_run: 1
+- id: sunzha
+  type: news
+  title: 'Сунжа: новости'
+  city: Сунжа
+  region: Ингушетия Республика
+  district: Северо-Кавказский
+  population: 64493
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Сунж\w{0,3}\b
+  posts_per_run: 1
+- id: polevskoy
+  type: news
+  title: 'Полевской: новости'
+  city: Полевской
+  region: Свердловская область
+  district: Уральский
+  population: 64316
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Пол[её]вск\w{0,3}\b
+  posts_per_run: 1
+- id: leninogorsk
+  type: news
+  title: 'Лениногорск: новости'
+  city: Лениногорск
+  region: Татарстан Республика
+  district: Приволжский
+  population: 64145
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Л[её]ниногорск\w{0,3}\b
+  posts_per_run: 1
+- id: pavlovskiy-posad
+  type: news
+  title: 'Павловский Посад: новости'
+  city: Павловский Посад
+  region: Московская область
+  district: Центральный
+  population: 63771
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Павловск\w{0,3}\s+Посад\w{0,3}\b
+  posts_per_run: 1
+- id: slavyansk-na-kubani
+  type: news
+  title: 'Славянск-на-Кубани: новости'
+  city: Славянск-на-Кубани
+  region: Краснодарский край
+  district: Южный
+  population: 63768
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Славянск\w{0,3}-на-Кубан\w{0,3}\b
+  posts_per_run: 1
+- id: zarechnyy
+  type: news
+  title: 'Заречный: новости'
+  city: Заречный
+  region: Пензенская область
+  district: Приволжский
+  population: 63579
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Зар[её]чн\w{0,3}\b
+  posts_per_run: 1
+- id: tuapse
+  type: news
+  title: 'Туапсе: новости'
+  city: Туапсе
+  region: Краснодарский край
+  district: Южный
+  population: 63233
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Туапс\w{0,3}\b
+  posts_per_run: 1
+- id: rossosh
+  type: news
+  title: 'Россошь: новости'
+  city: Россошь
+  region: Воронежская область
+  district: Центральный
+  population: 62865
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Россош\w{0,3}\b
+  posts_per_run: 1
+- id: gorno-altaysk
+  type: news
+  title: 'Горно-Алтайск: новости'
+  city: Горно-Алтайск
+  region: Алтай Республика
+  district: Сибирский
+  population: 62861
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Горн\w{0,3}-Алтайск\w{0,3}\b
+  - \b(?:Республик\w* Алтай|Горн\w* Алта)
+  posts_per_run: 1
+- id: kumertau
+  type: news
+  title: 'Кумертау: новости'
+  city: Кумертау
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 62854
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кум[её]ртау\w{0,3}\b
+  posts_per_run: 1
+- id: labinsk
+  type: news
+  title: 'Лабинск: новости'
+  city: Лабинск
+  region: Краснодарский край
+  district: Южный
+  population: 62822
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Лабинск\w{0,3}\b
+  posts_per_run: 1
+- id: sibay
+  type: news
+  title: 'Сибай: новости'
+  city: Сибай
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 62732
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Сиба\w{0,3}\b
+  posts_per_run: 1
+- id: klintsy
+  type: news
+  title: 'Клинцы: новости'
+  city: Клинцы
+  region: Брянская область
+  district: Центральный
+  population: 62510
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Клинц\w{0,3}\b
+  posts_per_run: 1
+- id: rzhev
+  type: news
+  title: 'Ржев: новости'
+  city: Ржев
+  region: Тверская область
+  district: Центральный
+  population: 62026
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Рж[её]в\w{0,3}\b
+  posts_per_run: 1
+- id: tihoretsk
+  type: news
+  title: 'Тихорецк: новости'
+  city: Тихорецк
+  region: Краснодарский край
+  district: Южный
+  population: 61825
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Тихор[её]цк\w{0,3}\b
+  posts_per_run: 1
+- id: neryungri
+  type: news
+  title: 'Нерюнгри: новости'
+  city: Нерюнгри
+  region: Саха /Якутия/ Республика
+  district: Дальневосточный
+  population: 61746
+  tz: UTC+9
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Н[её]рюнгр\w{0,3}\b
+  posts_per_run: 1
+- id: aleksin
+  type: news
+  title: 'Алексин: новости'
+  city: Алексин
+  region: Тульская область
+  district: Центральный
+  population: 61738
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ал[её]ксин\w{0,3}\b
+  posts_per_run: 1
+- id: revda
+  type: news
+  title: 'Ревда: новости'
+  city: Ревда
+  region: Свердловская область
+  district: Уральский
+  population: 61713
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Р[её]вд\w{0,3}\b
+  posts_per_run: 1
+- id: aleksandrov
+  type: news
+  title: 'Александров: новости'
+  city: Александров
+  region: Владимирская область
+  district: Центральный
+  population: 61544
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ал[её]ксандров\w{0,3}\b
+  posts_per_run: 1
+- id: dmitrov
+  type: news
+  title: 'Дмитров: новости'
+  city: Дмитров
+  region: Московская область
+  district: Центральный
+  population: 61454
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Дмитров\w{0,3}\b
+  posts_per_run: 1
+- id: meleuz
+  type: news
+  title: 'Мелеуз: новости'
+  city: Мелеуз
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 61408
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)М[её]л[её]уз\w{0,3}\b
+  posts_per_run: 1
+- id: salsk
+  type: news
+  title: 'Сальск: новости'
+  city: Сальск
+  region: Ростовская область
+  district: Южный
+  population: 61312
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Сальск\w{0,3}\b
+  posts_per_run: 1
+- id: lesosibirsk
+  type: news
+  title: 'Лесосибирск: новости'
+  city: Лесосибирск
+  region: Красноярский край
+  district: Сибирский
+  population: 61146
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Л[её]сосибирск\w{0,3}\b
+  posts_per_run: 1
+- id: gus-hrustalnyy
+  type: news
+  title: 'Гусь-Хрустальный: новости'
+  city: Гусь-Хрустальный
+  region: Владимирская область
+  district: Центральный
+  population: 60773
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Гус\w{0,3}-Хрустальн\w{0,3}\b
+  posts_per_run: 1
+- id: chistopol
+  type: news
+  title: 'Чистополь: новости'
+  city: Чистополь
+  region: Татарстан Республика
+  district: Приволжский
+  population: 60703
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Чистопол\w{0,3}\b
+  posts_per_run: 1
+- id: pavlovo
+  type: news
+  title: 'Павлово: новости'
+  city: Павлово
+  region: Нижегородская область
+  district: Приволжский
+  population: 60699
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Павлов\w{0,3}\b
+  posts_per_run: 1
+- id: chehov
+  type: news
+  title: 'Чехов: новости'
+  city: Чехов
+  region: Московская область
+  district: Центральный
+  population: 60677
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ч[её]хов\w{0,3}\b
+  posts_per_run: 1
+- id: kotlas
+  type: news
+  title: 'Котлас: новости'
+  city: Котлас
+  region: Архангельская область
+  district: Северо-Западный
+  population: 60562
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Котлас\w{0,3}\b
+  posts_per_run: 1
+- id: belebey
+  type: news
+  title: 'Белебей: новости'
+  city: Белебей
+  region: Башкортостан Республика
+  district: Приволжский
+  population: 60183
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Б[её]л[её]б[её]\w{0,3}\b
+  posts_per_run: 1
+- id: iskitim
+  type: news
+  title: 'Искитим: новости'
+  city: Искитим
+  region: Новосибирская область
+  district: Сибирский
+  population: 60072
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Искитим\w{0,3}\b
+  posts_per_run: 1
+- id: krasnoturinsk
+  type: news
+  title: 'Краснотурьинск: новости'
+  city: Краснотурьинск
+  region: Свердловская область
+  district: Уральский
+  population: 59701
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Краснотурьинск\w{0,3}\b
+  posts_per_run: 1
+- id: apatity
+  type: news
+  title: 'Апатиты: новости'
+  city: Апатиты
+  region: Мурманская область
+  district: Северо-Западный
+  population: 59690
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Апатит\w{0,3}\b
+  posts_per_run: 1
+- id: vsevolozhsk
+  type: news
+  title: 'Всеволожск: новости'
+  city: Всеволожск
+  region: Ленинградская область
+  district: Северо-Западный
+  population: 59689
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Вс[её]воложск\w{0,3}\b
+  posts_per_run: 1
+- id: prohladnyy
+  type: news
+  title: 'Прохладный: новости'
+  city: Прохладный
+  region: Кабардино-Балкарская Республика
+  district: Северо-Кавказский
+  population: 59595
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Прохладн\w{0,3}\b
+  posts_per_run: 1
+- id: mihaylovka
+  type: news
+  title: 'Михайловка: новости'
+  city: Михайловка
+  region: Волгоградская область
+  district: Южный
+  population: 59153
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Михайловк\w{0,3}\b
+  posts_per_run: 1
+- id: anapa
+  type: news
+  title: 'Анапа: новости'
+  city: Анапа
+  region: Краснодарский край
+  district: Южный
+  population: 58983
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Анап\w{0,3}\b
+  posts_per_run: 1
+- id: tihvin
+  type: news
+  title: 'Тихвин: новости'
+  city: Тихвин
+  region: Ленинградская область
+  district: Северо-Западный
+  population: 58843
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Тихвин\w{0,3}\b
+  posts_per_run: 1
+- id: verhnyaya-pyshma
+  type: news
+  title: 'Верхняя Пышма: новости'
+  city: Верхняя Пышма
+  region: Свердловская область
+  district: Уральский
+  population: 58707
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)В[её]рхня\w{0,3}\s+Пышм\w{0,3}\b
+  posts_per_run: 1
+- id: svobodnyy
+  type: news
+  title: 'Свободный: новости'
+  city: Свободный
+  region: Амурская область
+  district: Дальневосточный
+  population: 58594
+  tz: UTC+9
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Свободн\w{0,3}\b
+  posts_per_run: 1
+- id: ivanteevka
+  type: news
+  title: 'Ивантеевка: новости'
+  city: Ивантеевка
+  region: Московская область
+  district: Центральный
+  population: 58594
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ивант[её][её]вк\w{0,3}\b
+  posts_per_run: 1
+- id: shuya
+  type: news
+  title: 'Шуя: новости'
+  city: Шуя
+  region: Ивановская область
+  district: Центральный
+  population: 58528
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Шуя\w{0,3}\b
+  posts_per_run: 1
+- id: kogalym
+  type: news
+  title: 'Когалым: новости'
+  city: Когалым
+  region: Ханты-Мансийский Автономный округ - Югра автономный округ
+  district: Уральский
+  population: 58192
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Когалым\w{0,3}\b
+  posts_per_run: 1
+- id: schekino
+  type: news
+  title: 'Щекино: новости'
+  city: Щекино
+  region: Тульская область
+  district: Центральный
+  population: 58154
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Щ[её]кин\w{0,3}\b
+  posts_per_run: 1
+- id: zhigulevsk
+  type: news
+  title: 'Жигулевск: новости'
+  city: Жигулевск
+  region: Самарская область
+  district: Приволжский
+  population: 57565
+  tz: UTC+4
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Жигул[её]вск\w{0,3}\b
+  posts_per_run: 1
+- id: krymsk
+  type: news
+  title: 'Крымск: новости'
+  city: Крымск
+  region: Краснодарский край
+  district: Южный
+  population: 57370
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Крымск\w{0,3}\b
+  posts_per_run: 1
+- id: vyazma
+  type: news
+  title: 'Вязьма: новости'
+  city: Вязьма
+  region: Смоленская область
+  district: Центральный
+  population: 57103
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Вязьм\w{0,3}\b
+  posts_per_run: 1
+- id: vidnoe
+  type: news
+  title: 'Видное: новости'
+  city: Видное
+  region: Московская область
+  district: Центральный
+  population: 56798
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Видн\w{0,3}\b
+  posts_per_run: 1
+- id: arsenev
+  type: news
+  title: 'Арсеньев: новости'
+  city: Арсеньев
+  region: Приморский край
+  district: Дальневосточный
+  population: 56742
+  tz: UTC+10
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Арс[её]нь[её]в\w{0,3}\b
+  posts_per_run: 1
+- id: izberbash
+  type: news
+  title: 'Избербаш: новости'
+  city: Избербаш
+  region: Дагестан Республика
+  district: Северо-Кавказский
+  population: 56301
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Изб[её]рбаш\w{0,3}\b
+  posts_per_run: 1
+- id: vyksa
+  type: news
+  title: 'Выкса: новости'
+  city: Выкса
+  region: Нижегородская область
+  district: Приволжский
+  population: 56196
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Выкс\w{0,3}\b
+  posts_per_run: 1
+- id: liski
+  type: news
+  title: 'Лиски: новости'
+  city: Лиски
+  region: Воронежская область
+  district: Центральный
+  population: 55864
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Лиск\w{0,3}\b
+  posts_per_run: 1
+- id: volzhsk
+  type: news
+  title: 'Волжск: новости'
+  city: Волжск
+  region: Марий Эл Республика
+  district: Приволжский
+  population: 55671
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Волжск\w{0,3}\b
+  posts_per_run: 1
+- id: krasnokamensk
+  type: news
+  title: 'Краснокаменск: новости'
+  city: Краснокаменск
+  region: Забайкальский край
+  district: Дальневосточный
+  population: 55668
+  tz: UTC+9
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Краснокам[её]нск\w{0,3}\b
+  posts_per_run: 1
+- id: fryazino
+  type: news
+  title: 'Фрязино: новости'
+  city: Фрязино
+  region: Московская область
+  district: Центральный
+  population: 55449
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Фрязин\w{0,3}\b
+  posts_per_run: 1
+- id: uzlovaya
+  type: news
+  title: 'Узловая: новости'
+  city: Узловая
+  region: Тульская область
+  district: Центральный
+  population: 55282
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Узлов\w{0,3}\b
+  posts_per_run: 1
+- id: lytkarino
+  type: news
+  title: 'Лыткарино: новости'
+  city: Лыткарино
+  region: Московская область
+  district: Центральный
+  population: 55147
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Лыткарин\w{0,3}\b
+  posts_per_run: 1
+- id: nyagan
+  type: news
+  title: 'Нягань: новости'
+  city: Нягань
+  region: Ханты-Мансийский Автономный округ - Югра автономный округ
+  district: Уральский
+  population: 54903
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Няган\w{0,3}\b
+  posts_per_run: 1
+- id: roslavl
+  type: news
+  title: 'Рославль: новости'
+  city: Рославль
+  region: Смоленская область
+  district: Центральный
+  population: 54898
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Рославл\w{0,3}\b
+  posts_per_run: 1
+- id: gelendzhik
+  type: news
+  title: 'Геленджик: новости'
+  city: Геленджик
+  region: Краснодарский край
+  district: Южный
+  population: 54813
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Г[её]л[её]нджик\w{0,3}\b
+  posts_per_run: 1
+- id: borovichi
+  type: news
+  title: 'Боровичи: новости'
+  city: Боровичи
+  region: Новгородская область
+  district: Северо-Западный
+  population: 54731
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Борович\w{0,3}\b
+  posts_per_run: 1
+- id: timashevsk
+  type: news
+  title: 'Тимашевск: новости'
+  city: Тимашевск
+  region: Краснодарский край
+  district: Южный
+  population: 53921
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Тимаш[её]вск\w{0,3}\b
+  posts_per_run: 1
+- id: belorechensk
+  type: news
+  title: 'Белореченск: новости'
+  city: Белореченск
+  region: Краснодарский край
+  district: Южный
+  population: 53891
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Б[её]лор[её]ч[её]нск\w{0,3}\b
+  posts_per_run: 1
+- id: solnechnogorsk
+  type: news
+  title: 'Солнечногорск: новости'
+  city: Солнечногорск
+  region: Московская область
+  district: Центральный
+  population: 52996
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Солн[её]чногорск\w{0,3}\b
+  posts_per_run: 1
+- id: nazarovo
+  type: news
+  title: 'Назарово: новости'
+  city: Назарово
+  region: Красноярский край
+  district: Сибирский
+  population: 52829
+  tz: UTC+7
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Назаров\w{0,3}\b
+  posts_per_run: 1
+- id: kirishi
+  type: news
+  title: 'Кириши: новости'
+  city: Кириши
+  region: Ленинградская область
+  district: Северо-Западный
+  population: 52826
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Кириш\w{0,3}\b
+  posts_per_run: 1
+- id: cheremhovo
+  type: news
+  title: 'Черемхово: новости'
+  city: Черемхово
+  region: Иркутская область
+  district: Сибирский
+  population: 52650
+  tz: UTC+8
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ч[её]р[её]мхов\w{0,3}\b
+  posts_per_run: 1
+- id: krasnokamsk
+  type: news
+  title: 'Краснокамск: новости'
+  city: Краснокамск
+  region: Пермский край
+  district: Приволжский
+  population: 52632
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Краснокамск\w{0,3}\b
+  posts_per_run: 1
+- id: lesnoy
+  type: news
+  title: 'Лесной: новости'
+  city: Лесной
+  region: Свердловская область
+  district: Уральский
+  population: 52464
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Л[её]сн\w{0,3}\b
+  posts_per_run: 1
+- id: vyshniy-volochek
+  type: news
+  title: 'Вышний Волочек: новости'
+  city: Вышний Волочек
+  region: Тверская область
+  district: Центральный
+  population: 52326
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Вышн\w{0,3}\s+Волоч[её]?ь?к\w{0,3}\b
+  posts_per_run: 1
+- id: buguruslan
+  type: news
+  title: 'Бугуруслан: новости'
+  city: Бугуруслан
+  region: Оренбургская область
+  district: Приволжский
+  population: 52249
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Бугуруслан\w{0,3}\b
+  posts_per_run: 1
+- id: berezovskiy
+  type: news
+  title: 'Березовский: новости'
+  city: Березовский
+  region: Свердловская область
+  district: Уральский
+  population: 51583
+  tz: UTC+5
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Б[её]р[её]зовск\w{0,3}\b
+  posts_per_run: 1
+- id: balahna
+  type: news
+  title: 'Балахна: новости'
+  city: Балахна
+  region: Нижегородская область
+  district: Приволжский
+  population: 51526
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Балахн\w{0,3}\b
+  posts_per_run: 1
+- id: livny
+  type: news
+  title: 'Ливны: новости'
+  city: Ливны
+  region: Орловская область
+  district: Центральный
+  population: 50430
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Ливн\w{0,3}\b
+  posts_per_run: 1
+- id: donetsk
+  type: news
+  title: 'Донецк: новости'
+  city: Донецк
+  region: Ростовская область
+  district: Южный
+  population: 50085
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)Дон[её]цк\w{0,3}\b
+  require:
+  - \b(?:Ростовск\w{0,3}\s+(обл|кра|автономн))
+  posts_per_run: 1
+- id: severomorsk
+  type: news
+  title: 'Североморск: новости'
+  city: Североморск
+  region: Мурманская область
+  district: Северо-Западный
+  population: 50076
+  tz: UTC+3
+  chat: ''
+  max_chat: ''
+  include:
+  - (?:\b(?:[Вв]о?|[Ии]з|[Пп]од|[Уу]|[Жж]ител\w*|[Мм]эр\w*|[Гг]лав\w+|[Аа]дминистраци\w+|[Гг]ород\w*|[Гг]\.)\s+)С[её]в[её]роморск\w{0,3}\b
+  posts_per_run: 1
